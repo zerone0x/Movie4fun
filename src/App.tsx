@@ -1,13 +1,17 @@
 import styled from "styled-components";
+import GlobalStyles from "./styles/GlobalStyles";
+import { createBrowserRouter } from "react-router-dom";
 
-const H1 = styled.h1`
-font-size: 30px;
-font-weight: 600;
-`;
+const router = createBrowserRouter([
+
+])
+
 
 function App() {
   return (
-<H1>OMDB</H1>
+    <>
+    <GlobalStyles/>
+</>
   );
 }
 
