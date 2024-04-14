@@ -54,3 +54,7 @@ ref:
   - login /login
   - settings /settings
 - dark mode
+
+## plan
+
+add layout
