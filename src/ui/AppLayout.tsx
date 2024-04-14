@@ -6,7 +6,6 @@ function AppLayout() {
   return (
     <>
     <Header></Header>
-    <>hi</>
     <Outlet />
     </>
   );

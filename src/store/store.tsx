@@ -1,11 +1,31 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import movieReducer from "./movieSlice";
-import watchList from "../pages/WatchList";
 import watchListReducer from "./watchListSlice";
 
-export default configureStore({
-    reducer:{
-        movie: movieReducer,
-        watchList: watchListReducer,
-    }
-})
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["watchList"], 
+};
+
+const persistedReducer = persistReducer(
+  persistConfig,
+  combineReducers({
+    movie: movieReducer,
+    watchList: watchListReducer,
+  })
+);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
+
+const persistor = persistStore(store);
+
+export { store, persistor };
