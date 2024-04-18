@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addWatchList, removeWatchList, selectWatchList, setWatchList } from "../store/watchListSlice";
 import styled from "styled-components";
 import { useContext } from "react";
+import  StarRating  from "./starRating";
 
 const CardBox = styled.div`
 display: grid;
@@ -97,7 +98,7 @@ function Poster({movies}) {
           <Title>{movie.Title}</Title>
           <p>{movie.Year}</p>
           <Button>Rate</Button>
-
+           <StarRating/>
         </Card>
     )
     )}

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import WatchList from "../pages/WatchList"
 
 
 const initialState = {

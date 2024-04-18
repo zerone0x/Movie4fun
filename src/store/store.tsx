@@ -3,11 +3,12 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import movieReducer from "./movieSlice";
 import watchListReducer from "./watchListSlice";
+import ratingReducer from "./ratingSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["watchList"], 
+  whitelist: ["watchList", "rating"], 
 };
 
 const persistedReducer = persistReducer(
@@ -15,6 +16,7 @@ const persistedReducer = persistReducer(
   combineReducers({
     movie: movieReducer,
     watchList: watchListReducer,
+    rating: ratingReducer,
   })
 );
 
