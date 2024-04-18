@@ -8,15 +8,15 @@ ref:
 - login to the app
 - sign up
 - update profile
-- watchlist
+- watchlist DONE
   - crud
   - sort
   - search
-- search movies
+- search movies DONE
 - top 250 movies
-- rating system
+- rating system DONE
 - pages
-  - watch list
+  - watch list DONE
     - add to watch list
     - remove from watch list
     - rating
@@ -26,7 +26,7 @@ ref:
     - photo
     - actor
   - recent recommendations
-- 1st version
+- 1st version 
     - display the recent track movies
     - and the details of the movie
     - add watch list 

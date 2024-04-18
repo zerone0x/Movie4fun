@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState={
-    value:0,
+    value:[],
 }
 
 const ratingSlice = createSlice({
@@ -9,7 +9,18 @@ const ratingSlice = createSlice({
     initialState,
     reducers:{
         setRating(state, action){
-            state.value = action.payload
+            const {rate, imdbID} = action.payload;
+            const index = state.value.findIndex((item) => item.imdbID === imdbID);
+            if(index !== -1){
+                console.log(state.value[index] )
+                console.log(action.payload)
+                state.value[index].rate = rate
+            }else{
+                if(rate >0){
+                    state.value.push(action.payload)
+                }
+                
+            }
         }
     }
 })

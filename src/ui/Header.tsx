@@ -4,6 +4,7 @@ import { selectWatchListCount } from "../store/watchListSlice";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImdb } from '@fortawesome/free-brands-svg-icons';
+import SearchBar from "./SearchBar";
 
 function Header() {
   const navigate = useNavigate();
@@ -15,8 +16,7 @@ function Header() {
     <>
     <Link to='/'>
     <FontAwesomeIcon icon={faImdb}size="3x" /></Link>
-    {/* TODO add some selections */}
-    <input type="search" placeholder="Search"/>
+    <SearchBar/>
     <button onClick={handleClick}>WatchList {watchListCount}</button>
     <br/>
 </>

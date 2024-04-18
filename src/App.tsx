@@ -8,7 +8,8 @@ import WatchList from "./pages/WatchList";
 import Movie from "./pages/Movie";
 import Top250 from "./pages/Top250";
 import { MovieProvider, MovieContext } from "./data/getMovie";
-
+import { SearchProvider } from "./data/getSearchRes";
+import Search from "./pages/Search";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <>
     <GlobalStyles/>
     <BrowserRouter>
+    <SearchProvider>
     <MovieProvider>
     <Routes>
     <Route element={<AppLayout/>}>
@@ -24,12 +26,14 @@ function App() {
       <Route path="watchlist" element={<WatchList/>}/>
       <Route path="top250" element={<Top250/>}/>
       <Route path="movie/:movieId" element={<Movie/>}/>
+      <Route path="search" element={<Search/>}/>
       {/* TODO - Add a route for the actor page */}
 
     </Route>
     <Route path="*" element={<PageNotFound/>}/>
     </Routes>
     </MovieProvider> 
+    </SearchProvider>
     </BrowserRouter>
 </>
   );

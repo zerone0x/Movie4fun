@@ -5,7 +5,6 @@ import Poster from '../components/poster'
 
 function WatchList() {
   const WatchList = useSelector(selectWatchList)
-  console.log(WatchList)
   return (<>
 <p>WatchList</p>
 <Poster movies={WatchList}/>

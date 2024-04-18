@@ -15,15 +15,25 @@ align-items: center;
 
 
 function StarRating({
+    imdbID,
     maxRating= 5,
     color='#F5C518',
     size=24
 }) {
-    const rating = useSelector(selectRating);
+    const ratingArr = useSelector(selectRating);
+    console.log(ratingArr)
+    let rating = 0;
     const dispatch = useDispatch();
+    ratingArr.forEach((item) => {
+        if(item.imdbID === imdbID){
+            rating = item.rate
+        }
+    }
+    )
+    
+
     function setRate(value:number){
-        dispatch(setRating(value))
-        console.log(value)
+        dispatch(setRating({rate:value, imdbID:imdbID}))
     }
     const [hoverRating, setHoverRating] = useState(0)
    

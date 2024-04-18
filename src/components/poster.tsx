@@ -1,14 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addWatchList, removeWatchList, selectWatchList, setWatchList } from "../store/watchListSlice";
 import styled from "styled-components";
-import { useContext } from "react";
 import  StarRating  from "./starRating";
+import { Link } from "react-router-dom";
 
 const CardBox = styled.div`
-display: grid;
-grid-template-rows: repeat(5, 1fr);
-grid-gap: 20px;
-padding: 20px 0;
+display: flex;
+
 
 `;
 
@@ -23,9 +21,10 @@ const Card = styled.div`
 
 const PosterItem = styled.img`
   width: 100%;
-  height: 100%;
+  height: 60%;
   margin: 0;
   display: block;
+
 `;
 
 const AddButton = styled.button`
@@ -70,6 +69,7 @@ const Button = styled.button`
 `;
 
 function Poster({movies}) {
+    console.log('posters',movies)
   const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
   
@@ -83,23 +83,20 @@ function Poster({movies}) {
     }else{
         dispatch(addWatchList(movie))
     }
-    console.log('add to watchlist')
-    console.log(movie)
-
-
   }
   return (
     <CardBox>
     {
        movies?.map((movie, index) => (
+        <Link to ={`/movie/${movie.imdbID}`}>
         <Card key={index}>
           <AddButton onClick={()=> handleAddWatchList(movie)}>{watchList.find(item => item.imdbID === movie.imdbID) ? '✔️' : '➕'}</AddButton>
           <PosterItem src={movie.Poster} alt={movie.Title}/>
           <Title>{movie.Title}</Title>
           <p>{movie.Year}</p>
           <Button>Rate</Button>
-           <StarRating/>
-        </Card>
+           <StarRating imdbID ={movie.imdbID}/>
+        </Card></Link>
     )
     )}
     </CardBox>

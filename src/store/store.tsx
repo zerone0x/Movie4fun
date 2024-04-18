@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import movieReducer from "./movieSlice";
 import watchListReducer from "./watchListSlice";
 import ratingReducer from "./ratingSlice";
+import queryReducer from "./querySlice";
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const persistedReducer = persistReducer(
     movie: movieReducer,
     watchList: watchListReducer,
     rating: ratingReducer,
+    query: queryReducer,
   })
 );
 
