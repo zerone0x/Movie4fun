@@ -7,7 +7,7 @@ function GetMovie({query}) {
     useEffect(()=>{
         async function fetchMovies(){
         try{
-            const response = await axios.get('http://www.omdbapi.com/?apikey=f84fc31d&s='+query)
+            const response = await axios.get('http://www.omdbapi.com/?apikey=cfb2ee9c&s='+query)
             const data = await response.data
             console.log('this is my data', data)
             console.log(data.Search)

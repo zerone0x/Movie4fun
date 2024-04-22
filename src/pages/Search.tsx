@@ -19,7 +19,7 @@ function Search() {
     useEffect(()=>{
         async function fetchMovies(){
         try{
-            const response = await axios.get('http://www.omdbapi.com/?apikey=f84fc31d&s='+searchQuery)
+            const response = await axios.get('http://www.omdbapi.com/?apikey=cfb2ee9c&s='+searchQuery)
             const data = await response.data
             if (data.Search){
                 setSearchRes(data.Search)

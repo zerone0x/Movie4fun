@@ -9,7 +9,7 @@ function Movie() {
     const fetchThisMovie = async()=>{
       if(!movieId) return;
       try{
-        const response= await axios.get('http://www.omdbapi.com/?apikey=f84fc31d&i='+movieId)
+        const response= await axios.get('http://www.omdbapi.com/?apikey=cfb2ee9c&i='+movieId)
         const data = response.data;
         setMovie(data)
       }catch(error){
