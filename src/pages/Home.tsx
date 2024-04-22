@@ -10,10 +10,9 @@ import Poster from "../components/poster";
 
 function Home() {
   const movies = useContext(MovieContext)
-  console.log('this is my test', movies.movies)
 
-  const dispatch = useDispatch()
-  const watchList = useSelector(selectWatchList)
+  // const dispatch = useDispatch()
+  // const watchList = useSelector(selectWatchList)
 
 
 

@@ -19,11 +19,12 @@ function Search() {
     useEffect(()=>{
         async function fetchMovies(){
         try{
-            const response = await axios.get('http://www.omdbapi.com/?apikey=cfb2ee9c&s='+searchQuery)
+            const response = await axios.get('https://api.themoviedb.org/3/search/movie?query='+searchQuery+'&api_key=dcd345ec48e9703490f93056cc03c057')
             const data = await response.data
-            if (data.Search){
-                setSearchRes(data.Search)
+            if (data.results){
+                setSearchRes(data.results)
             }
+            
         }catch(error){
             console.error(error)
         }
@@ -32,10 +33,8 @@ function Search() {
     }, [query, searchRes])
 
 
-console.log('searchres',searchRes)
 
   return (<>
-<p>boniu</p>
 {searchRes && searchRes.length > 0 ? (
                 <Poster movies={searchRes} />
             ) : (

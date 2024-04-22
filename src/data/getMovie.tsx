@@ -10,11 +10,9 @@ export const MovieProvider = ({children})=>{
         async function fetchMovies(){
         try{
             // Question axios 
-            const response = await axios.get('http://www.omdbapi.com/?apikey=cfb2ee9c&s=curb')
+            const response = await axios.get('https://api.themoviedb.org/3/trending/movie/day?language=en-US'+'&api_key=dcd345ec48e9703490f93056cc03c057')
             const data = await response.data
-            setMovies(data.Search)
-            console.log('this is my data', data)
-            console.log(data.Search)
+            setMovies(data.results)
             
         }catch(error){
             console.error(error)

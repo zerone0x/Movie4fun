@@ -9,9 +9,10 @@ function Movie() {
     const fetchThisMovie = async()=>{
       if(!movieId) return;
       try{
-        const response= await axios.get('http://www.omdbapi.com/?apikey=cfb2ee9c&i='+movieId)
+        const response= await axios.get('https://api.themoviedb.org/3/movie/'+movieId+'?language=en-US&api_key=dcd345ec48e9703490f93056cc03c057')
         const data = response.data;
         setMovie(data)
+        
       }catch(error){
         console.error('Failed to fetch movie:', error)
   
@@ -26,9 +27,9 @@ function Movie() {
 <><p>Movie</p>
 {movie? (
                <div>
-                    <h1>{movie.Title}</h1>
-                    <img src={movie.Poster} alt={movie.Title} />
-                    <p>{movie.Plot}</p>
+                    <h1>{movie.original_title}</h1>
+                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.original_title} />
+                    <p>{movie.overview}</p>
                </div>
             ) : (
                 <p>Loading movies...</p>

@@ -9,11 +9,9 @@ const ratingSlice = createSlice({
     initialState,
     reducers:{
         setRating(state, action){
-            const {rate, imdbID} = action.payload;
-            const index = state.value.findIndex((item) => item.imdbID === imdbID);
+            const {rate, id} = action.payload;
+            const index = state.value.findIndex((item) => item.id === id);
             if(index !== -1){
-                console.log(state.value[index] )
-                console.log(action.payload)
                 state.value[index].rate = rate
             }else{
                 if(rate >0){

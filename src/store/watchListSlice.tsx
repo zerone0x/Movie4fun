@@ -13,13 +13,13 @@ const watchListSlice = createSlice({
             state.value = action.payload
         },
         addWatchList(state, action){
-            if (state.value.some((movie) => movie.imdbID === action.payload.imdbID)){
+            if (state.value.some((movie) => movie.id === action.payload.id)){
                 return
             }
             state.value.push(action.payload)
         },
         removeWatchList(state,action){
-            state.value = state.value.filter((movie)=> movie.imdbID !== action.payload.imdbID)
+            state.value = state.value.filter((movie)=> movie.id !== action.payload.id)
         }
     }
 })

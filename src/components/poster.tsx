@@ -150,7 +150,7 @@ function Poster({ movies }) {
   type Movie = typeof movieEx;
 
   function handleAddWatchList(movie: Movie) {
-    const isInWatchList = watchList.find(item => item.imdbID === movie.imdbID);
+    const isInWatchList = watchList.find(item => item.id === movie.id);
     if (isInWatchList) {
       dispatch(removeWatchList(movie));
     } else {
@@ -172,21 +172,21 @@ function Poster({ movies }) {
         {movies?.map((movie, index) => (
           <Card key={index}>
             <AddButton onClick={() => handleAddWatchList(movie)}>
-              {watchList.find(item => item.imdbID === movie.imdbID) ? '✔️' : '➕'}
+              {watchList.find(item => item.id === movie.id) ? '✔️' : '➕'}
             </AddButton>
-            <Link to={`/movie/${movie.imdbID}`}>
+            <Link to={`/movie/${movie.id}`}>
               <PosterWrapper>
-                {movie.Poster !== 'N/A' ? (
-                  <PosterItem src={movie.Poster} alt={movie.Title} />
+                {movie.poster_path !== 'N/A' ? (
+                  <PosterItem src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.original_title} />
                 ) : (
                   <span>No Poster</span>
                 )}
               </PosterWrapper>
             </Link>
-            <Title>{movie.Title}</Title>
-            <Year>{movie.Year}</Year>
+            <Title>{movie.original_title}</Title>
+            <Year>{movie.release_date}</Year>
             <Button>Rate</Button>
-            <StarRating imdbID={movie.imdbID} />
+            <StarRating id={movie.id} />
           </Card>
         ))}
         <ArrowButton

@@ -36,7 +36,7 @@ const [suggestions, setSuggestions] = useState([])
 const fetchSuggestions = async (query) => {
     if(!query) return;
     try{
-        const response = await axios.get(`http://www.omdbapi.com/?apikey=cfb2ee9c&s=${query}`);
+        const response = await axios.get('https://api.themoviedb.org/3/search/movie?query='+query+'&api_key=dcd345ec48e9703490f93056cc03c057');
         const data = response.data;
         setSuggestions(data.Search || []);
     }catch(error){
@@ -55,10 +55,12 @@ function handleSearch(e){
 
 function handleKeyDown(e){
     if (e.key === 'Enter') {
-        navigate(`/search?query=${encodeURIComponent(query)}`);
+        searchMovie()
       }
     }
-
+function searchMovie(){
+    navigate(`/search?query=${encodeURIComponent(query)}`);
+}
 
   return (
     <SearchInput>
@@ -66,12 +68,12 @@ function handleKeyDown(e){
     <input type="search" 
     onKeyDown={(e)=>{handleKeyDown(e)}}
     placeholder="Search" value={query} onChange={(e)=> {handleSearch(e)}}/>
-    <button><Search/></button>
+    <button onClick={searchMovie}><Search/></button>
     </div>
     {suggestions.length > 0 && (
         <ul>
             {suggestions.map((suggestion, index) => (
-                <Link to ={`/movie/${suggestion.imdbID}`}>
+                <Link to ={`/movie/${suggestion.id}`}>
                 <li key={index}>{suggestion.Title}</li></Link>
             ))}
         </ul>
