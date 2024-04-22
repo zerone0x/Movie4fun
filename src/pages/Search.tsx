@@ -12,7 +12,7 @@ function Search() {
     const {searchRes, setSearchRes} = useSearch()
     const location = useLocation();
     const searchQuery = new URLSearchParams(location.search).get('query');
-    const query = useSelector(selectQuery)
+    // const query = useSelector(selectQuery)
     // TODO the query could be removed 
 
 
@@ -30,7 +30,7 @@ function Search() {
         }
         }
         fetchMovies()
-    }, [query, searchRes])
+    }, [searchRes])
 
 
 

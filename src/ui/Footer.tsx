@@ -1,7 +1,7 @@
 
 function Footer() {
   return (
-<p>Footer</p>
+<p>© 2024 by potato.com, Inc.</p>
 
   );
 }

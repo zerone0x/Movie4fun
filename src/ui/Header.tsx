@@ -18,11 +18,22 @@ const TopHeader = styled.div`
   margin-bottom: -1.5rem;
   margin-left: 1rem;
   margin-right: -1rem;
-  background-color: black;
   `
 const GroupBtn = styled.div`
-// display: flex;
-// flex-shrink: 0;
+
+
+`
+const WatchListBtn = styled.button`
+display: flex;
+flex-shrink: 0;
+height: 3.5rem;
+padding-left: 1rem;
+padding-right: 1rem;
+padding-top: 0.5rem;
+border-radius: 5px;
+background-color: #f5c518;
+color: #000;
+
 
 `
 
@@ -40,8 +51,8 @@ function Header() {
     
     <SearchBar/>
     <GroupBtn>
-    <button onClick={handleClick}>WatchList {watchListCount}</button>
-    <User/>
+    <WatchListBtn onClick={handleClick}>WatchList {watchListCount}</WatchListBtn>
+    {/* <User/> */}
     </GroupBtn>
     <br/>
 </TopHeader>

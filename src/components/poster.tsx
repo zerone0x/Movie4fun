@@ -4,14 +4,34 @@ import styled from "styled-components";
 import StarRating from "./starRating";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 
 const MovieSection = styled.div`
   margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  
+`;
+
+const CardBox = styled.div`
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  width: calc(220px * 6); /* width of 6 cards, assuming each card is 200px + 20px margin */
+  margin: auto; /* Center the card box */
 `;
 
 const SectionTitle = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
+  // margin: left;
 `;
 
 
@@ -76,15 +96,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const CardBox = styled.div`
-  display: flex;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  padding: 20px;
-  position: relative;
-  width: calc(220px * 6); /* width of 6 cards, assuming each card is 200px + 20px margin */
-  margin: auto; /* Center the card box */
-`;
+
 
 const ArrowButton = styled.button`
   position: absolute;
@@ -97,57 +109,41 @@ const ArrowButton = styled.button`
   padding: 10px;
   cursor: pointer;
   z-index: 10;
- 
   &:hover {
     background: rgba(0, 0, 0, 0.7);
   }
 `;
 
+function PrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block', background: 'green' }}
+      onClick={onClick}
+    />
+  );
+}
 
-function Poster({ movies }) {
+function NextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block', background: 'green' }}
+      onClick={onClick}
+    />
+  );
+}
+function Poster({ movies, header }) {
+ 
   const dispatch = useDispatch();
   const watchList = useSelector(selectWatchList);
-  const cardBoxRef = useRef(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScrollPosition(0);
-      cardBoxRef.current.scrollLeft = 0;
-      setShowLeftArrow(false);
-      setShowRightArrow(cardBoxRef.current.scrollWidth > cardBoxRef.current.offsetWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  // const handleScroll = (direction) => {
-  //   const cardWidth = 220;
-  //   const containerWidth = cardBoxRef.current.offsetWidth;
-  //   const scrollWidth = cardBoxRef.current.scrollWidth;
-  //   const currentPosition = cardBoxRef.current.scrollLeft;
-  //   const maxScrollPosition = scrollWidth - containerWidth;
-  //   const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
-  //   const newPosition = currentPosition + scrollAmount;
-
-  //   setScrollPosition(newPosition);
-  //   cardBoxRef.current.scrollTo({
-  //     left: newPosition,
-  //     behavior: 'smooth',
-  //   });
-
-  //   setShowLeftArrow(newPosition > 0);
-  //   setShowRightArrow(newPosition < maxScrollPosition);
-  // };
-
+  
   const movieEx = movies[0];
   type Movie = typeof movieEx;
+  console.log(movies)
+  
 
   function handleAddWatchList(movie: Movie) {
     const isInWatchList = watchList.find(item => item.id === movie.id);
@@ -157,18 +153,22 @@ function Poster({ movies }) {
       dispatch(addWatchList(movie));
     }
   }
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 6,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+  };
 
   return (
     <MovieSection>
-      <SectionTitle>Movies</SectionTitle>
-      <CardBox >
-        <ArrowButton
-          // direction="left"
-          // onClick={() => handleScroll('left')}
-          // visible={showLeftArrow}
-        >
-          ◀️
-        </ArrowButton>
+      <SectionTitle>{header}</SectionTitle>
+      {/* <CardBox > */}
+     
+        <Slider {...settings}>
         {movies?.map((movie, index) => (
           <Card key={index}>
             <AddButton onClick={() => handleAddWatchList(movie)}>
@@ -189,14 +189,8 @@ function Poster({ movies }) {
             <StarRating id={movie.id} />
           </Card>
         ))}
-        <ArrowButton
-          // direction="right"
-          // onClick={() => handleScroll('right')}
-          // visible={showRightArrow}
-        >
-          ➡️
-        </ArrowButton>
-      </CardBox>
+</Slider>
+      {/* </CardBox> */}
     </MovieSection>
   );
 }

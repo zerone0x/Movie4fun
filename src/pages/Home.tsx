@@ -12,13 +12,15 @@ function Home() {
   const movies = useContext(MovieContext)
 
   // const dispatch = useDispatch()
-  // const watchList = useSelector(selectWatchList)
+  const watchList = useSelector(selectWatchList)
 
 
 
   return (
-    <Poster movies={movies.movies}/>
-    
+    <>
+    <Poster movies={movies.movies} header="Top Trend"/>
+    <Poster movies={watchList} header="From your Watchlist"/>
+    </>
   );
 }
 

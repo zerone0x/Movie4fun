@@ -7,27 +7,34 @@ import { debounce } from 'lodash';
 import axios from "axios";
 import {Search} from "lucide-react"
 import styled from "styled-components";
+
+
+const SearchButton = styled.button`
+    padding-top: 0.5rem; padding-bottom: 0.5rem;
+    padding-left: 1rem; padding-right: 1rem;
+    border-radius: 0 5px 5px 0;
+    flex-shrink: 0;
+`
+const SearchBox = styled.div`
+
+`
 const SearchInput = styled.div`
-div{
+// border-top-left-radius: 5px; 
+// border-bottom-left-radius: 5px;
+// padding-top: 0.25rem;
+// padding-bottom: 0.25rem;
+// padding-left: 1rem;
+// padding-right: 1rem;
+// font-size: 1.125rem; 
+// line-height: 1.75rem;
+// width: 100%;
+display: flex;
+`
+const SearchTxt = styled.input`
 display: flex;
 flex-grow: 1;
 max-width:600px;
-}
-input{
-    border-top-left-radius: 5px; 
-    border-bottom-left-radius: 5px;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    font-size: 1.125rem; 
-    line-height: 1.75rem;
-    width: 100%;
-
-}
-
 `
-
 function SearchBar() {
 const dispatch = useDispatch()
 const query = useSelector(selectQuery)
@@ -63,13 +70,13 @@ function searchMovie(){
 }
 
   return (
+    <SearchBox>
     <SearchInput>
-        <div>
-    <input type="search" 
+    <SearchTxt type="search" 
     onKeyDown={(e)=>{handleKeyDown(e)}}
     placeholder="Search" value={query} onChange={(e)=> {handleSearch(e)}}/>
-    <button onClick={searchMovie}><Search/></button>
-    </div>
+    <SearchButton onClick={searchMovie}><Search/></SearchButton>
+    </SearchInput>
     {suggestions.length > 0 && (
         <ul>
             {suggestions.map((suggestion, index) => (
@@ -78,7 +85,7 @@ function searchMovie(){
             ))}
         </ul>
     )}
-</SearchInput>
+</SearchBox>
   );
 }
 
