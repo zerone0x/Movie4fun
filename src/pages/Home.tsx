@@ -11,6 +11,10 @@ const HomeBox = styled.div`
   background: black;
 
 `
+const MovieBox = styled.div`
+max-width: 1200px;
+margin: 0 auto;
+  `
 
 const Header = styled.h1`
   font-size: 3rem;
@@ -30,9 +34,11 @@ function Home() {
 
   return (
     <HomeBox>
+      <MovieBox>
     <Header>What to watch</Header>
     <Poster movies={movies.movies} header="Top Trend"/>
     <Poster movies={watchList} header="From your Watchlist"/>
+    </MovieBox>
     </HomeBox>
   );
 }

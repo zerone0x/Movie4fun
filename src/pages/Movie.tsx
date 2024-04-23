@@ -17,6 +17,10 @@ const MovieDetail = styled.div`
   flex-direction: column;
   flex:1;
 `;
+const MovieBox = styled.div`
+max-width: 1200px;
+margin: 0 auto;
+  `
 const PosterAdd = styled.div`
 position: relative;
 `
@@ -70,6 +74,7 @@ function Movie() {
 <>
 {movie? (
                <MovieDetail>
+                <MovieBox>
                 
                     <h1>{movie.original_title}</h1>
             <GenreList>
@@ -89,6 +94,7 @@ function Movie() {
                     <PosterItem src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.original_title} />
                     </PosterAdd>
                     <p>{movie.overview}</p>
+                    </MovieBox>
                </MovieDetail>
             ) : (
                 <p>Loading movies...</p>
