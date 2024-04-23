@@ -116,7 +116,9 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   color: var(--color-grey-700);
-
+  height: 100%;
+  margin: 0;
+  padding: 0;
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
   line-height: 1.5;

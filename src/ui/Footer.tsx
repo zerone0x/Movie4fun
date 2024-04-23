@@ -16,10 +16,15 @@ display: flex;
 gap: 1rem;
 `
 const FooterBox = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 1rem;
+// display: flex;
+// flex-direction: column;
+// align-items: center;
+// gap: 1rem;
+background-color: black;
+text-align: center;
+// height: 100px;
+// position: fixed;
+// bottom: 0;
 `
 
 function Footer() {

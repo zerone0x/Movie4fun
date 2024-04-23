@@ -7,12 +7,9 @@ import styled from "styled-components";
 import Poster from "../components/poster";
 
 const HomeBox = styled.div`
-  display: flex;
-  flex-direction: column;
   padding: 4rem;
-  max-width: 1300px;
-  margin: 0 auto;
-  align-items: stretch;
+  background: black;
+
 `
 
 const Header = styled.h1`

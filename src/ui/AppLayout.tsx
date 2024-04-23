@@ -4,8 +4,24 @@ import Footer from "./Footer";
 import styled from "styled-components";
 
 const Main = styled.main`
-background-color: black;
+background-color: white;
 color: white;
+display: flex;
+flex-direction: column;
+flex: 1;
+min-height: 100vh;
+
+`
+
+const Content = styled.div`
+display: flex;
+  flex-direction: column;
+  // max-width: 1300px;
+  // margin: 0 auto;
+  // align-items: stretch;
+  flex:1;
+  // height: 100%;
+  width: 100%;
 
 `
 
@@ -14,7 +30,9 @@ function AppLayout() {
   return (
     <Main>
     <Header></Header>
+    <Content>
     <Outlet />
+    </Content>
     <Footer></Footer>
     </Main>
   );
