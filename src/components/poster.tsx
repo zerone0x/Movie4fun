@@ -20,12 +20,8 @@ const MovieSection = styled.div`
 const CardBox = styled.div`
   display: flex;
   overflow-x: hidden;
-  scroll-behavior: smooth;
-  width: 100%;
-  padding: 20px;
   position: relative;
-  width: calc(220px * 6); /* width of 6 cards, assuming each card is 200px + 20px margin */
-  margin: auto; /* Center the card box */
+  margin: auto; 
 `;
 
 const SectionTitle = styled.h1`
@@ -37,9 +33,12 @@ const SectionTitle = styled.h1`
 
 const Card = styled.div`
   flex: 0 0 auto;
-  width: 200px;
+  max-width: 200px;
   margin-right: 20px;
   position: relative;
+  background: #1A1A1A;
+  
+
 `;
 
 const AddButton = styled.button`
@@ -166,7 +165,7 @@ function Poster({ movies, header }) {
   return (
     <MovieSection>
       <SectionTitle>{header}</SectionTitle>
-      {/* <CardBox > */}
+      
      
         <Slider {...settings}>
         {movies?.map((movie, index) => (
@@ -190,7 +189,7 @@ function Poster({ movies, header }) {
           </Card>
         ))}
 </Slider>
-      {/* </CardBox> */}
+     
     </MovieSection>
   );
 }

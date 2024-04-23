@@ -14,26 +14,38 @@ const SearchButton = styled.button`
     padding-left: 1rem; padding-right: 1rem;
     border-radius: 0 5px 5px 0;
     flex-shrink: 0;
+    color: grey;
+    background-color: white;
+    border: none;
+    outline: none;
+    &:focus{
+        outline: 2px solid #DEB522;
+    }
 `
 const SearchBox = styled.div`
-
+&:focus{
+    outline: 2px solid #DEB522;
+}
 `
 const SearchInput = styled.div`
-// border-top-left-radius: 5px; 
-// border-bottom-left-radius: 5px;
-// padding-top: 0.25rem;
-// padding-bottom: 0.25rem;
-// padding-left: 1rem;
-// padding-right: 1rem;
-// font-size: 1.125rem; 
-// line-height: 1.75rem;
-// width: 100%;
-display: flex;
-`
-const SearchTxt = styled.input`
 display: flex;
 flex-grow: 1;
 max-width:600px;
+color: black;
+&:focus{
+    outline: 2px solid #DEB522;
+}
+`
+const SearchTxt = styled.input`
+border-top-left-radius: 5px; 
+padding: 0.5rem 1rem;
+border-bottom-left-radius: 5px;
+line-height: 1.75rem;
+width: 100%;
+border-right: none;
+@media (max-width: 600px) { 
+display: none;
+}
 `
 function SearchBar() {
 const dispatch = useDispatch()
