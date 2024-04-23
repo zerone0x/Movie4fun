@@ -39,7 +39,7 @@ function StarRating({
     
   return (
     <>
-     <h1>Rating</h1>
+     {/* <h1>Rating</h1> */}
     <RateBox>
        
         {Array.from({length:maxRating}).map((_, index) => (

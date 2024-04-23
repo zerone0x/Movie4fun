@@ -12,12 +12,21 @@ const TopHeader = styled.div`
   display: flex;
   gap: 2.5rem;
   justify-content: center;
-  align-items: center;
   flex-shrink: 0;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   background-color: var(--color-grey-900);
+  align-items: center;
+
   `
+  const ContentContainer = styled.div`
+  display: flex;
+  gap: 2.5rem;
+  max-width: 1200px; 
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
 const GroupBtn = styled.div`
 
 
@@ -58,6 +67,7 @@ function Header() {
 };
   return (
     <TopHeader>
+      <ContentContainer>
     <Link to='/'>
     <FontAwesomeIcon icon={faImdb}size="3x" height="1.5rem"/></Link>
     <WatchListBtn><Menu/> Menu</WatchListBtn>
@@ -66,7 +76,7 @@ function Header() {
     <WatchListBtn onClick={handleClick}><Bookmark />WatchList <WatchCount>{watchListCount}</WatchCount></WatchListBtn>
     {/* <User/> */}
     </GroupBtn>
-    <br/>
+    <br/></ContentContainer>
 </TopHeader>
 
   );

@@ -6,8 +6,7 @@ import styled from "styled-components";
 const Main = styled.main`
 background-color: black;
 color: white;
-// margin:auto;
-// padding: 20px;
+
 `
 
 

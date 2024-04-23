@@ -7,69 +7,100 @@ import { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import AddWatchBtn from "../ui/AddWatchBtn";
 
+const StyledSlider = styled(Slider)`
+  .slick-slide {
+    padding: 0 10px; 
+  }
+  .slick-slide > div {
+    margin: 0 10px;
+    flex: 1 1 auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .slick-prev,
+  .slick-next {
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    opacity: 0.9;
+    font-size: 50px; 
+    width: 50px;
+    height: 50px;
+  }
 
-const MovieSection = styled.div`
+.slick-prev:before, .slick-next:before {
+  font-size: 50px; 
+  color:  	#bbbbbb; 
+  background-color: transparent;
+  opacity: 1; 
+}
+.slick-prev:hover:before, .slick-next:hover:before {
+  opacity: 1; 
+  color: #F5C518!important;
+  // background-color: #F5C518!important;
+  z-index: 1000;
+  transform: scale(1.1); 
+}
+  .slick-prev {
+    left: 10px;
+  }
+
+  .slick-next {
+    right: -10px;
+  }
+`;
+
+const MovieDetail = styled.div`
+  padding: 10px;
+  border-radius: 0 0 4px 4px;
+`;
+const MovieBox = styled.div`
   margin-bottom: 40px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
   
 `;
 
-const CardBox = styled.div`
-  display: flex;
-  overflow-x: hidden;
-  position: relative;
-  margin: auto; 
-`;
 
 const SectionTitle = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
-  // margin: left;
+  &::after {
+    content: '>';
+  }
+  &::before {
+    content: '| ';
+    color: #F5C518;
+  }
 `;
 
 
 const Card = styled.div`
-  flex: 0 0 auto;
-  max-width: 200px;
-  margin-right: 20px;
   position: relative;
   background: #1A1A1A;
-  
+  // margin-right: 20px;
 
 `;
 
-const AddButton = styled.button`
-  // position: absolute;
-  // top: 10px;
-  // right: 10px;
-  // background: rgba(0, 0, 0, 0.7);
-  // color: #fff;
-  // border: none;
-  // border-radius: 50%;
-  // width: 30px;
-  // height: 30px;
-  // font-size: 16px;
-  // cursor: pointer;
-`;
 
 const PosterWrapper = styled.div`
+
   width: 100%;
   height: 300px;
-  background: #ddd;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 200px;
+
 `;
 
 const PosterItem = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
 `;
 
 const Title = styled.h3`
@@ -101,24 +132,19 @@ const ArrowButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
   border: none;
-  font-size: 24px;
-  padding: 10px;
   cursor: pointer;
   z-index: 10;
   &:hover {
-    background: rgba(0, 0, 0, 0.7);
+    border: #f5c518;
   }
 `;
 
 function PrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div
+    <ArrowButton
       className={className}
-      style={{ ...style, display: 'block', background: 'green' }}
       onClick={onClick}
     />
   );
@@ -127,31 +153,20 @@ function PrevArrow(props) {
 function NextArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div
+    <ArrowButton
       className={className}
-      style={{ ...style, display: 'block', background: 'green' }}
       onClick={onClick}
     />
   );
 }
 function Poster({ movies, header }) {
  
-  const dispatch = useDispatch();
-  const watchList = useSelector(selectWatchList);
+
   
-  const movieEx = movies[0];
-  type Movie = typeof movieEx;
+
   console.log(movies)
   
 
-  function handleAddWatchList(movie: Movie) {
-    const isInWatchList = watchList.find(item => item.id === movie.id);
-    if (isInWatchList) {
-      dispatch(removeWatchList(movie));
-    } else {
-      dispatch(addWatchList(movie));
-    }
-  }
   const settings = {
     dots: true,
     infinite: true,
@@ -163,16 +178,12 @@ function Poster({ movies, header }) {
   };
 
   return (
-    <MovieSection>
-      <SectionTitle>{header}</SectionTitle>
-      
-     
-        <Slider {...settings}>
+    <MovieBox>
+      {header && <SectionTitle>{header} </SectionTitle>}
+        <StyledSlider {...settings}>
         {movies?.map((movie, index) => (
           <Card key={index}>
-            <AddButton onClick={() => handleAddWatchList(movie)}>
-              {watchList.find(item => item.id === movie.id) ? '✔️' : '➕'}
-            </AddButton>
+            <AddWatchBtn movie={movie} />
             <Link to={`/movie/${movie.id}`}>
               <PosterWrapper>
                 {movie.poster_path !== 'N/A' ? (
@@ -182,15 +193,16 @@ function Poster({ movies, header }) {
                 )}
               </PosterWrapper>
             </Link>
+            <MovieDetail>
             <Title>{movie.original_title}</Title>
             <Year>{movie.release_date}</Year>
             <Button>Rate</Button>
-            <StarRating id={movie.id} />
+            <StarRating id={movie.id} /></MovieDetail>
           </Card>
         ))}
-</Slider>
+</StyledSlider>
      
-    </MovieSection>
+    </MovieBox>
   );
 }
 

@@ -6,16 +6,22 @@ import {useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Poster from "../components/poster";
 
-const Header = styled.h1`
-  font-size: 24px;
-  color:#F5C518;
-`;
-
 const HomeBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 4rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  align-items: stretch;
 `
+
+const Header = styled.h1`
+  font-size: 3rem;
+  color:#F5C518;
+  margin-bottom: 20px;
+`;
+
+
 
 function Home() {
   const movies = useContext(MovieContext)

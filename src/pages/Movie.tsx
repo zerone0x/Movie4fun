@@ -1,7 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import AddWatchBtn from "../ui/AddWatchBtn";
+import styled from "styled-components";
 
+// TODO:
+// details of the movie
+// genres
+// vote_average
+// imdb_id
+const PosterAdd = styled.div`
+position: relative;
+`
+const PosterItem = styled.img`
+width: 300px;
+height: 400px;
+`
 function Movie() {
   const [movie, setMovie] = useState(null);
   let { movieId } = useParams();
@@ -27,9 +41,12 @@ function Movie() {
 <>
 {movie? (
                <div>
+                
                     <h1>{movie.original_title}</h1>
-                    
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.original_title} />
+                    <PosterAdd>
+                    <AddWatchBtn movie={movie} size={40}/>
+                    <PosterItem src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.original_title} />
+                    </PosterAdd>
                     <p>{movie.overview}</p>
                </div>
             ) : (
