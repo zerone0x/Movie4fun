@@ -11,8 +11,9 @@ function WatchList() {
   const WatchList = useSelector(selectWatchList)
   return (
     <>
-      <p>WatchList</p>
+      <h1>Your WatchList</h1>
       <Poster movies={WatchList} />
+      
     </>
   )
 }

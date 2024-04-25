@@ -1,11 +1,52 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectQuery, setQuery } from '../store/querySlice'
 import axios from 'axios'
-import Poster from '../components/poster'
 import { useSearch } from '../data/getSearchRes'
+import styled from 'styled-components'
+const SearchRes = styled.ul`
+  background-color: #F0F0F0;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 3rem;
+  height: 100%;  
+  box-sizing: border-box;  
 
+`
+
+const SearchBox = styled.div`
+color: black;
+display: flex;
+gap: 1rem;
+flex-direction: column;
+height: 100vh
+`
+const Poster = styled.img`
+  max-width: 60px;
+  max-height: 60px;
+`
+const SearchItem = styled.li`
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+
+`
+const SearchText = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const Title = styled.h4`
+&:hover {
+  color: grey;
+  cursor: pointer;
+}
+`
+const SearchTitle = styled.h1`
+background-color: #F0F0F0;
+padding: 2rem;
+`
 function Search() {
   const { searchRes, setSearchRes } = useSearch()
   const location = useLocation()
@@ -30,12 +71,44 @@ function Search() {
       }
     }
     fetchMovies()
-  }, [searchRes])
+  }, [searchRes, searchQuery, setSearchRes])
 
   return (
     <>
       {searchRes && searchRes.length > 0 ? (
-        <Poster movies={searchRes} />
+        // <Poster movies={searchRes} />
+<SearchBox>
+<SearchTitle>Search "{searchQuery}"</SearchTitle>
+<SearchRes>
+          {searchRes.slice(0, 10).map((searchItem, index) => (
+            <Link to={`/movie/${searchItem.id}`}>
+              <SearchItem>
+                {searchItem.poster_path !== 'N/A' ? (
+                  <Poster
+                    src={`https://image.tmdb.org/t/p/w500${searchItem.poster_path}`}
+                  />
+                ) : (
+                  <span>No Poster</span>
+                )}
+                <SearchText>
+                  <Title key={index}>{searchItem.original_title}</Title>
+                  <span key={index}>{searchItem.release_date}</span>
+                </SearchText>
+              </SearchItem>
+            </Link>
+          ))}
+        </SearchRes>
+</SearchBox>
+
+
+
+
+
+
+
+
+
+
       ) : (
         <p>Loading movies...</p>
       )}
