@@ -11,6 +11,8 @@ import AddWatchBtn from "../ui/AddWatchBtn";
 import RatePopup from "./RatePopup";
 import { openPopup, closePopup, selectIsOpen, selectSelectedMovie } from "../store/PopupSlice"
 import { selectRating } from "../store/ratingSlice";
+import Star from "../ui/Star";
+
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
@@ -130,6 +132,20 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const RatingStar = styled.div`
+&:hover{
+  background-color: grey;
+}
+`
+const RatingBox = styled.div`
+display: flex;
+gap: 10px;
+`
+
+const AverageRate = styled.div`
+display: flex;
+gap: 5px;
+`
 
 
 const ArrowButton = styled.button`
@@ -177,7 +193,7 @@ function Poster({ movies, header }) {
     nextArrow: <NextArrow   />,
   };
   const ratingArr = useSelector(selectRating);
-  let rating = 0;
+  let rating = false;
 
   return (
     <MovieBox>
@@ -198,17 +214,20 @@ function Poster({ movies, header }) {
             <MovieDetail>
             <Title>{movie.original_title}</Title>
             <Year>{movie.release_date}</Year>
-
-            <p>{(movie.vote_average)}</p>
+<RatingBox>
+            <AverageRate><Star size={20} color='#F5C518' full={true}/> {(movie.vote_average.toFixed(1))}</AverageRate>
             {
   ratingArr.map((item) => {
     if (item.id === movie.id) {
-      return <p key={item.id}>Mine: {item.rate}</p>;
-    }
-    return null;
-  })
+      return <RatingStar key={item.id} onClick={()=>{dispatch(openPopup(movie));}}><Star size={20} color='#128BB5' full={item?.rate !=0} /></RatingStar>;
+    } 
+  }
+ 
+  )
 }
-            <Button onClick={()=>{dispatch(openPopup(movie));}}>Rate</Button>
+{ratingArr.filter((item) => item.id === movie.id).length === 0 &&   <RatingStar onClick={()=>{dispatch(openPopup(movie));}}><Star size={20} color='#128BB5' full={false} /></RatingStar>}
+
+</RatingBox>
             {/* <StarRating id={movie.id} /> */}
             </MovieDetail>
           </Card>

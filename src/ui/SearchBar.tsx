@@ -9,13 +9,16 @@ import {Search} from "lucide-react"
 import styled from "styled-components";
 
 const SearchSuggestion = styled.ul`
-position: absolute;
-background-color: #333;
-color: white;
-display: flex;
-flex-direction: column;
-z-index: 1000;
-`
+    position: absolute;
+    background-color: #333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    width: 100%;  
+    top: 100%;  
+    left: 0;
+`;
 const Poster = styled.img`
 max-width: 60px;
 max-height: 60px;
@@ -44,23 +47,25 @@ const SearchButton = styled.button`
     background-color: white;
     border: none;
     outline: none;
-    &:focus{
-        outline: 2px solid #DEB522;
-    }
 `
 const SearchBox = styled.div`
-&:focus{
-    outline: 2px solid #DEB522;
-}
-`
+    display: flex;  
+    flex-direction: column; 
+    width: fit-content;  
+    position: relative; 
+    border-radius: 8px;
+   
+    &:focus-within {
+        outline: 2px solid #DEB522;
+    }
+`;
 const SearchInput = styled.div`
 display: flex;
 flex-grow: 1;
 max-width:600px;
 color: black;
-&:focus{
-    outline: 2px solid #DEB522;
-}
+border: none;  
+outline: none;  
 `
 const SearchTxt = styled.input`
 border-top-left-radius: 5px; 
