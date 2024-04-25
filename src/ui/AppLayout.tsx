@@ -12,6 +12,7 @@ flex-direction: column;
 flex: 1;
 min-height: 100vh;
 
+
 `
 
 const Content = styled.div`
@@ -22,6 +23,7 @@ display: flex;
   // align-items: stretch;
   flex:1;
   // height: 100%;
+
   width: 100%;
 
 `

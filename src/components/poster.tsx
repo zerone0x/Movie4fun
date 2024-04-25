@@ -87,6 +87,7 @@ const Card = styled.div`
   position: relative;
   background: #1A1A1A;
   // margin-right: 20px;
+  max-width:200px
 
 `;
 
@@ -143,7 +144,7 @@ const ArrowButton = styled.button`
 `;
 
 function PrevArrow(props) {
-  const { className, style, onClick } = props;
+  const { className,  onClick } = props;
   return (
     <ArrowButton
       className={className}
@@ -153,7 +154,7 @@ function PrevArrow(props) {
 }
 
 function NextArrow(props) {
-  const { className, style, onClick } = props;
+  const { className,  onClick } = props;
   return (
     <ArrowButton
       className={className}
@@ -164,21 +165,15 @@ function NextArrow(props) {
 function Poster({ movies, header }) {
  
   const dispatch = useDispatch();
-  const isOpen = useSelector(selectIsOpen)
-  const selectedMovie = useSelector(selectSelectedMovie);
-    function setPopup(value:string){
-        dispatch(setPopupStatus(value))
-    }
-  
 
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: movies.length>6,
     speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 6,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
+    slidesToShow: Math.min(6, movies.length),
+    slidesToScroll: Math.min(6, movies.length),
+    prevArrow: <PrevArrow  />,
+    nextArrow: <NextArrow   />,
   };
 
   return (

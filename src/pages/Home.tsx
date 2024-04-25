@@ -9,11 +9,15 @@ import Poster from "../components/poster";
 const HomeBox = styled.div`
   padding: 4rem;
   background: black;
+  display: flex;
+  flex:1
 
 `
 const MovieBox = styled.div`
 max-width: 1200px;
 margin: 0 auto;
+
+
   `
 
 const Header = styled.h1`
@@ -37,7 +41,9 @@ function Home() {
       <MovieBox>
     <Header>What to watch</Header>
     <Poster movies={movies.movies} header="Top Trend"/>
-    <Poster movies={watchList} header="From your Watchlist"/>
+    {watchList.length>0 ? <Poster movies={watchList} header="From your Watchlist"/>: 
+    (<p>Your watchlist is empty.</p>)
+    }
     </MovieBox>
     </HomeBox>
   );

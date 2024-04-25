@@ -17,7 +17,6 @@ const TopHeader = styled.div`
   padding-bottom: 0.5rem;
   background-color: var(--color-grey-900);
   align-items: center;
-
   `
   const ContentContainer = styled.div`
   display: flex;

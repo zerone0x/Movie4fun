@@ -2,18 +2,19 @@ import styled from "styled-components";
 import StarRating from "./starRating";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRating, setRating } from "../store/ratingSlice";
-import { closePopup, selectIsOpen, selectSelectedMovie } from "../store/PopupSlice";
+import { closePopup, selectHoverRate, selectIsOpen, selectSelectedMovie, setHoverRate } from "../store/PopupSlice";
 import { selectMovie } from "../store/movieSlice";
 
 const Btn = styled.button`
 padding: 0.5rem 1rem;
-background-color:#333;
 color: white;
 border: none;
 outline: none;
 border-radius: 5px;
-&:hover {
-  background-color: grey;}
+background-color: ${props => props.isActive ? '#F5C518' : '#333'};
+
+// &:hover {
+//   background-color: grey;}
   padding: 8px 16px;
   font-size: 16px;
   margin-top: 10px;
@@ -63,12 +64,35 @@ function RatePopup() {
     const isOpen = useSelector(selectIsOpen);
     const selectedMovie = useSelector(selectSelectedMovie)
     const MovieID = selectedMovie?.id
-    const rating = useSelector(selectRating)
+    const HoverRate = useSelector(selectHoverRate)
+    const ratingArr = useSelector(selectRating);
+    let rating = 0;
+    ratingArr.forEach((item) => {
+        if(item.id === MovieID){
+            rating = item.rate
+        }
+    }
+    )
+    console.log(ratingArr)
+
 
     function setRate(value:number){
         dispatch(setRating({rate:value, id:MovieID}))
+        dispatch(setHoverRate(0))
+        dispatch(closePopup())
     }
+    function handleRate(){
+      dispatch(setRating({rate:HoverRate, id:MovieID}))
+      dispatch(setHoverRate(0))
+      dispatch(closePopup())
+    }
+    function isBtnDisabled(){
+      if(!HoverRate ){
+        return true
+      }
 
+   
+    }
     return (
       <>
         {isOpen && selectedMovie ? (
@@ -80,7 +104,9 @@ function RatePopup() {
                 <RateText>RATE THIS</RateText>
                 <h2>{selectedMovie.original_title}</h2>
                 <StarRating id={selectedMovie.id} maxRating={10} />
-                <Btn onClick={() => setRate(0)}>Remove Rating</Btn>
+                <Btn disabled={isBtnDisabled()} isActive={true}  onClick={()=> {handleRate()}}>Rate</Btn>
+                {rating !=0 &&<Btn isActive={false} onClick={() => setRate(0)}>Remove Rating</Btn>}
+               
               </ModalContainer>
             </ModalBox>
           </>

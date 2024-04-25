@@ -3,6 +3,7 @@ import ratingSlice, { selectRating, setRating } from "../store/ratingSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { selectHoverRate, setHoverRate } from "../store/PopupSlice";
 const TextStyle =styled.p`
 font-size: 18px;
 color: #F5C518;
@@ -29,30 +30,27 @@ function StarRating({
         }
     }
     )
-    
 
-    function setRate(value:number){
-        dispatch(setRating({rate:value, id:id}))
-    }
-    const [hoverRating, setHoverRating] = useState(0)
+
+    const CacheRate = useSelector(selectHoverRate)
+    const [HoverRate, setHoverRating] = useState(0)
    
-    
+
   return (
     <>
-     {/* <h1>Rating</h1> */}
     <RateBox>
        
         {Array.from({length:maxRating}).map((_, index) => (
             <Star key={index} 
-            onRate={()=>setRate(index+1)}
+            onRate={()=>dispatch(setHoverRate(index+1))}
             size={size}
             onHoverIn={()=>setHoverRating(index+1)}
             onHoverOut={()=>setHoverRating(0)}
             color={color}
-            full={index+1 <= (hoverRating || rating)}
+            full={index+1 <= (HoverRate || CacheRate || rating)}
             />
         ))}
-      <TextStyle>{hoverRating ? hoverRating : rating || ""}</TextStyle>
+      <TextStyle>{HoverRate ? HoverRate : CacheRate || rating || ""}</TextStyle>
     </RateBox>
 </>
   );
