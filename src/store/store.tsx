@@ -5,6 +5,7 @@ import movieReducer from "./movieSlice";
 import watchListReducer from "./watchListSlice";
 import ratingReducer from "./ratingSlice";
 import queryReducer from "./querySlice";
+import popupReducer from "./PopupSlice";
 
 const persistConfig = {
   key: "root",
@@ -19,6 +20,7 @@ const persistedReducer = persistReducer(
     watchList: watchListReducer,
     rating: ratingReducer,
     query: queryReducer,
+    popup: popupReducer,
   })
 );
 

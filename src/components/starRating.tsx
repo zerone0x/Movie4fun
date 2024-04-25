@@ -52,7 +52,7 @@ function StarRating({
             full={index+1 <= (hoverRating || rating)}
             />
         ))}
-      <TextStyle>{hoverRating ? hoverRating*2 : rating*2 || ""}</TextStyle>
+      <TextStyle>{hoverRating ? hoverRating : rating || ""}</TextStyle>
     </RateBox>
 </>
   );

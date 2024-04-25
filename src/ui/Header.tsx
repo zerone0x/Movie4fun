@@ -44,7 +44,8 @@ border: none;
 outline: none;
 border-radius: 5px;
 &:hover {
-  background-color: grey;
+  background-color: grey;}
+  
 `
 const WatchCount = styled.p`
 background-color: #F5C518;

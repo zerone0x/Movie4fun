@@ -8,7 +8,8 @@ import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import AddWatchBtn from "../ui/AddWatchBtn";
-import RatePopup from "../ui/RatePopup";
+import RatePopup from "./RatePopup";
+import { openPopup, closePopup, selectIsOpen, selectSelectedMovie } from "../store/PopupSlice"
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
@@ -162,10 +163,12 @@ function NextArrow(props) {
 }
 function Poster({ movies, header }) {
  
-
-  
-
-  console.log(movies)
+  const dispatch = useDispatch();
+  const isOpen = useSelector(selectIsOpen)
+  const selectedMovie = useSelector(selectSelectedMovie);
+    function setPopup(value:string){
+        dispatch(setPopupStatus(value))
+    }
   
 
   const settings = {
@@ -177,7 +180,7 @@ function Poster({ movies, header }) {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   };
-  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <MovieBox>
       {header && <SectionTitle>{header} </SectionTitle>}
@@ -197,9 +200,8 @@ function Poster({ movies, header }) {
             <MovieDetail>
             <Title>{movie.original_title}</Title>
             <Year>{movie.release_date}</Year>
-            <Button onClick={()=>{setIsOpen(true)}}>Rate</Button>
+            <Button onClick={()=>{dispatch(openPopup(movie));}}>Rate</Button>
             {/* <StarRating id={movie.id} /> */}
-            {isOpen && <RatePopup movie={movie} setIsOpen={setIsOpen} />}
             </MovieDetail>
           </Card>
           

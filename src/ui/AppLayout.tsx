@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import styled from "styled-components";
+import RatePopup from "../components/RatePopup";
 
 const Main = styled.main`
 background-color: white;
@@ -33,6 +34,8 @@ function AppLayout() {
     <Content>
     <Outlet />
     </Content>
+            { <RatePopup />}
+    
     <Footer></Footer>
     </Main>
   );
