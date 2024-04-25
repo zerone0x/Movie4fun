@@ -8,6 +8,7 @@ import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import AddWatchBtn from "../ui/AddWatchBtn";
+import RatePopup from "../ui/RatePopup";
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
@@ -176,7 +177,7 @@ function Poster({ movies, header }) {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   };
-
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <MovieBox>
       {header && <SectionTitle>{header} </SectionTitle>}
@@ -196,9 +197,12 @@ function Poster({ movies, header }) {
             <MovieDetail>
             <Title>{movie.original_title}</Title>
             <Year>{movie.release_date}</Year>
-            <Button>Rate</Button>
-            <StarRating id={movie.id} /></MovieDetail>
+            <Button onClick={()=>{setIsOpen(true)}}>Rate</Button>
+            {/* <StarRating id={movie.id} /> */}
+            {isOpen && <RatePopup movie={movie} setIsOpen={setIsOpen} />}
+            </MovieDetail>
           </Card>
+          
         ))}
 </StyledSlider>
      
