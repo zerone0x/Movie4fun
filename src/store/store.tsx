@@ -1,17 +1,17 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import movieReducer from "./movieSlice";
-import watchListReducer from "./watchListSlice";
-import ratingReducer from "./ratingSlice";
-import queryReducer from "./querySlice";
-import popupReducer from "./PopupSlice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import movieReducer from './movieSlice'
+import watchListReducer from './watchListSlice'
+import ratingReducer from './ratingSlice'
+import queryReducer from './querySlice'
+import popupReducer from './PopupSlice'
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  whitelist: ["watchList", "rating"], 
-};
+  whitelist: ['watchList', 'rating'],
+}
 
 const persistedReducer = persistReducer(
   persistConfig,
@@ -22,7 +22,7 @@ const persistedReducer = persistReducer(
     query: queryReducer,
     popup: popupReducer,
   })
-);
+)
 
 const store = configureStore({
   reducer: persistedReducer,
@@ -30,8 +30,8 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
-});
+})
 
-const persistor = persistStore(store);
+const persistor = persistStore(store)
 
-export { store, persistor };
+export { store, persistor }

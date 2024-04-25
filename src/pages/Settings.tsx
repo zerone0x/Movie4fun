@@ -1,9 +1,5 @@
-
 function Settings() {
-  return (
-<p>Settings</p>
-
-  );
+  return <p>Settings</p>
 }
 
-export default Settings;
+export default Settings

@@ -1,9 +1,5 @@
-
 function Top250() {
-  return (
-<p>Top250</p>
-
-  );
+  return <p>Top250</p>
 }
 
-export default Top250;
+export default Top250

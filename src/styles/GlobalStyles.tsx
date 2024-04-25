@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
 :root {
@@ -186,9 +186,9 @@ img {
   filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
 
-`;
+`
 
-export default GlobalStyles;
+export default GlobalStyles
 
 /*
 FOR DARK MODE

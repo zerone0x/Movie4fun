@@ -1,6 +1,7 @@
 # imdb_clone
 
 ref:
+
 - https://github.com/GorvGoyl/Clone-Wars
 
 # req
@@ -26,11 +27,11 @@ ref:
     - photo
     - actor
   - recent recommendations
-- 1st version 
-    - display the recent track movies
-    - and the details of the movie
-    - add watch list 
-    - rating sys
+- 1st version
+  - display the recent track movies
+  - and the details of the movie
+  - add watch list
+  - rating sys
 - feature
   - auth
   - watch list

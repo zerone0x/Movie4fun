@@ -1,9 +1,5 @@
-
 function Users() {
-  return (
-<p>Users</p>
-
-  );
+  return <p>Users</p>
 }
 
-export default Users;
+export default Users
