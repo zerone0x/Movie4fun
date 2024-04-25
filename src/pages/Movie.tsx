@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import AddWatchBtn from '../ui/AddWatchBtn'
 import styled from 'styled-components'
+import RatingDetail from '../components/RatingDetail'
+import { useSelector } from 'react-redux'
+import { selectRating } from '../store/ratingSlice'
 
 // TODO:
 // details of the movie
@@ -29,8 +32,8 @@ const PosterAdd = styled.div`
   position: relative;
 `
 const PosterItem = styled.img`
-  width: 300px;
-  height: 400px;
+  min-width: 300px;
+  min-height: 400px;
 `
 const GenreList = styled.ul`
   display: flex;
@@ -51,10 +54,37 @@ const GenreList = styled.ul`
     }
   }
 `
+const MovieInfo = styled.div`
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  color: white;
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+
+`
+const MovieHeader = styled.div`
+display: flex;
+justify-content: space-between;
+`
+
+const MovieBody = styled.div`
+display: flex;
+`
 function Movie() {
   const [movie, setMovie] = useState(null)
   let { movieId } = useParams()
-  console.log(movie)
+  const ratingArr = useSelector(selectRating)
+  let rating = 0
+  ratingArr.forEach((item) => {
+    if(item.id === movieId){
+        rating = item.rate
+    }
+}
+)
   useEffect(() => {
     const fetchThisMovie = async () => {
       if (!movieId) return
@@ -79,6 +109,7 @@ function Movie() {
         <MovieDetail>
           <MovieBox>
             <h1>{movie.original_title}</h1>
+            <MovieHeader>
             <GenreList>
               <li>
                 <a href={`https://www.imdb.com/title/${movie.imdb_id}`}>IMDB</a>
@@ -87,11 +118,10 @@ function Movie() {
                 <li key={index}>{genre.name}</li>
               ))}
             </GenreList>
-            <p>Rating: {movie.vote_average}</p>
-
-            <p>Release Date: {movie.release_date}</p>
-            <p>Runtime: {movie.runtime} minutes</p>
-            <p>Your Rate:</p>
+            <RatingDetail movie={movie}/>
+</MovieHeader>
+<MovieBody>
+            
             <PosterAdd>
               <AddWatchBtn movie={movie} size={40} />
               <PosterItem
@@ -99,7 +129,14 @@ function Movie() {
                 alt={movie.original_title}
               />
             </PosterAdd>
+            <MovieInfo>
+             
+            <p>Release Date: {movie.release_date}</p>
+            <p>Runtime: {movie.runtime} minutes</p>
+              <h3>Overview</h3>
             <p>{movie.overview}</p>
+            </MovieInfo>
+            </MovieBody>
           </MovieBox>
         </MovieDetail>
       ) : (

@@ -32,7 +32,7 @@ function AppLayout() {
       <Content>
         <Outlet />
       </Content>
-      {<RatePopup />}
+      <RatePopup />
 
       <Footer></Footer>
     </Main>

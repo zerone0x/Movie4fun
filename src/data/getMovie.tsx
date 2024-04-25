@@ -16,7 +16,6 @@ export const MovieProvider = ({ children }) => {
         )
         const data = await response.data
         setMovies(data.results)
-        console.log(data.results)
       } catch (error) {
         console.error(error)
       }

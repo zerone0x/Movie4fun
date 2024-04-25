@@ -12,8 +12,10 @@ import {
 import { selectMovie } from '../store/movieSlice'
 
 const Btn = styled.button`
+background: #f5c518;
   padding: 0.5rem 1rem;
-  color: white;
+  color:  ${(props) => (props.isActive ? '#000' : 'white')};
+  font-size: 1rem;
   border: none;
   outline: none;
   border-radius: 5px;
@@ -76,6 +78,7 @@ function RatePopup() {
   const HoverRate = useSelector(selectHoverRate)
   const ratingArr = useSelector(selectRating)
   let rating = 0
+
   ratingArr.forEach((item) => {
     if (item.id === MovieID) {
       rating = item.rate
