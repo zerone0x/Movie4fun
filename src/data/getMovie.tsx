@@ -13,6 +13,7 @@ export const MovieProvider = ({children})=>{
             const response = await axios.get('https://api.themoviedb.org/3/trending/movie/day?language=en-US'+'&api_key=dcd345ec48e9703490f93056cc03c057')
             const data = await response.data
             setMovies(data.results)
+            console.log(data.results)
             
         }catch(error){
             console.error(error)

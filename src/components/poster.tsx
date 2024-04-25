@@ -10,6 +10,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import AddWatchBtn from "../ui/AddWatchBtn";
 import RatePopup from "./RatePopup";
 import { openPopup, closePopup, selectIsOpen, selectSelectedMovie } from "../store/PopupSlice"
+import { selectRating } from "../store/ratingSlice";
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
@@ -168,13 +169,15 @@ function Poster({ movies, header }) {
 
   const settings = {
     dots: true,
-    infinite: movies.length>6,
+    infinite: movies?.length>6,
     speed: 500,
-    slidesToShow: Math.min(6, movies.length),
-    slidesToScroll: Math.min(6, movies.length),
+    slidesToShow: Math.min(6, movies?.length),
+    slidesToScroll: Math.min(6, movies?.length),
     prevArrow: <PrevArrow  />,
     nextArrow: <NextArrow   />,
   };
+  const ratingArr = useSelector(selectRating);
+  let rating = 0;
 
   return (
     <MovieBox>
@@ -195,6 +198,16 @@ function Poster({ movies, header }) {
             <MovieDetail>
             <Title>{movie.original_title}</Title>
             <Year>{movie.release_date}</Year>
+
+            <p>{(movie.vote_average)}</p>
+            {
+  ratingArr.map((item) => {
+    if (item.id === movie.id) {
+      return <p key={item.id}>Mine: {item.rate}</p>;
+    }
+    return null;
+  })
+}
             <Button onClick={()=>{dispatch(openPopup(movie));}}>Rate</Button>
             {/* <StarRating id={movie.id} /> */}
             </MovieDetail>

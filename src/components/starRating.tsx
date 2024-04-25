@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { selectHoverRate, setHoverRate } from "../store/PopupSlice";
 const TextStyle =styled.p`
 font-size: 18px;
-color: #F5C518;
+color: ${props => props.color}
 margin:0;` 
 
 const RateBox = styled.div` 
@@ -50,7 +50,7 @@ function StarRating({
             full={index+1 <= (HoverRate || CacheRate || rating)}
             />
         ))}
-      <TextStyle>{HoverRate ? HoverRate : CacheRate || rating || ""}</TextStyle>
+      <TextStyle color={color}>{HoverRate ? HoverRate : CacheRate || rating || ""}</TextStyle>
     </RateBox>
 </>
   );

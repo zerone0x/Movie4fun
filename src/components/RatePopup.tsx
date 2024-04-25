@@ -103,7 +103,7 @@ function RatePopup() {
               <ModalContainer>
                 <RateText>RATE THIS</RateText>
                 <h2>{selectedMovie.original_title}</h2>
-                <StarRating id={selectedMovie.id} maxRating={10} />
+                <StarRating id={selectedMovie.id} maxRating={10} color="#128BB5"/>
                 <Btn disabled={isBtnDisabled()} isActive={true}  onClick={()=> {handleRate()}}>Rate</Btn>
                 {rating !=0 &&<Btn isActive={false} onClick={() => setRate(0)}>Remove Rating</Btn>}
                

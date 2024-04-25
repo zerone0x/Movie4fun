@@ -14,9 +14,11 @@ gap: 1rem;
 const FooterItem = styled.li`
 display: flex;
 gap: 1rem;
+flex:1;
 `
 const FooterBox = styled.div`
 // display: flex;
+// flex:1;
 // flex-direction: column;
 // align-items: center;
 // gap: 1rem;
