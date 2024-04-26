@@ -7,7 +7,6 @@ import {
   sortWatchList,
   reverseWatchList
 } from '../store/watchListSlice'
-import Poster from '../components/poster'
 import PosterPic from '../components/PosterPic'
 import RatingDetail from '../components/RatingDetail'
 import styled from 'styled-components'
@@ -16,6 +15,7 @@ const WatchPage = styled.div`
 background: #CECECA;
 color: black;
 padding: 1rem 15rem;
+min-height: 100vh;
 `
 const WatchBox = styled.ul`
 color: black;
