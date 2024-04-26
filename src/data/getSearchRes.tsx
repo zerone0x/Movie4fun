@@ -1,11 +1,16 @@
 import { createContext, useContext, useState } from 'react'
-import { set } from '../store/movieSlice'
 
-export const SearchContext = createContext({
+export const SearchContext = createContext<SearchContextProp>({
   searchRes: [],
   setSearchRes: () => {},
 })
-export const SearchProvider = ({ children }) => {
+
+interface SearchContextProp {
+  searchRes: any[]
+  setSearchRes: (value: any) => void
+}
+
+export const SearchProvider = ({ children }: any) => {
   const [searchRes, setSearchRes] = useState([])
   return (
     <SearchContext.Provider value={{ searchRes, setSearchRes }}>
@@ -15,3 +20,4 @@ export const SearchProvider = ({ children }) => {
 }
 
 export const useSearch = () => useContext(SearchContext)
+

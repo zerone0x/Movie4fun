@@ -1,7 +1,16 @@
 import { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
-
-export const MovieContext = createContext([])
+interface MovieType {
+  original_title: string
+  release_date: string
+  poster_path: string
+  id: number
+  vote_average: number
+}
+interface MovieContextType {
+  movies: MovieType[]
+}
+export const MovieContext = createContext<MovieContextType>([])
 
 export const MovieProvider = ({ children }: any) => {
   const [movies, setMovies] = useState([])
@@ -24,6 +33,7 @@ export const MovieProvider = ({ children }: any) => {
     fetchMovies()
   }, [])
 
+  
 
   return (
     <MovieContext.Provider value={{ movies }}>{children}</MovieContext.Provider>

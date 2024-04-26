@@ -24,10 +24,15 @@ const popupSlice = createSlice({
   },
 })
 
+interface selectedMovieProp {
+  original_title: string
+  id: number
+}
+
 interface State {
   popup:{
     isOpen:boolean,
-    selectedMovie: null | string,
+    selectedMovie: null | selectedMovieProp,
     hoverRate: number
   }
 

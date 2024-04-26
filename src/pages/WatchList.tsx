@@ -59,7 +59,7 @@ padding-left: 0.5rem;
 function WatchList() {
   const WatchList = useSelector(selectWatchList)
   const dispatch = useDispatch()
-  const handleSelectChange = (event) => {
+  const handleSelectChange = (event:  { target: { value: string } }) => {
     const value = event.target.value;
     switch(value) {
       case '1':
@@ -87,6 +87,7 @@ function WatchList() {
     release_date: string;
     runtime: number;
     overview: string;
+    vote_average: number;
   }
   return (
     <WatchPage>

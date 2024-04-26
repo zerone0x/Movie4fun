@@ -105,7 +105,7 @@ function SearchBar() {
     debouncedFetchSuggestions(query)
   }, [query, debouncedFetchSuggestions])
 
-  function handleSearch(e) {
+  function handleSearch(e: { target: { value: string } }) {
     dispatch(setQuery(e.target.value))
     setIsVisible(true)
   }
@@ -122,7 +122,7 @@ function SearchBar() {
     }
   }, [])
 
-  function handleKeyDown(e) {
+  function handleKeyDown(e: { key: string }) {
     if (e.key === 'Enter') {
       searchMovie()
     }

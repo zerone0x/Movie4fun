@@ -74,11 +74,6 @@ interface ButtonProp{
   isActive: boolean;
 
 }
-interface selectedMovieProp{
-  id: number;
-  original_title: string;
-
-}
 interface ratingProp{
   id: number;
   rate: number;

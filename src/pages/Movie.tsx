@@ -78,6 +78,7 @@ function Movie() {
     release_date: string;
     runtime: number;
     overview: string;
+    vote_average: number;
   }
 
   useEffect(() => {

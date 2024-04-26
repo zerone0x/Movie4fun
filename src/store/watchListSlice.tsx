@@ -11,18 +11,18 @@ const watchListSlice = createSlice({
     setWatchList(state, action) {
       state.value = action.payload
     },
-    addWatchList(state, action) {
-      if (state.value.some((movie) => movie.id === action.payload.id)) {
+    addWatchList(state: ReduceStateWatchProp, action) {
+      if (state.value.some((movie: WatchListItemProp) => movie.id === action.payload.id)) {
         return
       }
       state.value.push(action.payload)
     },
-    removeWatchList(state, action) {
+    removeWatchList(state: ReduceStateWatchProp, action) {
       state.value = state.value.filter(
         (movie) => movie.id !== action.payload.id
       )
     },
-    sortWatchList(state, action) {
+    sortWatchList(state:ReduceStateWatchProp, action) {
       if (action.payload === 'title') {
         state.value.sort((a, b) => a.title.localeCompare(b.title))
       }
@@ -30,7 +30,14 @@ const watchListSlice = createSlice({
         state.value.sort((a, b) => b.vote_average - a.vote_average)
       }
       if (action.payload === 'release') {
-        state.value.sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
+        
+        state.value.sort((a, b) => 
+          {
+            const dateA = new Date(a.release_date);
+      const dateB = new Date(b.release_date);
+      return dateB.getTime() - dateA.getTime();
+          }
+      )
       }
     },
     reverseWatchList(state) {
@@ -41,9 +48,22 @@ const watchListSlice = createSlice({
   },
 })
 
+interface ReduceStateWatchProp{
+  value:WatchListItemProp[]
+
+}
+
+interface WatchListItemProp{
+  id: number;
+  title: string;
+  vote_average: number;
+  release_date: string;
+
+}
+
 interface State {
   watchList:{
-    value:[]
+    value:WatchListItemProp[]
   }
 }
 
