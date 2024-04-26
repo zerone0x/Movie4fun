@@ -1,11 +1,8 @@
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import StarRating from './starRating'
-import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import AddWatchBtn from '../ui/AddWatchBtn'
 import RatingDetail from './RatingDetail'
 import PosterPic from './PosterPic'
 

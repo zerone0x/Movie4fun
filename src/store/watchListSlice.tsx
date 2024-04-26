@@ -41,8 +41,14 @@ const watchListSlice = createSlice({
   },
 })
 
+interface State {
+  watchList:{
+    value:[]
+  }
+}
+
 export const { setWatchList, addWatchList, removeWatchList, reverseWatchList, sortWatchList} =
   watchListSlice.actions
-export const selectWatchList = (state) => state.watchList.value
-export const selectWatchListCount = (state) => state.watchList.value.length
+export const selectWatchList = (state: State) => state.watchList.value
+export const selectWatchListCount = (state: State) => state.watchList.value.length
 export default watchListSlice.reducer

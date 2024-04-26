@@ -14,7 +14,13 @@ const querySlice = createSlice({
   },
 })
 
+interface State {
+  query:{
+    value:string
+  }
+}
+
 export const { setQuery } = querySlice.actions
-export const selectQuery = (state) => state.query.value
+export const selectQuery = (state: State) => state.query.value
 
 export default querySlice.reducer

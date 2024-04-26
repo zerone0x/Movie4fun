@@ -21,7 +21,11 @@ const ratingSlice = createSlice({
     },
   },
 })
-
+interface State {
+  rating:{
+    value:[]
+  }
+}
 export const { setRating } = ratingSlice.actions
-export const selectRating = (state) => state.rating.value
+export const selectRating = (state: State) => state.rating.value
 export default ratingSlice.reducer

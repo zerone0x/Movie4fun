@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useContext, useEffect, useState } from 'react'
+import {  useEffect } from 'react'
 import axios from 'axios'
 import { useSearch } from '../data/getSearchRes'
 import styled from 'styled-components'
@@ -48,12 +48,18 @@ background-color: #F0F0F0;
 padding: 2rem;
 `
 function Search() {
+  interface searchProperty{
+    id: number
+    poster_path: string
+    original_title: string
+    release_date: string
+  }
   const { searchRes, setSearchRes } = useSearch()
   const location = useLocation()
   const searchQuery = new URLSearchParams(location.search).get('query')
   // const query = useSelector(selectQuery)
   // TODO the query could be removed
-
+  
   useEffect(() => {
     async function fetchMovies() {
       try {
@@ -76,11 +82,10 @@ function Search() {
   return (
     <>
       {searchRes && searchRes.length > 0 ? (
-        // <Poster movies={searchRes} />
 <SearchBox>
 <SearchTitle>Search "{searchQuery}"</SearchTitle>
 <SearchRes>
-          {searchRes.slice(0, 10).map((searchItem, index) => (
+          {searchRes.slice(0, 10).map((searchItem:searchProperty, index) => (
             <Link to={`/movie/${searchItem.id}`}>
               <SearchItem>
                 {searchItem.poster_path !== 'N/A' ? (

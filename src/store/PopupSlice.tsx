@@ -24,9 +24,18 @@ const popupSlice = createSlice({
   },
 })
 
+interface State {
+  popup:{
+    isOpen:boolean,
+    selectedMovie: null | string,
+    hoverRate: number
+  }
+
+}
+
 export const { openPopup, closePopup, setHoverRate } = popupSlice.actions
-export const selectIsOpen = (state) => state.popup.isOpen
-export const selectSelectedMovie = (state) => state.popup.selectedMovie
-export const selectHoverRate = (state) => state.popup.hoverRate
+export const selectIsOpen = (state: State) => state.popup.isOpen
+export const selectSelectedMovie = (state: State) => state.popup.selectedMovie
+export const selectHoverRate = (state: State) => state.popup.hoverRate
 
 export default popupSlice.reducer

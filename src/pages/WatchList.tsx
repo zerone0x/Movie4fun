@@ -78,6 +78,16 @@ function WatchList() {
         // handle default case
     }
   };
+
+  interface movieProperty{
+    original_title: string;
+    id: string;
+    genres: {name:string}[];
+    poster_path: string;
+    release_date: string;
+    runtime: number;
+    overview: string;
+  }
   return (
     <WatchPage>
       <WatchHeader>
@@ -101,7 +111,7 @@ function WatchList() {
       {WatchList.length > 0 ? (
         
         <WatchBox>
-          {WatchList.map((movie) => (
+          {WatchList.map((movie:movieProperty) => (
             <WatchItem key={movie.id}>
               <PosterPic movie={movie} height={200} width="130px" />
               <div>

@@ -5,11 +5,6 @@ import {
   selectWatchList,
 } from '../store/watchListSlice'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { useState, useRef, useEffect } from 'react'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
 
 const AddButton = styled.button`
   position: absolute;
@@ -38,7 +33,6 @@ function AddWatchBtn({ movie, size = 30 }) {
   }
 
   return (
-    //   <Card key={index}>
     <AddButton
       onClick={() => handleAddWatchList(movie)}
       isInWatchList={
@@ -48,17 +42,6 @@ function AddWatchBtn({ movie, size = 30 }) {
     >
       {watchList.find((item) => item.id === movie.id) ? '✔️' : '➕'}
     </AddButton>
-    //     <Link to={`/movie/${movie.id}`}>
-    //       <PosterWrapper>
-    //         {movie.poster_path !== 'N/A' ? (
-    //           <PosterItem src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.original_title} />
-    //         ) : (
-    //           <span>No Poster</span>
-    //         )}
-    //       </PosterWrapper>
-    //     </Link>
-
-    //   </Card>
   )
 }
 

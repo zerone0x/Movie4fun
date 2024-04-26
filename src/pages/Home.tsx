@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { MovieContext,  } from '../data/getMovie'
 import {
   selectWatchList,
@@ -26,6 +26,7 @@ const Header = styled.h1`
 
 function Home() {
   const movies = useContext(MovieContext)
+  const movieList = movies.movies
 
   // const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
@@ -34,7 +35,7 @@ function Home() {
     <HomeBox>
       <MovieBox>
         <Header>What to watch</Header>
-        <Poster movies={movies.movies} header="Top Trend" />
+        <Poster movies={movieList} header="Top Trend" />
         {watchList.length > 0 ? (
           <Poster movies={watchList} header="From your Watchlist" />
         ) : (

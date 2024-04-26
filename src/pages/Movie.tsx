@@ -4,14 +4,7 @@ import { useParams } from 'react-router-dom'
 import AddWatchBtn from '../ui/AddWatchBtn'
 import styled from 'styled-components'
 import RatingDetail from '../components/RatingDetail'
-import { useSelector } from 'react-redux'
-import { selectRating } from '../store/ratingSlice'
 
-// TODO:
-// details of the movie
-// genres
-// vote_average
-// imdb_id
 const MovieDetail = styled.div`
   background: linear-gradient(
     to bottom,
@@ -75,16 +68,18 @@ const MovieBody = styled.div`
 display: flex;
 `
 function Movie() {
-  const [movie, setMovie] = useState(null)
+  const [movie, setMovie] = useState<movieProperty | null>(null)
   let { movieId } = useParams()
-  const ratingArr = useSelector(selectRating)
-  let rating = 0
-  ratingArr.forEach((item) => {
-    if(item.id === movieId){
-        rating = item.rate
-    }
-}
-)
+  interface movieProperty {
+    original_title: string;
+    id: string;
+    genres: {name:string}[];
+    poster_path: string;
+    release_date: string;
+    runtime: number;
+    overview: string;
+  }
+
   useEffect(() => {
     const fetchThisMovie = async () => {
       if (!movieId) return
@@ -94,7 +89,7 @@ function Movie() {
             movieId +
             '?language=en-US&api_key=dcd345ec48e9703490f93056cc03c057'
         )
-        const data = response.data
+        const data = response.data 
         setMovie(data)
       } catch (error) {
         console.error('Failed to fetch movie:', error)
@@ -102,6 +97,7 @@ function Movie() {
     }
     fetchThisMovie()
   }, [movieId])
+
 
   return (
     <>
@@ -112,7 +108,7 @@ function Movie() {
             <MovieHeader>
             <GenreList>
               <li>
-                <a href={`https://www.imdb.com/title/${movie.imdb_id}`}>IMDB</a>
+                <a href={`https://www.imdb.com/title/${movie.id}`}>IMDB</a>
               </li>
               {movie.genres.map((genre, index) => (
                 <li key={index}>{genre.name}</li>
