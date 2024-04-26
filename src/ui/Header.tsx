@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux'
-import Button from './Button'
 import { selectWatchListCount } from '../store/watchListSlice'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

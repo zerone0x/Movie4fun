@@ -1,5 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import GetMovie from '../services/GetMovie'
+import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectQuery, setQuery } from '../store/querySlice'
@@ -85,7 +84,7 @@ function SearchBar() {
   const navigate = useNavigate()
   const [suggestions, setSuggestions] = useState([])
   const [isVisible, setIsVisible] = useState(false)
-  const fetchSuggestions = async (query) => {
+  const fetchSuggestions = async (query:string) => {
     if (!query) return
     try {
       const response = await axios.get(
@@ -104,7 +103,7 @@ function SearchBar() {
   const debouncedFetchSuggestions = debounce(fetchSuggestions, 300)
   useEffect(() => {
     debouncedFetchSuggestions(query)
-  }, [query])
+  }, [query, debouncedFetchSuggestions])
 
   function handleSearch(e) {
     dispatch(setQuery(e.target.value))
@@ -131,7 +130,12 @@ function SearchBar() {
   function searchMovie() {
     navigate(`/search?query=${encodeURIComponent(query)}`)
   }
-
+  interface suggestionProperty {
+    id: number
+    poster_path: string
+    original_title: string
+    release_date: string
+  }
   return (
     <SearchBox>
       <SearchInput>
@@ -152,7 +156,7 @@ function SearchBar() {
       </SearchInput>
       {suggestions.length > 0 && isVisible && query && (
         <SearchSuggestion>
-          {suggestions.slice(0, 10).map((suggestion, index) => (
+          {suggestions.slice(0, 10).map((suggestion:suggestionProperty, index) => (
             <Link to={`/movie/${suggestion.id}`}>
               <SearchSuggestionItem>
                 {suggestion.poster_path !== 'N/A' ? (

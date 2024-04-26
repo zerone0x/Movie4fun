@@ -72,7 +72,7 @@ function Movie() {
   let { movieId } = useParams()
   interface movieProperty {
     original_title: string;
-    id: string;
+    id: number;
     genres: {name:string}[];
     poster_path: string;
     release_date: string;

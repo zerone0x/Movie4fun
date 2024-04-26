@@ -11,7 +11,7 @@ const AddButton = styled.button<ButtonProps>`
   top: 0;
   left: 0;
   background-color: ${(props) =>
-    props.isInWatchList ? '#F5C518' : 'rgba(0, 0, 0, 0.7)'};
+    props.isThisInWatchList ? '#F5C518' : 'rgba(0, 0, 0, 0.7)'};
   z-index: 1000;
   color: #fff;
   border: none;
@@ -19,23 +19,29 @@ const AddButton = styled.button<ButtonProps>`
   height: ${(props) => props.size}px;
 `
 interface ButtonProps {
-  isInWatchList: boolean;
+  isThisInWatchList: boolean | undefined;
   size?: number;
 }
 
 interface MovieProperty {
-  id: string;
+  id: number;
 }
 
 interface AddWatchBtnProps {
   movie: MovieProperty;
   size?: number;  
 }
+
+interface WatchListItemProps {
+  id: number;
+}
+
+
 function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
   const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
-  const isThisInWatchList = watchList.find((item) => item.id === movie.id)
-  function handleAddWatchList(movie) {
+  const isThisInWatchList = watchList.find((item:WatchListItemProps) => item.id === movie.id)
+  function handleAddWatchList(movie: MovieProperty) {
     if (isThisInWatchList) {
       dispatch(removeWatchList(movie))
     } else {
@@ -46,12 +52,10 @@ function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
   return (
     <AddButton
       onClick={() => handleAddWatchList(movie)}
-      isInWatchList={
-        isThisInWatchList
-      }
+      isThisInWatchList={isThisInWatchList}
       size={size}
     >
-      {watchList.find((item) => item.id === movie.id) ? '✔️' : '➕'}
+      {isThisInWatchList ? '✔️' : '➕'}
     </AddButton>
   )
 }

@@ -17,7 +17,17 @@ const AverageRate = styled.div`
   display: flex;
   gap: 5px;
 `
-function RatingDetail({movie}) {
+
+interface ratingArrProps {
+    id: number;
+    rate: number;
+}
+interface MovieProps{
+    id: number,
+    vote_average: number
+}
+
+function RatingDetail({movie}: {movie: MovieProps}) {
     const dispatch = useDispatch()
     const ratingArr = useSelector(selectRating)
   return (
@@ -26,7 +36,7 @@ function RatingDetail({movie}) {
         <Star size={20} color="#F5C518" full={true} />{' '}
         {movie.vote_average.toFixed(1)}
     </AverageRate>
-    {ratingArr.map((item) => {
+    {ratingArr.map((item:ratingArrProps) => {
         if (item.id === movie.id) {
         return (
             <AverageRate
@@ -38,16 +48,16 @@ function RatingDetail({movie}) {
             <Star
                 size={20}
                 color="#5799EF"
-                full={item?.rate != 0}
+                full={item?.rate !==0}
             />
 
 
-            {item?.rate != 0 && item.rate}
+            {item?.rate !== 0 && item.rate}
             </AverageRate>
         )
         }
     })}
-    {ratingArr.filter((item) => item.id === movie.id).length ===
+    {ratingArr.filter((item:ratingArrProps) => item.id === movie.id).length ===
         0 && (
         <RatingStar
         onClick={() => {

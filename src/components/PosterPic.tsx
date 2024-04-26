@@ -19,7 +19,7 @@ const Card = styled.div`
 `
 
 interface MovieProperty {
-  id: string;
+  id: number;
   original_title: string;
   poster_path: string;
 

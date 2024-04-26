@@ -24,9 +24,10 @@ const Header = styled.h1`
   margin-bottom: 20px;
 `
 
+
 function Home() {
   const movies = useContext(MovieContext)
-  const movieList = movies.movies
+  const movieList = movies?.movies
 
   // const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)

@@ -13,12 +13,21 @@ const RateBox = styled.div`
   display: flex;
   align-items: center;
 `
-
-function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }) {
+interface ratingArrProps {
+  id: number;
+  rate: number;
+}
+interface StarRatingProps {
+  id: number;
+  maxRating?: number;
+  color?: string;
+  size?: number;
+}
+function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }: StarRatingProps) {
   const ratingArr = useSelector(selectRating)
   let rating = 0
   const dispatch = useDispatch()
-  ratingArr.forEach((item) => {
+  ratingArr.forEach((item: ratingArrProps) => {
     if (item.id === id) {
       rating = item.rate
     }
@@ -48,8 +57,15 @@ function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }) {
     </>
   )
 }
-
-function Star({ onRate, size, onHoverIn, onHoverOut, color, full }) {
+interface StarProps {
+  onRate: () => void;
+  onHoverIn: () => void;
+  onHoverOut: () => void;
+  size: number;
+  color: string;
+  full: boolean;
+}
+function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
   const starStyle = {
     width: `${size}px`,
     height: `${size}px`,

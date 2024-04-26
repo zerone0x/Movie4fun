@@ -20,20 +20,24 @@ background: #f5c518;
   border-radius: 5px;
   background-color: ${(props) => (props.isActive ? '#F5C518' : '#333')};
 
-  // &:hover {
-  //   background-color: grey;}
   padding: 8px 16px;
   font-size: 16px;
   margin-top: 10px;
 
-  &:first-child {
-    position: absolute;
+  
+`
+const CloseBtn = styled.button`
+position: absolute;
     top: 10px;
     right: 10px;
     color: white;
     font-size: 24px;
     border-radius: 50%;
-  }
+    padding: 8px 16px;
+  margin-top: 10px;
+  border: none;
+  outline: none;
+  background-color: #333;
 `
 const ModalBox = styled.div`
   position: fixed;
@@ -80,6 +84,9 @@ interface ratingProp{
   rate: number;
 
 }
+
+
+
 function RatePopup() {
   const dispatch = useDispatch()
   const isOpen = useSelector(selectIsOpen)
@@ -89,7 +96,7 @@ function RatePopup() {
   const ratingArr = useSelector(selectRating)
   let rating = 0
 
-  ratingArr.forEach((item) => {
+  ratingArr.forEach((item: ratingProp) => {
     if (item.id === MovieID) {
       rating = item.rate
     }
@@ -118,7 +125,7 @@ function RatePopup() {
         <>
           <Overlay onClick={() => dispatch(closePopup())} />
           <ModalBox>
-            <Btn onClick={() => dispatch(closePopup())}>X</Btn>
+            <CloseBtn onClick={() => dispatch(closePopup())} >X</CloseBtn>
             <ModalContainer>
               <RateText>RATE THIS</RateText>
               <h2>{selectedMovie.original_title}</h2>
@@ -136,7 +143,7 @@ function RatePopup() {
               >
                 Rate
               </Btn>
-              {rating != 0 && (
+              {rating !== 0 && (
                 <Btn isActive={false} onClick={() => setRate(0)}>
                   Remove Rating
                 </Btn>

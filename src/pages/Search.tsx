@@ -54,7 +54,7 @@ function Search() {
     original_title: string
     release_date: string
   }
-  const { searchRes, setSearchRes } = useSearch()
+  const { searchRes, setSearchRes } = useSearch([])
   const location = useLocation()
   const searchQuery = new URLSearchParams(location.search).get('query')
   // const query = useSelector(selectQuery)

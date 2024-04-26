@@ -137,7 +137,13 @@ function NextArrow(props: ArrowProps) {
 }
 
 interface Movie {
-  [key: string]: any; 
+  original_title: string
+  release_date: string
+  poster_path: string
+  id: number
+  vote_average: number
+  
+
 }
 interface PosterProps {
   movies: Movie[];

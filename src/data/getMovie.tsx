@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const MovieContext = createContext([])
 
-export const MovieProvider = ({ children }) => {
+export const MovieProvider = ({ children }: any) => {
   const [movies, setMovies] = useState([])
 
   useEffect(() => {
@@ -15,13 +15,15 @@ export const MovieProvider = ({ children }) => {
             '&api_key=dcd345ec48e9703490f93056cc03c057'
         )
         const data = await response.data
-        setMovies(data.results)
+        const movie = data.results 
+        setMovies(movie)
       } catch (error) {
         console.error(error)
       }
     }
     fetchMovies()
   }, [])
+
 
   return (
     <MovieContext.Provider value={{ movies }}>{children}</MovieContext.Provider>
