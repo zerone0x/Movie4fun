@@ -22,10 +22,26 @@ const watchListSlice = createSlice({
         (movie) => movie.id !== action.payload.id
       )
     },
+    sortWatchList(state, action) {
+      if (action.payload === 'title') {
+        state.value.sort((a, b) => a.title.localeCompare(b.title))
+      }
+      if (action.payload === 'rating') {
+        state.value.sort((a, b) => b.vote_average - a.vote_average)
+      }
+      if (action.payload === 'release') {
+        state.value.sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
+      }
+    },
+    reverseWatchList(state) {
+      state.value.reverse()
+    },
+
+
   },
 })
 
-export const { setWatchList, addWatchList, removeWatchList } =
+export const { setWatchList, addWatchList, removeWatchList, reverseWatchList, sortWatchList} =
   watchListSlice.actions
 export const selectWatchList = (state) => state.watchList.value
 export const selectWatchListCount = (state) => state.watchList.value.length

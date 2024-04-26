@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import AddWatchBtn from '../ui/AddWatchBtn'
 import RatingDetail from './RatingDetail'
+import PosterPic from './PosterPic'
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
@@ -163,7 +164,7 @@ function Poster({ movies, header = '' }: PosterProps) {
       <StyledSlider {...settings}>
         {movies?.map((movie, index) => (
           <Card key={index}>
-            <AddWatchBtn movie={movie} />
+            {/* <AddWatchBtn movie={movie} />
             <Link to={`/movie/${movie.id}`}>
               <PosterWrapper>
                 {movie.poster_path !== 'N/A' ? (
@@ -175,7 +176,9 @@ function Poster({ movies, header = '' }: PosterProps) {
                   <span>No Poster</span>
                 )}
               </PosterWrapper>
-            </Link>
+            </Link> */}
+            {/* TODO delte above  */}
+            <PosterPic movie={movie}  height={300} width="100%"/>
             <MovieDetail>
               <Title>{movie.original_title}</Title>
               <Year>{movie.release_date}</Year>

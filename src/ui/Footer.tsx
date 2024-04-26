@@ -24,6 +24,7 @@ const FooterBox = styled.div`
   // gap: 1rem;
   background-color: black;
   text-align: center;
+  padding: 1rem;
   // height: 100px;
   // position: fixed;
   // bottom: 0;

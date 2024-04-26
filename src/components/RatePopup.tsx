@@ -114,7 +114,7 @@ function RatePopup() {
               <StarRating
                 id={selectedMovie.id}
                 maxRating={10}
-                color="#128BB5"
+                color="#5799EF"
               />
               <Btn
                 disabled={isBtnDisabled()}

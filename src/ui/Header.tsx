@@ -15,7 +15,7 @@ const TopHeader = styled.div`
   flex-shrink: 0;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  background-color: var(--color-grey-900);
+  background-color:#121212;
   align-items: center;
 `
 const ContentContainer = styled.div`
@@ -34,7 +34,7 @@ const WatchListBtn = styled.button`
   gap: 0.5rem;
   height: 3.5rem;
   padding: 0.5rem 1rem;
-  background-color: var(--color-grey-900);
+  background-color:#121212;
   color: white;
   border: none;
   outline: none;

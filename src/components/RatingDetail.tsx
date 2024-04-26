@@ -37,7 +37,7 @@ function RatingDetail({movie}) {
             >
             <Star
                 size={20}
-                color="#128BB5"
+                color="#5799EF"
                 full={item?.rate != 0}
             />
 
@@ -54,7 +54,7 @@ function RatingDetail({movie}) {
             dispatch(openPopup(movie))
         }}
         >
-        <Star size={20} color="#128BB5" full={false} />
+        <Star size={20} color="#5799EF" full={false} />
         </RatingStar>
     )}
     </RatingBox>
