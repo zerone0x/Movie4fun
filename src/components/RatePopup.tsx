@@ -9,9 +9,8 @@ import {
   selectSelectedMovie,
   setHoverRate,
 } from '../store/PopupSlice'
-import { selectMovie } from '../store/movieSlice'
 
-const Btn = styled.button`
+const Btn = styled.button<ButtonProp>`
 background: #f5c518;
   padding: 0.5rem 1rem;
   color:  ${(props) => (props.isActive ? '#000' : 'white')};
@@ -37,39 +36,50 @@ background: #f5c518;
   }
 `
 const ModalBox = styled.div`
-  position: fixed; /* 固定位置，无论页面如何滚动，弹窗位置固定 */
-  top: 50%; /* 顶部距离视口50% */
-  left: 50%; /* 左侧距离视口50% */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* 使用transform偏移，确保弹窗中心在视口中心 */
-  width: 80%; /* 弹窗宽度为视口宽度的80% */
-  max-width: 400px; /* 弹窗的最大宽度为400px */
-  background-color: #333; /* 背景颜色为深灰色 */
-  padding: 20px; /* 内部填充20px */
-  border-radius: 10px; /* 边角圆滑度为10px */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 设置阴影，模拟浮动效果 */
-  z-index: 1000; /* 高层级，确保覆盖其他内容 */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 `
 const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px; // space between items
+  gap: 10px;
 `
 const Overlay = styled.div`
-  position: fixed; /* 固定位置，覆盖整个视口 */
-  top: 0; /* 顶部对齐 */
-  left: 0; /* 左侧对齐 */
-  width: 100vw; /* 宽度为100%的视口宽度 */
-  height: 100vh; /* 高度为100%的视口高度 */
-  background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
-  z-index: 999; /* 确保在内容之上，但在弹窗下面 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 `
 const RateText = styled.span`
   color: #f5c518;
 `
+interface ButtonProp{
+  isActive: boolean;
+
+}
+interface selectedMovieProp{
+  id: number;
+  original_title: string;
+
+}
+interface ratingProp{
+  id: number;
+  rate: number;
+
+}
 function RatePopup() {
   const dispatch = useDispatch()
   const isOpen = useSelector(selectIsOpen)
@@ -84,7 +94,6 @@ function RatePopup() {
       rating = item.rate
     }
   })
-  console.log(ratingArr)
 
   function setRate(value: number) {
     dispatch(setRating({ rate: value, id: MovieID }))
@@ -101,6 +110,8 @@ function RatePopup() {
       return true
     }
   }
+
+  
   return (
     <>
       {isOpen && selectedMovie ? (

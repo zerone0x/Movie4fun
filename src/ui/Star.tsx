@@ -1,4 +1,9 @@
-function Star({ size, color, full }) {
+interface StarProperty {
+    size: number
+    color: string
+    full: boolean
+    }
+function Star({ size, color, full }: StarProperty) {
   const starStyle = {
     width: `${size}px`,
     height: `${size}px`,

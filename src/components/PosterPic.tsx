@@ -6,7 +6,7 @@ const Poster = styled.img`
   height: 100%;
   object-fit: cover;
 `
-const PosterWrapper = styled.div`
+const PosterWrapper = styled.div<PosterWrapperProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height}px;
   // max-height: ${(props) => props.height}px;
@@ -17,7 +17,26 @@ const Card = styled.div`
   // margin-right: 20px;
   max-width: 200px;
 `
-function PosterPic({movie, height =200, width='100px'}) {
+
+interface MovieProperty {
+  id: string;
+  original_title: string;
+  poster_path: string;
+
+}
+
+interface posterProps{
+  movie: MovieProperty;
+  height?: number;  
+  width?: string;
+}
+
+interface PosterWrapperProps{
+  height: number;
+  width: string;
+}
+
+function PosterPic({movie, height =200, width='100px'}:posterProps) {
   return (
 <Card >
             <AddWatchBtn movie={movie} />

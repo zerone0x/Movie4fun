@@ -6,7 +6,7 @@ import {
 } from '../store/watchListSlice'
 import styled from 'styled-components'
 
-const AddButton = styled.button`
+const AddButton = styled.button<ButtonProps>`
   position: absolute;
   top: 0;
   left: 0;
@@ -18,14 +18,25 @@ const AddButton = styled.button`
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
 `
+interface ButtonProps {
+  isInWatchList: boolean;
+  size?: number;
+}
 
-function AddWatchBtn({ movie, size = 30 }) {
+interface MovieProperty {
+  id: string;
+}
+
+interface AddWatchBtnProps {
+  movie: MovieProperty;
+  size?: number;  
+}
+function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
   const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
-
+  const isThisInWatchList = watchList.find((item) => item.id === movie.id)
   function handleAddWatchList(movie) {
-    const isInWatchList = watchList.find((item) => item.id === movie.id)
-    if (isInWatchList) {
+    if (isThisInWatchList) {
       dispatch(removeWatchList(movie))
     } else {
       dispatch(addWatchList(movie))
@@ -36,7 +47,7 @@ function AddWatchBtn({ movie, size = 30 }) {
     <AddButton
       onClick={() => handleAddWatchList(movie)}
       isInWatchList={
-        watchList.find((item) => item.id === movie.id) !== undefined
+        isThisInWatchList
       }
       size={size}
     >
