@@ -58,6 +58,11 @@ interface WatchListItemProp{
   title: string;
   vote_average: number;
   release_date: string;
+  original_title: string;
+  poster_path: string;
+  overview: string;
+  runtime: number;
+  genres: {name:string}[];
 
 }
 
