@@ -8,9 +8,13 @@ interface MovieType {
   vote_average: number
 }
 interface MovieContextType {
-  movies: MovieType[]
+  movies: MovieType[];
 }
-export const MovieContext = createContext<MovieContextType>([])
+const defaultContextValue: MovieContextType = {
+  movies: []
+};
+
+export const MovieContext = createContext<MovieContextType>(defaultContextValue)
 
 export const MovieProvider = ({ children }: any) => {
   const [movies, setMovies] = useState([])

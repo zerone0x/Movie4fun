@@ -15,6 +15,7 @@
     "@fortawesome/react-fontawesome": "latest",
     "@reduxjs/toolkit": "^2.2.3",
     "@types/lodash": "^4.17.0",
+    "@types/node": "^20.12.7",
     "@types/react-slick": "^0.23.13",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",

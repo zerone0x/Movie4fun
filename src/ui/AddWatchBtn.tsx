@@ -19,7 +19,7 @@ const AddButton = styled.button<ButtonProps>`
   height: ${(props) => props.size}px;
 `
 interface ButtonProps {
-  isThisInWatchList: WatchListItemProp | undefined ;
+  isThisInWatchList: WatchListItemProps | undefined ;
   size?: number;
 }
 
