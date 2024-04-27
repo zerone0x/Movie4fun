@@ -41,7 +41,7 @@ function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }: StarRat
       <RateBox>
         {Array.from({ length: maxRating }).map((_, index) => (
           <Star
-            key={index}
+            key={`star-${index}`}
             onRate={() => dispatch(setHoverRate(index + 1))}
             size={size}
             onHoverIn={() => setHoverRating(index + 1)}

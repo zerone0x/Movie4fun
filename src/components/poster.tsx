@@ -166,7 +166,7 @@ function Poster({ movies, header = '' }: PosterProps) {
       {header !== '' && <SectionTitle>{header} </SectionTitle>}
       <StyledSlider {...settings}>
         {movies?.map((movie, index) => (
-          <Card key={index}>
+          <Card key={`card-${movie.id}`}>
             {/* <AddWatchBtn movie={movie} />
             <Link to={`/movie/${movie.id}`}>
               <PosterWrapper>

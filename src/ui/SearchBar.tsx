@@ -67,7 +67,7 @@ const SearchInput = styled.div`
   border: none;
   outline: none;
 `
-const SearchTxt = styled.input`
+const SearchTxt = styled.input<SearchBarProperty>`
   border-top-left-radius: 5px;
   padding: 0.5rem 1rem;
   border-bottom-left-radius: 5px;
@@ -75,15 +75,19 @@ const SearchTxt = styled.input`
   width: 100%;
   border-right: none;
   @media (max-width: 600px) {
-    display: none;
+    display:${props => props.isExpanded ? 'block' : 'none'};
   }
 `
+interface SearchBarProperty {
+  isExpanded: boolean
+}
 function SearchBar() {
   const dispatch = useDispatch()
   const query = useSelector(selectQuery)
   const navigate = useNavigate()
   const [suggestions, setSuggestions] = useState([])
   const [isVisible, setIsVisible] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
   const fetchSuggestions = async (query:string) => {
     if (!query) return
     try {
@@ -110,6 +114,7 @@ function SearchBar() {
   // it will hide the searchresults when user move pointer to other place  NOTE
   const handleDocumentClick = () => {
     setIsVisible(false)
+    setIsExpanded(false)
   }
 
   useEffect(() => {
@@ -126,7 +131,13 @@ function SearchBar() {
     }
   }
   function searchMovie() {
-    navigate(`/search?query=${encodeURIComponent(query)}`)
+    if (query) {
+      navigate(`/search?query=${encodeURIComponent(query)}`)
+    }else{
+      setIsExpanded(!isExpanded)
+      console.log(isExpanded)
+    }
+    
   }
   interface suggestionProperty {
     id: number
@@ -147,6 +158,7 @@ function SearchBar() {
           onChange={(e) => {
             handleSearch(e)
           }}
+          isExpanded ={isExpanded}
         />
         <SearchButton onClick={searchMovie}>
           <Search />
@@ -155,8 +167,9 @@ function SearchBar() {
       {suggestions.length > 0 && isVisible && query && (
         <SearchSuggestion>
           {suggestions.slice(0, 10).map((suggestion:suggestionProperty, index) => (
-            <Link to={`/movie/${suggestion.id}`}>
-              <SearchSuggestionItem>
+              <div key={`search-suggestion-${suggestion.id}`}>
+                 <Link to={`/movie/${suggestion.id}`}>
+                  <SearchSuggestionItem>
                 {suggestion.poster_path !== 'N/A' ? (
                   <Poster
                     src={`https://image.tmdb.org/t/p/w500${suggestion.poster_path}`}
@@ -165,11 +178,12 @@ function SearchBar() {
                   <span>No Poster</span>
                 )}
                 <SearchSuggestionText>
-                  <span key={index}>{suggestion.original_title}</span>
-                  <span key={index}>{suggestion.release_date}</span>
+                  <span >{suggestion.original_title}</span>
+                  <span>{suggestion.release_date}</span>
                 </SearchSuggestionText>
-              </SearchSuggestionItem>
-            </Link>
+                </SearchSuggestionItem>
+                </Link>
+              </div>
           ))}
         </SearchSuggestion>
       )}

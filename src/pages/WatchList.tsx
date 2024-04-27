@@ -113,7 +113,7 @@ function WatchList() {
         
         <WatchBox>
           {WatchList.map((movie:movieProperty) => (
-            <WatchItem key={movie.id}>
+            <WatchItem key={`watchlist-movie-{movie.id}`}>
               <PosterPic movie={movie} height={200} width="130px" />
               <div>
                 <h4>{movie.original_title}</h4>

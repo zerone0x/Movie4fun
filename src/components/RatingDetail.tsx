@@ -40,7 +40,7 @@ function RatingDetail({movie}: {movie: MovieProps}) {
         if (item.id === movie.id) {
         return (
             <AverageRate
-            key={item.id}
+            key={`rating-${item.id}`}
             onClick={() => {
                 dispatch(openPopup(movie))
             }}

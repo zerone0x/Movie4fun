@@ -84,8 +84,10 @@ function Search() {
 <SearchTitle>Search "{searchQuery}"</SearchTitle>
 <SearchRes>
           {searchRes.slice(0, 10).map((searchItem:searchProperty, index) => (
-            <Link to={`/movie/${searchItem.id}`}>
-              <SearchItem>
+              <div key={`search-item-${searchItem.id}`}>
+                
+                <Link to={`/movie/${searchItem.id}`} >
+                <SearchItem>
                 {searchItem.poster_path !== 'N/A' ? (
                   <Poster
                     src={`https://image.tmdb.org/t/p/w500${searchItem.poster_path}`}
@@ -94,11 +96,13 @@ function Search() {
                   <span>No Poster</span>
                 )}
                 <SearchText>
-                  <Title key={index}>{searchItem.original_title}</Title>
-                  <span key={index}>{searchItem.release_date}</span>
+                  <Title >{searchItem.original_title}</Title>
+                  <span >{searchItem.release_date}</span>
                 </SearchText>
-              </SearchItem>
-            </Link>
+                </SearchItem>
+                </Link>
+               
+              </div>
           ))}
         </SearchRes>
 </SearchBox>

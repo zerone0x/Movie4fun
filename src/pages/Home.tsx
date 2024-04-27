@@ -15,6 +15,7 @@ const HomeBox = styled.div`
 `
 const MovieBox = styled.div`
   max-width: 1200px;
+  // TODO this is a bug for home page dont need accurate width
   margin: 0 auto;
 `
 

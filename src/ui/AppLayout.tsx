@@ -1,8 +1,11 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import styled from 'styled-components'
 import RatePopup from '../components/RatePopup'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setQuery } from '../store/querySlice'
 
 const Main = styled.main`
   background-color: white;
@@ -25,7 +28,15 @@ const Content = styled.div`
   width: 100%;
 `
 
+
 function AppLayout() {
+  const location = useLocation()
+  const dispatch = useDispatch()
+  useEffect (() => {
+    dispatch(setQuery(''))
+  }
+  , [location, dispatch])
+
   return (
     <Main>
       <Header></Header>

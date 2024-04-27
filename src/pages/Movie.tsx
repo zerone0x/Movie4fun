@@ -113,7 +113,7 @@ function Movie() {
                 <a href={`https://www.imdb.com/title/${movie.id}`}>IMDB</a>
               </li>
               {movie.genres.map((genre, index) => (
-                <li key={index}>{genre.name}</li>
+                <li key={`movie-genre-${index}`}>{genre.name}</li>
               ))}
             </GenreList>
             <RatingDetail movie={movie}/>
