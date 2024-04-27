@@ -64,9 +64,7 @@ function Search() {
     async function fetchMovies() {
       try {
         const response = await axios.get(
-          'https://api.themoviedb.org/3/search/movie?query=' +
-            searchQuery +
-            '&api_key=dcd345ec48e9703490f93056cc03c057'
+            `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=${import.meta.env.VITE_API_TMDB}`
         )
         const data = await response.data
         if (data.results) {

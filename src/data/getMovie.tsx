@@ -24,8 +24,7 @@ export const MovieProvider = ({ children }: any) => {
       try {
         // Question axios
         const response = await axios.get(
-          'https://api.themoviedb.org/3/trending/movie/day?language=en-US' +
-            '&api_key=dcd345ec48e9703490f93056cc03c057'
+            `https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=${import.meta.env.VITE_API_TMDB}`
         )
         const data = await response.data
         const movie = data.results 

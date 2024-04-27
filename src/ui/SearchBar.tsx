@@ -88,9 +88,7 @@ function SearchBar() {
     if (!query) return
     try {
       const response = await axios.get(
-        'https://api.themoviedb.org/3/search/movie?query=' +
-          query +
-          '&api_key=dcd345ec48e9703490f93056cc03c057'
+          `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${import.meta.env.VITE_API_TMDB}`
       )
       const data = response.data
       setSuggestions(data.results || [])

@@ -16,6 +16,9 @@ const MovieDetail = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  @media (max-width: 768px) {
+  
+  }
 `
 const MovieBox = styled.div`
   max-width: 1200px;
@@ -86,9 +89,7 @@ function Movie() {
       if (!movieId) return
       try {
         const response = await axios.get(
-          'https://api.themoviedb.org/3/movie/' +
-            movieId +
-            '?language=en-US&api_key=dcd345ec48e9703490f93056cc03c057'
+            `https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=${import.meta.env.VITE_API_TMDB}`
         )
         const data = response.data 
         setMovie(data)
