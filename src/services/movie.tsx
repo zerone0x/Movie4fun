@@ -1,4 +1,3 @@
-import exp from "constants"
 import client from "./client"
 
 export const fetchTrendMovies = async () => {
@@ -6,7 +5,7 @@ export const fetchTrendMovies = async () => {
     return data.results
 }
 
-export const fetchMovieById = async (movieId: number) => {
+export const fetchMovieById = async (movieId: string | undefined) => {
     const {data} = await client.get(`movie/${movieId}`)
     return data
 }
