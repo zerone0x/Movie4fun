@@ -1,11 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectQuery, setQuery } from '../store/querySlice'
 import { debounce } from 'lodash'
-import axios from 'axios'
 import { Search } from 'lucide-react'
 import styled from 'styled-components'
+import { useQuery } from 'react-query'
+import { fetchMovieByQuery } from '../services/movie'
+import Spinner from './Spinner'
 
 const SearchSuggestion = styled.ul`
   position: absolute;
@@ -88,23 +90,22 @@ function SearchBar() {
   const [suggestions, setSuggestions] = useState([])
   const [isVisible, setIsVisible] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
-  const fetchSuggestions = async (query:string) => {
-    if (!query) return
-    try {
-      const response = await axios.get(
-          `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${import.meta.env.VITE_API_TMDB}`
-      )
-      const data = response.data
-      setSuggestions(data.results || [])
-      console.log(data.results)
-    } catch (error) {
-      console.error('Failed to fetch suggestions:', error)
-      setSuggestions([])
-    }
-  }
-  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300)
+
+  const {data: suggestResults, isLoading, isError, error} = useQuery(['search',query], ()=>fetchMovieByQuery(query ? query : ''))
   useEffect(() => {
-    debouncedFetchSuggestions(query)
+    if (suggestResults){
+      setSuggestions(suggestResults || [])
+      console.log(suggestResults)
+    } 
+  }, [setSuggestions, suggestResults])
+
+
+  const debouncedFetchSuggestions = useCallback(debounce((query) => {
+    dispatch(setQuery(query));
+  }, 500), [dispatch]);
+
+  useEffect(() => {
+    if (query)  debouncedFetchSuggestions(query)
   }, [query, debouncedFetchSuggestions])
 
   function handleSearch(e: { target: { value: string } }) {
@@ -112,10 +113,10 @@ function SearchBar() {
     setIsVisible(true)
   }
   // it will hide the searchresults when user move pointer to other place  NOTE
-  const handleDocumentClick = () => {
-    setIsVisible(false)
-    setIsExpanded(false)
-  }
+  const handleDocumentClick = useCallback(() => {
+    setIsVisible(false);
+    setIsExpanded(false);
+  }, []);
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick)
@@ -123,7 +124,7 @@ function SearchBar() {
     return () => {
       document.removeEventListener('click', handleDocumentClick)
     }
-  }, [])
+  }, [handleDocumentClick])
 
   function handleKeyDown(e: { key: string }) {
     if (e.key === 'Enter') {
@@ -142,6 +143,9 @@ function SearchBar() {
   useEffect(() => {
     console.log(isExpanded); // 这里将会在 isExpanded 更新后输出新值
 }, [isExpanded]);
+
+
+if (isError) return <div>Error: {error}</div>
   interface suggestionProperty {
     id: number
     poster_path: string
@@ -169,26 +173,28 @@ function SearchBar() {
       </SearchInput>
       {suggestions.length > 0 && isVisible && query && (
         <SearchSuggestion>
-          {suggestions.slice(0, 10).map((suggestion:suggestionProperty, index) => (
-              <div key={`search-suggestion-${suggestion.id}`}>
-                 <Link to={`/movie/${suggestion.id}`}>
-                  <SearchSuggestionItem>
-                {suggestion.poster_path !== 'N/A' ? (
-                  <Poster
-                    src={`https://image.tmdb.org/t/p/w500${suggestion.poster_path}`}
-                  />
-                ) : (
-                  <span>No Poster</span>
-                )}
-                <SearchSuggestionText>
-                  <span >{suggestion.original_title}</span>
-                  <span>{suggestion.release_date}</span>
-                </SearchSuggestionText>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          suggestions.slice(0, 10).map((suggestion:suggestionProperty, index) => (
+            <div key={`search-suggestion-${suggestion.id}`}>
+              <Link to={`/movie/${suggestion.id}`}>
+                <SearchSuggestionItem>
+                  {suggestion.poster_path !== 'N/A' ? (
+                    <Poster src={`https://image.tmdb.org/t/p/w500${suggestion.poster_path}`} />
+                  ) : (
+                    <span>No Poster</span>
+                  )}
+                  <SearchSuggestionText>
+                    <span>{suggestion.original_title}</span>
+                    <span>{suggestion.release_date}</span>
+                  </SearchSuggestionText>
                 </SearchSuggestionItem>
-                </Link>
-              </div>
-          ))}
-        </SearchSuggestion>
+              </Link>
+            </div>
+          ))
+        )}
+      </SearchSuggestion>
       )}
     </SearchBox>
   )

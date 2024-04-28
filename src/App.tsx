@@ -24,7 +24,6 @@ function App() {
   return (
     <>
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
       <BrowserRouter>
         <SearchProvider>
@@ -44,6 +43,7 @@ function App() {
           </MovieProvider>
         </SearchProvider>
       </BrowserRouter>
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </>
   )

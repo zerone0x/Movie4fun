@@ -4,6 +4,10 @@ import { useParams } from 'react-router-dom'
 import AddWatchBtn from '../ui/AddWatchBtn'
 import styled from 'styled-components'
 import RatingDetail from '../components/RatingDetail'
+import Spinner from '../ui/Spinner'
+import { set } from 'lodash'
+import { useQuery } from 'react-query'
+import { fetchMovieById } from '../services/movie'
 
 const MovieDetail = styled.div`
   background: linear-gradient(
@@ -84,21 +88,14 @@ function Movie() {
     vote_average: number;
   }
 
+  const {data: movieInfo, error, isLoading, isError} = useQuery(['MovieById', movieId], ()=>fetchMovieById(movieId))
   useEffect(() => {
-    const fetchThisMovie = async () => {
-      if (!movieId) return
-      try {
-        const response = await axios.get(
-            `https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=${import.meta.env.VITE_API_TMDB}`
-        )
-        const data = response.data 
-        setMovie(data)
-      } catch (error) {
-        console.error('Failed to fetch movie:', error)
-      }
+    if (movieInfo) {
+      setMovie(movieInfo)
     }
-    fetchThisMovie()
-  }, [movieId])
+  }, [movieInfo])
+  if (isLoading) return <Spinner />
+  if (isError) return <div>Error: {error}</div>
 
 
   return (

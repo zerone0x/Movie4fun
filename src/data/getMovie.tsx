@@ -1,5 +1,4 @@
-import { createContext, useEffect, useState } from 'react'
-import axios from 'axios'
+import { createContext} from 'react'
 import { fetchTrendMovies } from '../services/movie'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'

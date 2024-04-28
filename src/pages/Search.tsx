@@ -3,6 +3,9 @@ import {  useEffect } from 'react'
 import axios from 'axios'
 import { useSearch } from '../data/getSearchRes'
 import styled from 'styled-components'
+import { useQuery } from 'react-query'
+import Spinner from '../ui/Spinner'
+import { fetchMovieByQuery } from '../services/movie'
 const SearchRes = styled.ul`
   background-color: #F0F0F0;
   color: black;
@@ -59,27 +62,17 @@ function Search() {
   const searchQuery = new URLSearchParams(location.search).get('query')
   // const query = useSelector(selectQuery)
   // TODO the query could be removed
-  
+  const {data: searchResults, isLoading, isError, error} = useQuery(['search',searchQuery], ()=>fetchMovieByQuery(searchQuery ? searchQuery : ''))
   useEffect(() => {
-    async function fetchMovies() {
-      try {
-        const response = await axios.get(
-            `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=${import.meta.env.VITE_API_TMDB}`
-        )
-        const data = await response.data
-        if (data.results) {
-          setSearchRes(data.results)
-        }
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    fetchMovies()
-  }, [searchRes, searchQuery, setSearchRes])
-
+    if (searchResults){
+      setSearchRes(searchResults)
+    } 
+  }, [searchResults, setSearchRes])
+  if (isLoading) return <Spinner />
+  if (isError) return <div>Error: {error}</div>
   return (
     <>
-      {searchRes && searchRes.length > 0 ? (
+      {searchRes?.length > 0 ? (
 <SearchBox>
 <SearchTitle>Search "{searchQuery}"</SearchTitle>
 <SearchRes>
@@ -117,7 +110,7 @@ function Search() {
 
 
       ) : (
-        <p>Loading movies...</p>
+        <Spinner />
       )}
     </>
   )
