@@ -1,5 +1,8 @@
 import { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
+import { fetchTrendMovies } from '../services/movie'
+import { useQuery } from 'react-query'
+import Spinner from '../ui/Spinner'
 interface MovieType {
   original_title: string
   release_date: string
@@ -17,25 +20,10 @@ const defaultContextValue: MovieContextType = {
 export const MovieContext = createContext<MovieContextType>(defaultContextValue)
 
 export const MovieProvider = ({ children }: any) => {
-  const [movies, setMovies] = useState([])
-
-  useEffect(() => {
-    async function fetchMovies() {
-      try {
-        // Question axios
-        const response = await axios.get(
-            `https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=${import.meta.env.VITE_API_TMDB}`
-        )
-        const data = await response.data
-        const movie = data.results 
-        setMovies(movie)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    fetchMovies()
-  }, [])
-
+  const {data: movies, error, isLoading, isError} = useQuery('trendMovies', fetchTrendMovies)
+  if (isLoading) return <Spinner />
+  if (isError) return <div>Error: {error}</div>
+  
   
 
   return (

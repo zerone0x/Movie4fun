@@ -131,14 +131,17 @@ function SearchBar() {
     }
   }
   function searchMovie() {
+    
     if (query) {
       navigate(`/search?query=${encodeURIComponent(query)}`)
     }else{
-      setIsExpanded(!isExpanded)
-      console.log(isExpanded)
+      setIsExpanded(prev => !prev)
     }
     
   }
+  useEffect(() => {
+    console.log(isExpanded); // 这里将会在 isExpanded 更新后输出新值
+}, [isExpanded]);
   interface suggestionProperty {
     id: number
     poster_path: string

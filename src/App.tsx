@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import GlobalStyles from './styles/GlobalStyles'
+import { QueryClient, QueryClientProvider } from "react-query";
 import {
   BrowserRouter,
   createBrowserRouter,
@@ -16,10 +16,15 @@ import Top250 from './pages/Top250'
 import { MovieProvider, MovieContext } from './data/getMovie'
 import { SearchProvider } from './data/getSearchRes'
 import Search from './pages/Search'
+import { ReactQueryDevtools } from 'react-query-devtools';
+
+const queryClient = new QueryClient()
 
 function App() {
   return (
     <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
       <BrowserRouter>
         <SearchProvider>
@@ -39,6 +44,7 @@ function App() {
           </MovieProvider>
         </SearchProvider>
       </BrowserRouter>
+      </QueryClientProvider>
     </>
   )
 }
