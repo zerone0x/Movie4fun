@@ -1,5 +1,5 @@
 import { createContext} from 'react'
-import { fetchTrendMovies } from '../services/movie'
+import { fetchTrendMovies } from '../services/fetchDataAPI'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'
 interface MovieType {

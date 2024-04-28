@@ -17,6 +17,7 @@ import { MovieProvider, MovieContext } from './data/getMovie'
 import { SearchProvider } from './data/getSearchRes'
 import Search from './pages/Search'
 import { ReactQueryDevtools } from 'react-query-devtools';
+import { TVProvider } from './data/getTV';
 
 const queryClient = new QueryClient()
 
@@ -27,6 +28,7 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <SearchProvider>
+          <TVProvider>
           <MovieProvider>
             <Routes>
               <Route element={<AppLayout />}>
@@ -41,6 +43,7 @@ function App() {
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </MovieProvider>
+          </TVProvider>
         </SearchProvider>
       </BrowserRouter>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}

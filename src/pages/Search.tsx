@@ -5,7 +5,7 @@ import { useSearch } from '../data/getSearchRes'
 import styled from 'styled-components'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'
-import { fetchMovieByQuery } from '../services/movie'
+import { fetchMovieByQuery } from '../services/fetchDataAPI'
 const SearchRes = styled.ul`
   background-color: #F0F0F0;
   color: black;

@@ -10,6 +10,11 @@ export const fetchMovieById = async (movieId: string | undefined) => {
     return data
 }
 
+export const fetchTVById = async (tvId: string | undefined) => {
+    const {data} = await client.get(`tv/${tvId}`)
+    return data
+}
+
 export const fetchMovieByQuery = async (query: string) => {
     if (!query) return []
     const {data} = await client.get(`search/movie?query=${query}`)

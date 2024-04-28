@@ -6,7 +6,7 @@ import { debounce } from 'lodash'
 import { Search } from 'lucide-react'
 import styled from 'styled-components'
 import { useQuery } from 'react-query'
-import { fetchMovieByQuery } from '../services/movie'
+import { fetchMovieByQuery } from '../services/fetchDataAPI'
 import Spinner from './Spinner'
 
 const SearchSuggestion = styled.ul`

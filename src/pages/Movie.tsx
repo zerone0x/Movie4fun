@@ -7,7 +7,7 @@ import RatingDetail from '../components/RatingDetail'
 import Spinner from '../ui/Spinner'
 import { set } from 'lodash'
 import { useQuery } from 'react-query'
-import { fetchMovieById } from '../services/movie'
+import { fetchMovieById } from '../services/fetchDataAPI'
 
 const MovieDetail = styled.div`
   background: linear-gradient(
@@ -126,7 +126,7 @@ function Movie() {
             </PosterAdd>
             <MovieInfo>
              
-            <p>Release Date: {movie.release_date}</p>
+            <p>Release Date: {movie?.release_date }</p>
             <p>Runtime: {movie.runtime} minutes</p>
               <h3>Overview</h3>
             <p>{movie.overview}</p>
