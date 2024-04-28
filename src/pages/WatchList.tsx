@@ -11,6 +11,7 @@ import PosterPic from '../components/PosterPic'
 import RatingDetail from '../components/RatingDetail'
 import styled from 'styled-components'
 import { ArrowDown, ArrowUp, ChevronDown, ListOrdered, LucideListOrdered, SortAsc } from 'lucide-react'
+import { useState } from 'react'
 const WatchPage = styled.div`
 background: #CECECA;
 color: black;

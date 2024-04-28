@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import RatingDetail from './RatingDetail'
 import PosterPic from './PosterPic'
+import { Link } from 'react-router-dom'
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
@@ -148,8 +149,9 @@ interface Movie {
 interface PosterProps {
   movies: Movie[];
   header: string;
+  link: string;
 }
-function Poster({ movies, header = '' }: PosterProps) {
+function Poster({ movies, header = '', link='' }: PosterProps) {
 
   const settings = {
     dots: true,
@@ -163,7 +165,7 @@ function Poster({ movies, header = '' }: PosterProps) {
 
   return (
     <MovieBox>
-      {header !== '' && <SectionTitle>{header} </SectionTitle>}
+      {header !== '' && (link !==""? (<Link to={link}> <SectionTitle>{header} </SectionTitle></Link>) : (<SectionTitle>{header} </SectionTitle>))}
       <StyledSlider {...settings}>
         {movies?.map((movie, index) => (
           <Card key={`card-${movie.id}`}>
