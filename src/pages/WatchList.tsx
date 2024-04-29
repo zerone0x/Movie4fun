@@ -76,6 +76,12 @@ const WatchSelect = styled.select`
   cursor: pointer;
 `
 
+const WatchItemOverview = styled.p`
+@media (max-width: 768px) {
+  font-size: 1.3rem;
+}
+`
+
 interface WatchListItemProp{
   id: number;
   title: string;
@@ -172,7 +178,7 @@ function WatchList() {
                 <li key={index}>{genre.name}</li>
               ))}</ul> */}
               <RatingDetail movie={movie}/>
-                <p>{movie.overview}</p>
+                <WatchItemOverview>{movie.overview}</WatchItemOverview>
               </div>
             </WatchItem>
           ))}
