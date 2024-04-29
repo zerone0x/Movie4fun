@@ -5,6 +5,7 @@ import {
   selectWatchList,
 } from '../store/watchListSlice'
 import styled from 'styled-components'
+import { memo } from 'react';
 
 const AddButton = styled.button<ButtonProps>`
   position: absolute;
@@ -65,4 +66,4 @@ function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
   )
 }
 
-export default AddWatchBtn
+export default memo(AddWatchBtn)

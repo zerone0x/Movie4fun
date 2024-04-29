@@ -74,19 +74,21 @@ justify-content: space-between;
 const MovieBody = styled.div`
 display: flex;
 `
+interface movieProperty {
+  original_title: string;
+  id: number;
+  genres: {name:string}[];
+  poster_path: string;
+  release_date: string;
+  runtime: number;
+  overview: string;
+  vote_average: number;
+}
+
 function Movie() {
   const [movie, setMovie] = useState<movieProperty | null>(null)
   let { movieId } = useParams()
-  interface movieProperty {
-    original_title: string;
-    id: number;
-    genres: {name:string}[];
-    poster_path: string;
-    release_date: string;
-    runtime: number;
-    overview: string;
-    vote_average: number;
-  }
+
 
   const {data: movieInfo, error, isLoading, isError} = useQuery(['MovieById', movieId], ()=>fetchMovieById(movieId))
   useEffect(() => {
@@ -135,7 +137,7 @@ function Movie() {
           </MovieBox>
         </MovieDetail>
       ) : (
-        <p>Loading movies...</p>
+        <Spinner />
       )}
     </>
   )

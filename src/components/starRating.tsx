@@ -91,4 +91,4 @@ function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
   )
 }
 
-export default StarRating
+export default memo(StarRating)

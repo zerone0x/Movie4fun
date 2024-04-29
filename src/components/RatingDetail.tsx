@@ -3,6 +3,7 @@ import Star from '../ui/Star'
 import styled from "styled-components";
 import { openPopup } from '../store/PopupSlice';
 import { selectRating } from '../store/ratingSlice';
+import { memo } from 'react';
 const RatingStar = styled.div`
   &:hover {
     background-color: grey;
@@ -72,4 +73,4 @@ function RatingDetail({movie}: {movie: MovieProps}) {
   );
 }
 
-export default RatingDetail;
+export default memo(RatingDetail);

@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import RatingDetail from './RatingDetail'
 import PosterPic from './PosterPic'
 import { Link } from 'react-router-dom'
+import { memo, useMemo } from 'react'
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
@@ -85,18 +86,6 @@ const Card = styled.div`
   max-width: 200px;
 `
 
-const PosterWrapper = styled.div`
-  width: 100%;
-  height: 300px;
-  min-height: 200px;
-`
-
-const PosterItem = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`
-
 const Title = styled.h3`
   font-size: 16px;
   margin: 10px 0 5px;
@@ -151,39 +140,30 @@ interface PosterProps {
   header: string;
   link?: string;
 }
+const sliderSettings = (moviesLength: number) => ({
+  dots: true,
+  infinite: moviesLength > 6,
+  speed: 500,
+  slidesToShow: Math.min(6, moviesLength),
+  slidesToScroll: Math.min(6, moviesLength),
+  prevArrow: <PrevArrow className="prev-arrow" onClick={() => {}} />,
+  nextArrow: <NextArrow className="next-arrow" onClick={() => {}} />,
+}
+)
 function Poster({ movies, header = '', link='' }: PosterProps) {
-
-  const settings = {
-    dots: true,
-    infinite: movies?.length > 6,
-    speed: 500,
-    slidesToShow: Math.min(6, movies?.length),
-    slidesToScroll: Math.min(6, movies?.length),
-    prevArrow: <PrevArrow className="prev-arrow" onClick={() => {}} />,
-    nextArrow: <NextArrow className="next-arrow" onClick={() => {}} />,
-  }
+const settings = useMemo(() => sliderSettings(movies?.length), [movies]);
 
   return (
     <MovieBox>
-      {header !== '' && (link !==""? (<Link to={link}> <SectionTitle>{header} </SectionTitle></Link>) : (<SectionTitle>{header} </SectionTitle>))}
+      {header && (
+  <Link to={link || '#'}>
+    <SectionTitle>{header}</SectionTitle>
+  </Link>
+)}
       {movies.length > 0 ? (
          <StyledSlider {...settings}>
         {movies.map((movie, index) => (
           <Card key={`card-${movie.id}`}>
-            {/* <AddWatchBtn movie={movie} />
-            <Link to={`/movie/${movie.id}`}>
-              <PosterWrapper>
-                {movie.poster_path !== 'N/A' ? (
-                  <PosterItem
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.original_title}
-                  />
-                ) : (
-                  <span>No Poster</span>
-                )}
-              </PosterWrapper>
-            </Link> */}
-            {/* TODO delte above  */}
             <PosterPic movie={movie}  height={300} width="100%"/>
             <MovieDetail>
               <Title>{movie.original_title}</Title>
@@ -202,4 +182,4 @@ function Poster({ movies, header = '', link='' }: PosterProps) {
   )
 }
 
-export default Poster
+export default memo(Poster)

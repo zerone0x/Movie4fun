@@ -1,3 +1,5 @@
+import { memo } from "react"
+
 interface StarProperty {
     size: number
     color: string
@@ -25,4 +27,4 @@ function Star({ size, color, full }: StarProperty) {
   )
 }
 
-export default Star
+export default memo(Star)

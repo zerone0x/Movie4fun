@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import styled from 'styled-components'
 
 const FooterCopy = styled.p`
@@ -42,4 +43,4 @@ function Footer() {
   )
 }
 
-export default Footer
+export default memo(Footer)
