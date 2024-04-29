@@ -166,8 +166,9 @@ function Poster({ movies, header = '', link='' }: PosterProps) {
   return (
     <MovieBox>
       {header !== '' && (link !==""? (<Link to={link}> <SectionTitle>{header} </SectionTitle></Link>) : (<SectionTitle>{header} </SectionTitle>))}
-      <StyledSlider {...settings}>
-        {movies?.map((movie, index) => (
+      {movies.length > 0 ? (
+         <StyledSlider {...settings}>
+        {movies.map((movie, index) => (
           <Card key={`card-${movie.id}`}>
             {/* <AddWatchBtn movie={movie} />
             <Link to={`/movie/${movie.id}`}>
@@ -193,6 +194,10 @@ function Poster({ movies, header = '', link='' }: PosterProps) {
           </Card>
         ))}
       </StyledSlider>
+        ) : (
+          <p>Your watchlist is empty.</p>
+        )}
+      
     </MovieBox>
   )
 }

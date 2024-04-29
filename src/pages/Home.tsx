@@ -41,12 +41,8 @@ function Home() {
       <MovieBox>
         <Header>What to watch</Header>
         <Poster movies={movieList} header="Top Trend" />
+        <Poster movies={watchList} header="From your Watchlist" link="/watchlist" />
         {/* <Poster movies={tvList} header="Top TV Shows" /> */}
-        {watchList.length > 0 ? (
-          <Poster movies={watchList} header="From your Watchlist" link="/watchlist" />
-        ) : (
-          <p>Your watchlist is empty.</p>
-        )}
       </MovieBox>
     </HomeBox>
   )

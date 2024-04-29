@@ -8,28 +8,34 @@ import {
   Routes,
 } from 'react-router-dom'
 import AppLayout from './ui/AppLayout'
-import Home from './pages/Home'
-import PageNotFound from './pages/PageNotFound'
-import WatchList from './pages/WatchList'
-import Movie from './pages/Movie'
-import Top250 from './pages/Top250'
 import { MovieProvider, MovieContext } from './data/getMovie'
 import { SearchProvider } from './data/getSearchRes'
-import Search from './pages/Search'
 import { ReactQueryDevtools } from 'react-query-devtools';
 import { TVProvider } from './data/getTV';
+import { Suspense, lazy } from 'react';
+import Spinner from './ui/Spinner';
 
 const queryClient = new QueryClient()
+
+const Home = lazy(() => import('./pages/Home'))
+const WatchList = lazy(() => import('./pages/WatchList'))
+const Movie = lazy(() => import('./pages/Movie'))
+const Top250 = lazy(() => import('./pages/Top250'))
+const Search = lazy(() => import('./pages/Search'))
+const PageNotFound = lazy(() => import('./pages/PageNotFound'))
+
 
 function App() {
   return (
     <>
     <QueryClientProvider client={queryClient}>
       <GlobalStyles />
+      <Suspense fallback={<Spinner/>}>
       <BrowserRouter>
         <SearchProvider>
           <TVProvider>
           <MovieProvider>
+          
             <Routes>
               <Route element={<AppLayout />}>
                 <Route index element={<Navigate replace to="home" />} />
@@ -37,16 +43,19 @@ function App() {
                 <Route path="watchlist" element={<WatchList />} />
                 <Route path="top250" element={<Top250 />} />
                 <Route path="movie/:movieId" element={<Movie />} />
+                {/* <Route path="tv/:tvId" element={<Movie />} /> */}
                 <Route path="search" element={<Search />} />
                 {/* TODO - Add a route for the actor page */}
               </Route>
               <Route path="*" element={<PageNotFound />} />
             </Routes>
+            
           </MovieProvider>
           </TVProvider>
         </SearchProvider>
       </BrowserRouter>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      </Suspense>
       </QueryClientProvider>
     </>
   )
