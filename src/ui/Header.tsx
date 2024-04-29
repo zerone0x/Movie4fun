@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImdb } from '@fortawesome/free-brands-svg-icons'
 import SearchBar from './SearchBar'
 import styled from 'styled-components'
-import { Bookmark, Menu, User } from 'lucide-react'
+import { Bookmark, Menu, User, Video } from 'lucide-react'
 import { useState } from 'react'
 
 const TopHeader = styled.div`
@@ -151,7 +151,8 @@ function Header() {
       <ImdbIcon >
       <Link to="/">
           
-          <FontAwesomeIcon  icon={faImdb} size="3x" height="1.5rem" />
+          {/* <FontAwesomeIcon  icon={faImdb} size="3x" height="1.5rem" /> */}
+          <Video />
           
         </Link></ImdbIcon>
         <WatchListBtn className="imdb-icon"  >
