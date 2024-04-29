@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import AddWatchBtn from "../ui/AddWatchBtn";
-import { Link } from "react-router-dom";
-import { memo, useMemo } from "react";
+import styled from 'styled-components'
+import AddWatchBtn from '../ui/AddWatchBtn'
+import { Link } from 'react-router-dom'
+import { memo, useMemo } from 'react'
 const Poster = styled.img`
   width: 100%;
   height: 100%;
@@ -20,35 +20,33 @@ const Card = styled.div`
 `
 
 interface MovieProperty {
-  id: number;
-  original_title: string;
-  poster_path: string;
-
+  id: number
+  original_title: string
+  poster_path: string
 }
 
-interface posterProps{
-  movie: MovieProperty;
-  height?: number;  
-  width?: string;
+interface posterProps {
+  movie: MovieProperty
+  height?: number
+  width?: string
 }
 
-interface PosterWrapperProps{
-  height: number;
-  width: string;
+interface PosterWrapperProps {
+  height: number
+  width: string
 }
 
-function PosterPic({movie, height =200, width='100px'}:posterProps) {
+function PosterPic({ movie, height = 200, width = '100px' }: posterProps) {
   return (
     <Card>
       <AddWatchBtn movie={movie} />
       <Link to={`/movie/${movie.id}`}>
-              <PosterWrapper height={height} width={width} >
-                {movie.poster_path !== 'N/A' ? (
-                  <Poster
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.original_title}
-                    loading="lazy"
-              
+        <PosterWrapper height={height} width={width}>
+          {movie.poster_path !== 'N/A' ? (
+            <Poster
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={movie.original_title}
+              loading="lazy"
             />
           ) : (
             <span>No Poster</span>
@@ -56,7 +54,7 @@ function PosterPic({movie, height =200, width='100px'}:posterProps) {
         </PosterWrapper>
       </Link>
     </Card>
-  );
+  )
 }
 
-export default PosterPic;
+export default PosterPic

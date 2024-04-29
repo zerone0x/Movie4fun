@@ -11,9 +11,9 @@ import {
 } from '../store/PopupSlice'
 
 const Btn = styled.button<ButtonProp>`
-background: #f5c518;
+  background: #f5c518;
   padding: 0.5rem 1rem;
-  color:  ${(props) => (props.isActive ? '#000' : 'white')};
+  color: ${(props) => (props.isActive ? '#000' : 'white')};
   font-size: 1rem;
   border: none;
   outline: none;
@@ -23,17 +23,15 @@ background: #f5c518;
   padding: 8px 16px;
   font-size: 16px;
   margin-top: 10px;
-
-  
 `
 const CloseBtn = styled.button`
-position: absolute;
-    top: 10px;
-    right: 10px;
-    color: white;
-    font-size: 24px;
-    border-radius: 50%;
-    padding: 8px 16px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  padding: 8px 16px;
   margin-top: 10px;
   border: none;
   outline: none;
@@ -70,17 +68,13 @@ const Overlay = styled.div`
 const RateText = styled.span`
   color: #f5c518;
 `
-interface ButtonProp{
-  isActive: boolean;
-
+interface ButtonProp {
+  isActive: boolean
 }
-interface ratingProp{
-  id: number;
-  rate: number;
-
+interface ratingProp {
+  id: number
+  rate: number
 }
-
-
 
 function RatePopup() {
   const dispatch = useDispatch()
@@ -113,14 +107,13 @@ function RatePopup() {
     }
   }
 
-  
   return (
     <>
       {isOpen && selectedMovie ? (
         <>
           <Overlay onClick={() => dispatch(closePopup())} />
           <ModalBox>
-            <CloseBtn onClick={() => dispatch(closePopup())} >X</CloseBtn>
+            <CloseBtn onClick={() => dispatch(closePopup())}>X</CloseBtn>
             <ModalContainer>
               <RateText>RATE THIS</RateText>
               <h2>{selectedMovie.original_title}</h2>

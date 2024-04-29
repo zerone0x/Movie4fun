@@ -1,10 +1,10 @@
-import { memo } from "react"
+import { memo } from 'react'
 
 interface StarProperty {
-    size: number
-    color: string
-    full: boolean
-    }
+  size: number
+  color: string
+  full: boolean
+}
 function Star({ size, color, full }: StarProperty) {
   const starStyle = {
     width: `${size}px`,
@@ -27,4 +27,4 @@ function Star({ size, color, full }: StarProperty) {
   )
 }
 
-export default (Star)
+export default Star

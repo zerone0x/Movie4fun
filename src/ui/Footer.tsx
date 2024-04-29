@@ -35,10 +35,10 @@ function Footer() {
   return (
     <FooterBox>
       <FooterList>
-        <FooterItem>Help SiteIndex IMDBPro Box</FooterItem>
-        <FooterItem>Office Mojo IMDb Developer Press Room</FooterItem>
+        <FooterItem>Help SiteIndex Movie4Fun Box</FooterItem>
+        <FooterItem>Office Mojo Movie4Fun Developer Press Room</FooterItem>
       </FooterList>
-      <FooterCopy>© 2024 by potato.com, Inc.</FooterCopy>
+      <FooterCopy>© 2024 by Movie4Fun.com</FooterCopy>
     </FooterBox>
   )
 }

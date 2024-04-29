@@ -15,8 +15,8 @@ const querySlice = createSlice({
 })
 
 interface State {
-  query:{
-    value:string
+  query: {
+    value: string
   }
 }
 

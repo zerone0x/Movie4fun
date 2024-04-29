@@ -30,12 +30,11 @@ interface selectedMovieProp {
 }
 
 interface State {
-  popup:{
-    isOpen:boolean,
-    selectedMovie: null | selectedMovieProp,
+  popup: {
+    isOpen: boolean
+    selectedMovie: null | selectedMovieProp
     hoverRate: number
   }
-
 }
 
 export const { openPopup, closePopup, setHoverRate } = popupSlice.actions

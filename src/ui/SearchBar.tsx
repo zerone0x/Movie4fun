@@ -61,7 +61,7 @@ const SearchBox = styled.div`
     width: 100%; // 在小屏幕上使搜索栏宽度为100%
     // z-index: 1; // 提高z-index以覆盖内容容器
   }
-`;
+`
 const SearchInput = styled.div`
   display: flex;
   flex-grow: 1;
@@ -70,11 +70,10 @@ const SearchInput = styled.div`
   border: none;
   outline: none;
   width: 100%;
-  
+
   @media (min-width: 601px) {
     width: 500px;
   }
-
 `
 const SearchTxt = styled.input<SearchBarProperty>`
   border-top-left-radius: 5px;
@@ -86,8 +85,9 @@ const SearchTxt = styled.input<SearchBarProperty>`
   // display: block; /* 默认始终显示，不受isExpanded控制 */
 
   @media (max-width: 600px) {
-    width: ${props => props.isExpanded ? '100%' : '0'}; /* 控制宽度 */
-    visibility: ${props => props.isExpanded ? 'visible' : 'hidden'}; /* 控制可见性 */
+    width: ${(props) => (props.isExpanded ? '100%' : '0')}; /* 控制宽度 */
+    visibility: ${(props) =>
+      props.isExpanded ? 'visible' : 'hidden'}; /* 控制可见性 */
   }
 `
 interface SearchBarProperty {
@@ -107,7 +107,12 @@ interface SearchBarComponentProperty {
   onStatusChange: (onActiveStatus: boolean) => void
 }
 
-function SearchBar({onFocus, onBlur, onActiveStatus, onStatusChange}: SearchBarComponentProperty){
+function SearchBar({
+  onFocus,
+  onBlur,
+  onActiveStatus,
+  onStatusChange,
+}: SearchBarComponentProperty) {
   const dispatch = useDispatch()
   const query = useSelector(selectQuery)
   const navigate = useNavigate()
@@ -115,36 +120,46 @@ function SearchBar({onFocus, onBlur, onActiveStatus, onStatusChange}: SearchBarC
   const [isVisible, setIsVisible] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const {data: suggestResults, isLoading, isError, error} = useQuery(['search',query], ()=>fetchMovieByQuery(query ? query : ''))
+  const {
+    data: suggestResults,
+    isLoading,
+    isError,
+    error,
+  } = useQuery(['search', query], () => fetchMovieByQuery(query ? query : ''))
   useEffect(() => {
-    if (suggestResults){
+    if (suggestResults) {
       setSuggestions(suggestResults || [])
-    } 
+    }
   }, [setSuggestions, suggestResults])
 
-
-  const debouncedFetchSuggestions = useCallback(debounce((query) => {
-    dispatch(setQuery(query));
-  }, 500), [dispatch]);
+  const debouncedFetchSuggestions = useCallback(
+    debounce((query) => {
+      dispatch(setQuery(query))
+    }, 500),
+    [dispatch]
+  )
 
   useEffect(() => {
-    if (query)  debouncedFetchSuggestions(query)
+    if (query) debouncedFetchSuggestions(query)
   }, [query, debouncedFetchSuggestions])
 
   function handleSearch(e: { target: { value: string } }) {
     dispatch(setQuery(e.target.value))
     setIsVisible(true)
   }
-  // REVIEW important to learn later 
+  // REVIEW important to learn later
   // it will hide the searchresults when user move pointer to other place  NOTE
-  const handleDocumentClick = useCallback((event) => {
-    // 确保event不是来源于 input 或 button
-    if (!event.target.closest('#search-container')) {
-      setIsVisible(false);
-      setIsExpanded(false);
-      onBlur()
-    }
-  }, [setIsExpanded, onBlur]);
+  const handleDocumentClick = useCallback(
+    (event) => {
+      // 确保event不是来源于 input 或 button
+      if (!event.target.closest('#search-container')) {
+        setIsVisible(false)
+        setIsExpanded(false)
+        onBlur()
+      }
+    },
+    [setIsExpanded, onBlur]
+  )
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick)
@@ -157,22 +172,21 @@ function SearchBar({onFocus, onBlur, onActiveStatus, onStatusChange}: SearchBarC
   function handleKeyDown(e: { key: string }) {
     if (e.key === 'Enter') {
       searchMovie()
-      setIsVisible(false);
-      setIsExpanded(false);
+      setIsVisible(false)
+      setIsExpanded(false)
       onBlur()
     }
   }
   function searchMovie() {
-    let activeStatus = !onActiveStatus;
-    onStatusChange(activeStatus); 
-    setIsExpanded(prev => !prev)
+    let activeStatus = !onActiveStatus
+    onStatusChange(activeStatus)
+    setIsExpanded((prev) => !prev)
     if (query) {
       navigate(`/search?query=${encodeURIComponent(query)}`)
     }
-    
   }
 
-if (isError) return <div>Error: {error}</div>
+  if (isError) return <div>Error: {error}</div>
 
   return (
     <SearchBox id="search-container">
@@ -187,7 +201,7 @@ if (isError) return <div>Error: {error}</div>
           onChange={(e) => {
             handleSearch(e)
           }}
-          isExpanded ={isExpanded}
+          isExpanded={isExpanded}
         />
         <SearchButton onClick={searchMovie}>
           <Search />
@@ -195,28 +209,32 @@ if (isError) return <div>Error: {error}</div>
       </SearchInput>
       {suggestions.length > 0 && isVisible && query && (
         <SearchSuggestion>
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          suggestions.slice(0, 10).map((suggestion:suggestionProperty, index) => (
-            <div key={`search-suggestion-${suggestion.id}`}>
-              <Link to={`/movie/${suggestion.id}`}>
-                <SearchSuggestionItem>
-                  {suggestion.poster_path !== 'N/A' ? (
-                    <Poster src={`https://image.tmdb.org/t/p/w500${suggestion.poster_path}`} />
-                  ) : (
-                    <span>No Poster</span>
-                  )}
-                  <SearchSuggestionText>
-                    <span>{suggestion.original_title}</span>
-                    <span>{suggestion.release_date}</span>
-                  </SearchSuggestionText>
-                </SearchSuggestionItem>
-              </Link>
-            </div>
-          ))
-        )}
-      </SearchSuggestion>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            suggestions
+              .slice(0, 10)
+              .map((suggestion: suggestionProperty, index) => (
+                <div key={`search-suggestion-${suggestion.id}`}>
+                  <Link to={`/movie/${suggestion.id}`}>
+                    <SearchSuggestionItem>
+                      {suggestion.poster_path !== 'N/A' ? (
+                        <Poster
+                          src={`https://image.tmdb.org/t/p/w500${suggestion.poster_path}`}
+                        />
+                      ) : (
+                        <span>No Poster</span>
+                      )}
+                      <SearchSuggestionText>
+                        <span>{suggestion.original_title}</span>
+                        <span>{suggestion.release_date}</span>
+                      </SearchSuggestionText>
+                    </SearchSuggestionItem>
+                  </Link>
+                </div>
+              ))
+          )}
+        </SearchSuggestion>
       )}
     </SearchBox>
   )

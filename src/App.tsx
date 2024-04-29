@@ -1,5 +1,5 @@
 import GlobalStyles from './styles/GlobalStyles'
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from 'react-query'
 import {
   BrowserRouter,
   createBrowserRouter,
@@ -10,10 +10,10 @@ import {
 import AppLayout from './ui/AppLayout'
 import { MovieProvider, MovieContext } from './data/getMovie'
 import { SearchProvider } from './data/getSearchRes'
-import { ReactQueryDevtools } from 'react-query-devtools';
-import { TVProvider } from './data/getTV';
-import { Suspense, lazy } from 'react';
-import Spinner from './ui/Spinner';
+import { ReactQueryDevtools } from 'react-query-devtools'
+import { TVProvider } from './data/getTV'
+import { Suspense, lazy } from 'react'
+import Spinner from './ui/Spinner'
 
 const queryClient = new QueryClient()
 
@@ -24,38 +24,35 @@ const Top250 = lazy(() => import('./pages/Top250'))
 const Search = lazy(() => import('./pages/Search'))
 const PageNotFound = lazy(() => import('./pages/PageNotFound'))
 
-
 function App() {
   return (
     <>
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyles />
-      <Suspense fallback={<Spinner/>}>
-      <BrowserRouter>
-        <SearchProvider>
-          <TVProvider>
-          <MovieProvider>
-          
-            <Routes>
-              <Route element={<AppLayout />}>
-                <Route index element={<Navigate replace to="home" />} />
-                <Route path="home" element={<Home />} />
-                <Route path="watchlist" element={<WatchList />} />
-                <Route path="top250" element={<Top250 />} />
-                <Route path="movie/:movieId" element={<Movie />} />
-                {/* <Route path="tv/:tvId" element={<Movie />} /> */}
-                <Route path="search" element={<Search />} />
-                {/* TODO - Add a route for the actor page */}
-              </Route>
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
-            
-          </MovieProvider>
-          </TVProvider>
-        </SearchProvider>
-      </BrowserRouter>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-      </Suspense>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyles />
+        <Suspense fallback={<Spinner />}>
+          <BrowserRouter>
+            <SearchProvider>
+              <TVProvider>
+                <MovieProvider>
+                  <Routes>
+                    <Route element={<AppLayout />}>
+                      <Route index element={<Navigate replace to="home" />} />
+                      <Route path="home" element={<Home />} />
+                      <Route path="watchlist" element={<WatchList />} />
+                      <Route path="top250" element={<Top250 />} />
+                      <Route path="movie/:movieId" element={<Movie />} />
+                      {/* <Route path="tv/:tvId" element={<Movie />} /> */}
+                      <Route path="search" element={<Search />} />
+                      {/* TODO - Add a route for the actor page */}
+                    </Route>
+                    <Route path="*" element={<PageNotFound />} />
+                  </Routes>
+                </MovieProvider>
+              </TVProvider>
+            </SearchProvider>
+          </BrowserRouter>
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        </Suspense>
       </QueryClientProvider>
     </>
   )

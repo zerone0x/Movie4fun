@@ -5,13 +5,14 @@ import {
   selectWatchList,
 } from '../store/watchListSlice'
 import styled from 'styled-components'
-import { memo } from 'react';
+import { memo } from 'react'
 
 const AddButton = styled.button<ButtonProps>`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: ${(props) => (props['data-isthisinwatchlist'] === 'true' ? '#f5c518' : '#333')};
+  background-color: ${(props) =>
+    props['data-isthisinwatchlist'] === 'true' ? '#f5c518' : '#333'};
   z-index: 1000;
   color: #fff;
   border: none;
@@ -19,34 +20,35 @@ const AddButton = styled.button<ButtonProps>`
   height: ${(props) => props.size}px;
 `
 interface ButtonProps {
-  'data-isthisinwatchlist': string;
-  size?: number;
+  'data-isthisinwatchlist': string
+  size?: number
 }
 
 interface MovieProperty {
-  id: number;
+  id: number
 }
 
 interface AddWatchBtnProps {
-  movie: MovieProperty;
-  size?: number;  
+  movie: MovieProperty
+  size?: number
 }
 
 interface WatchListItemProps {
-  id: number;
-  original_title: string;
-  poster_path: string;
-  genres: { name: string }[];
-  overview: string;
-  runtime: number;
+  id: number
+  original_title: string
+  poster_path: string
+  genres: { name: string }[]
+  overview: string
+  runtime: number
 }
-
 
 function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
   const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
-  let isThisInWatchList = watchList.some((item:WatchListItemProps) => item.id === movie.id)
-  
+  let isThisInWatchList = watchList.some(
+    (item: WatchListItemProps) => item.id === movie.id
+  )
+
   function handleAddWatchList(movie: MovieProperty) {
     if (isThisInWatchList) {
       dispatch(removeWatchList(movie))
@@ -66,4 +68,4 @@ function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
   )
 }
 
-export default (AddWatchBtn)
+export default AddWatchBtn

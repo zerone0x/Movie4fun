@@ -1,28 +1,27 @@
 import { Link, useLocation } from 'react-router-dom'
-import {  useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSearch } from '../data/getSearchRes'
 import styled from 'styled-components'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'
 import { fetchMovieByQuery } from '../services/fetchDataAPI'
 const SearchRes = styled.ul`
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   color: black;
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 3rem;
-  height: 100%;  
-  box-sizing: border-box;  
-
+  height: 100%;
+  box-sizing: border-box;
 `
 
 const SearchBox = styled.div`
-color: black;
-display: flex;
-gap: 1rem;
-flex-direction: column;
-height: 100vh
+  color: black;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  height: 100vh;
 `
 const Poster = styled.img`
   max-width: 60px;
@@ -33,27 +32,25 @@ const SearchItem = styled.li`
   gap: 1rem;
   padding: 0.5rem;
   border-radius: 5px;
-
 `
 const SearchText = styled.div`
   display: flex;
   flex-direction: column;
 `
 const Title = styled.h4`
-&:hover {
-  color: grey;
-  cursor: pointer;
-}
+  &:hover {
+    color: grey;
+    cursor: pointer;
+  }
 `
 const SearchTitle = styled.h1`
-background-color: #F0F0F0;
-padding: 2rem;
-color: black;
-
+  background-color: #f0f0f0;
+  padding: 2rem;
+  color: black;
 `
 
 function Search() {
-  interface searchProperty{
+  interface searchProperty {
     id: number
     poster_path: string
     original_title: string
@@ -64,44 +61,48 @@ function Search() {
   const searchQuery = new URLSearchParams(location.search).get('query')
   // const query = useSelector(selectQuery)
   // TODO the query could be removed
-  const {data: searchResults, isLoading, isError, error} = useQuery(['search',searchQuery], ()=>fetchMovieByQuery(searchQuery ? searchQuery : ''))
+  const {
+    data: searchResults,
+    isLoading,
+    isError,
+    error,
+  } = useQuery(['search', searchQuery], () =>
+    fetchMovieByQuery(searchQuery ? searchQuery : '')
+  )
   useEffect(() => {
-    if (searchResults){
+    if (searchResults) {
       setSearchRes(searchResults)
-    } 
+    }
   }, [searchResults, setSearchRes])
   if (isLoading) return <Spinner />
   if (isError) return <div>Error: {error}</div>
   return (
     <>
-   
-<SearchTitle>Search "{searchQuery}"</SearchTitle>
+      <SearchTitle>Search "{searchQuery}"</SearchTitle>
       {searchRes?.length > 0 ? (
- <SearchBox>
-<SearchRes>
-          {searchRes.slice(0, 10).map((searchItem:searchProperty, index) => (
+        <SearchBox>
+          <SearchRes>
+            {searchRes.slice(0, 10).map((searchItem: searchProperty, index) => (
               <div key={`search-item-${searchItem.id}`}>
-                
-                <Link to={`/movie/${searchItem.id}`} >
-                <SearchItem>
-                {searchItem.poster_path !== 'N/A' ? (
-                  <Poster
-                    src={`https://image.tmdb.org/t/p/w500${searchItem.poster_path}`}
-                  />
-                ) : (
-                  <span>No Poster</span>
-                )}
-                <SearchText>
-                  <Title >{searchItem.original_title}</Title>
-                  <span >{searchItem.release_date}</span>
-                </SearchText>
-                </SearchItem>
+                <Link to={`/movie/${searchItem.id}`}>
+                  <SearchItem>
+                    {searchItem.poster_path !== 'N/A' ? (
+                      <Poster
+                        src={`https://image.tmdb.org/t/p/w500${searchItem.poster_path}`}
+                      />
+                    ) : (
+                      <span>No Poster</span>
+                    )}
+                    <SearchText>
+                      <Title>{searchItem.original_title}</Title>
+                      <span>{searchItem.release_date}</span>
+                    </SearchText>
+                  </SearchItem>
                 </Link>
-               
               </div>
-          ))}
-        </SearchRes>
-</SearchBox>
+            ))}
+          </SearchRes>
+        </SearchBox>
       ) : (
         <SearchRes>No search results o(︶︿︶)o</SearchRes>
       )}

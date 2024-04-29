@@ -15,35 +15,34 @@ const TopHeader = styled.div`
   flex-shrink: 0;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  background-color:#121212;
+  background-color: #121212;
   align-items: center;
- 
 `
 const ContentContainer = styled.div`
   display: flex;
   gap: 2.5rem;
   width: 100%;
   align-items: center;
-  
+
   justify-content: center;
   @media (max-width: 768px) {
     justify-content: space-between;
-    gap: 1rem; 
-    padding: 0 1rem;  // 在小屏幕上添加padding以防止内容紧贴边界
+    gap: 1rem;
+    padding: 0 1rem; // 在小屏幕上添加padding以防止内容紧贴边界
   }
-`;
+`
 
 const GroupBtn = styled.div`
-display: flex;
-gap: 2.5rem;
-
+  display: flex;
+  gap: 2.5rem;
 
   @media (max-width: 768px) {
-    justify-content: end; 
-    gap: 1rem;  
-    padding: 0 1rem; 
+    justify-content: end;
+    gap: 1rem;
+    padding: 0 1rem;
     margin-left: auto;
-  }`
+  }
+`
 const WatchListBtn = styled.button`
   display: flex;
   flex-shrink: 0;
@@ -62,16 +61,13 @@ const WatchListBtn = styled.button`
   }
 
   @media (max-width: 768px) {
-    padding: 0.5rem; 
-    font-size: 0.9rem; 
-    .menu-text{
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    .menu-text {
       display: none;
-      
     }
-    
-    
   }
-`;
+`
 const WatchCount = styled.p`
   background-color: #f5c518;
   padding: 0.7rem 1rem;
@@ -85,21 +81,20 @@ const WatchCount = styled.p`
 
   // @media (max-width: 768px) {
   //   display: none;
- 
 
   // }
 `
-const SearchItem =styled.div`
-`
+const SearchItem = styled.div``
 const ImdbIcon = styled.div`
-@media (max-width: 768px) {
-  order: 1;
-}
-
+  @media (max-width: 768px) {
+    order: 1;
+  }
 `
 const ResponsiveHeaderContainer = styled(ContentContainer)<ResponseHeader>`
   @media (max-width: 768px) {
-    ${({ active }) => active && `
+    ${({ active }) =>
+      active &&
+      `
       ${WatchListBtn}, ${ImdbIcon} {
         display: none;
       }
@@ -108,71 +103,66 @@ const ResponsiveHeaderContainer = styled(ContentContainer)<ResponseHeader>`
       }
     `}
   }
-
-`;
+`
 
 const IconGroup = styled.div`
-display: flex;
-gap: 2.5rem;
+  display: flex;
+  gap: 2.5rem;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 768px) {
-    justify-content: start; 
-    gap: 1rem;  
-    padding: 0 1rem;  
+    justify-content: start;
+    gap: 1rem;
+    padding: 0 1rem;
   }
-
 `
 
-
-interface ResponseHeader{
-  active: boolean;
-
+interface ResponseHeader {
+  active: boolean
 }
 function Header() {
   const navigate = useNavigate()
   const watchListCount = useSelector(selectWatchListCount)
-  
+
   const handleClick = () => {
     navigate('/watchlist')
   }
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false)
   const handleSearchFocus = () => {
-    setIsActive(true);
-  };
+    setIsActive(true)
+  }
   const handleSearchBlur = () => {
-    setIsActive(false);
-  };
+    setIsActive(false)
+  }
   return (
     <TopHeader>
       <ResponsiveHeaderContainer active={isActive}>
         <IconGroup>
-      <ImdbIcon >
-      <Link to="/">
-          
-          {/* <FontAwesomeIcon  icon={faImdb} size="3x" height="1.5rem" /> */}
-          <Video />
-          
-        </Link></ImdbIcon>
-        <WatchListBtn className="imdb-icon"  >
-          <Menu />  <span className="menu-text">Menu</span>
-        </WatchListBtn>
+          <ImdbIcon>
+            <Link to="/">
+              {/* <FontAwesomeIcon  icon={faImdb} size="3x" height="1.5rem" /> */}
+              <Video />
+            </Link>
+          </ImdbIcon>
+          <WatchListBtn className="imdb-icon">
+            <Menu /> <span className="menu-text">Menu</span>
+          </WatchListBtn>
         </IconGroup>
 
         <GroupBtn>
-        <SearchItem>
-        <SearchBar 
-        onFocus={handleSearchFocus} 
-        onBlur={handleSearchBlur}
-        onActiveStatus={isActive}
-        onStatusChange={setIsActive}
-        />
-        </SearchItem>
-       
+          <SearchItem>
+            <SearchBar
+              onFocus={handleSearchFocus}
+              onBlur={handleSearchBlur}
+              onActiveStatus={isActive}
+              onStatusChange={setIsActive}
+            />
+          </SearchItem>
+
           <WatchListBtn onClick={handleClick}>
-            <Bookmark /> <span className="menu-text">WatchList</span> 
-             <WatchCount>{watchListCount}</WatchCount>
+            <Bookmark /> <span className="menu-text">WatchList</span>
+            <WatchCount>{watchListCount}</WatchCount>
           </WatchListBtn>
           {/* <User/> */}
         </GroupBtn>

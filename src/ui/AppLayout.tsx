@@ -28,14 +28,12 @@ const Content = styled.div`
   width: 100%;
 `
 
-
 function AppLayout() {
   const location = useLocation()
   const dispatch = useDispatch()
-  useEffect (() => {
+  useEffect(() => {
     dispatch(setQuery(''))
-  }
-  , [location, dispatch])
+  }, [location, dispatch])
 
   return (
     <Main>

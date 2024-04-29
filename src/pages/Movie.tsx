@@ -21,7 +21,7 @@ const MovieDetail = styled.div`
   flex: 1;
   @media (max-width: 768px) {
     padding: 2rem;
-  flex-direction: column;
+    flex-direction: column;
   }
 `
 const MovieBox = styled.div`
@@ -67,47 +67,44 @@ const MovieInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
-
-
 `
 const MovieHeader = styled.div`
-display: flex;
-justify-content: space-between;
-@media (max-width: 768px) {
-  flex-direction: column;
-  gap: 1rem;
-}
-
-
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `
 
 const MovieBody = styled.div`
-display: flex;
-@media (max-width: 768px) {
-  flex-direction: column;
-  gap: 1rem;
-}
-
-
+  display: flex;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `
 interface movieProperty {
-  original_title: string;
-  id: number;
-  genres: {name:string}[];
-  poster_path: string;
-  release_date: string;
-  runtime: number;
-  overview: string;
-  vote_average: number;
+  original_title: string
+  id: number
+  genres: { name: string }[]
+  poster_path: string
+  release_date: string
+  runtime: number
+  overview: string
+  vote_average: number
 }
 
 function Movie() {
   const [movie, setMovie] = useState<movieProperty | null>(null)
   let { movieId } = useParams()
 
-
-  const {data: movieInfo, error, isLoading, isError} = useQuery(['MovieById', movieId], ()=>fetchMovieById(movieId))
+  const {
+    data: movieInfo,
+    error,
+    isLoading,
+    isError,
+  } = useQuery(['MovieById', movieId], () => fetchMovieById(movieId))
   useEffect(() => {
     if (movieInfo) {
       setMovie(movieInfo)
@@ -116,7 +113,6 @@ function Movie() {
   if (isLoading) return <Spinner />
   if (isError) return <div>Error: {error}</div>
 
-
   return (
     <>
       {movie ? (
@@ -124,32 +120,30 @@ function Movie() {
           <MovieBox>
             <h1>{movie.original_title}</h1>
             <MovieHeader>
-            <GenreList>
-              <li>
-                <a href={`https://www.imdb.com/title/${movie.id}`}>IMDB</a>
-              </li>
-              {movie.genres.map((genre, index) => (
-                <li key={`movie-genre-${index}`}>{genre.name}</li>
-              ))}
-            </GenreList>
-            <RatingDetail movie={movie}/>
-</MovieHeader>
-<MovieBody>
-            
-            <PosterAdd>
-              <AddWatchBtn movie={movie} size={40} />
-              <PosterItem
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.original_title}
-              />
-            </PosterAdd>
-            <MovieInfo>
-             
-            <p>Release Date: {movie?.release_date }</p>
-            <p>Runtime: {movie.runtime} minutes</p>
-              <h3>Overview</h3>
-            <p>{movie.overview}</p>
-            </MovieInfo>
+              <GenreList>
+                <li>
+                  <a href={`https://www.imdb.com/title/${movie.id}`}>IMDB</a>
+                </li>
+                {movie.genres.map((genre, index) => (
+                  <li key={`movie-genre-${index}`}>{genre.name}</li>
+                ))}
+              </GenreList>
+              <RatingDetail movie={movie} />
+            </MovieHeader>
+            <MovieBody>
+              <PosterAdd>
+                <AddWatchBtn movie={movie} size={40} />
+                <PosterItem
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.original_title}
+                />
+              </PosterAdd>
+              <MovieInfo>
+                <p>Release Date: {movie?.release_date}</p>
+                <p>Runtime: {movie.runtime} minutes</p>
+                <h3>Overview</h3>
+                <p>{movie.overview}</p>
+              </MovieInfo>
             </MovieBody>
           </MovieBox>
         </MovieDetail>

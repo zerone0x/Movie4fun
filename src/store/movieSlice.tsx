@@ -14,11 +14,11 @@ const movieSlice = createSlice({
   },
 })
 interface State {
-  movie:{
-    value:[]
+  movie: {
+    value: []
   }
 }
 export const { set } = movieSlice.actions
-export const selectMovie = (state:State) => state.movie.value
+export const selectMovie = (state: State) => state.movie.value
 
 export default movieSlice.reducer

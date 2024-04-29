@@ -1,9 +1,5 @@
-
 function useTrendMovie() {
-  return (
-<p>useTrendMovie</p>
-
-  );
+  return <p>useTrendMovie</p>
 }
 
-export default useTrendMovie;
+export default useTrendMovie

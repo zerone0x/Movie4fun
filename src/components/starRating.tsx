@@ -14,16 +14,21 @@ const RateBox = styled.div`
   align-items: center;
 `
 interface ratingArrProps {
-  id: number;
-  rate: number;
+  id: number
+  rate: number
 }
 interface StarRatingProps {
-  id: number;
-  maxRating?: number;
-  color?: string;
-  size?: number;
+  id: number
+  maxRating?: number
+  color?: string
+  size?: number
 }
-function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }: StarRatingProps) {
+function StarRating({
+  id,
+  maxRating = 5,
+  color = '#F5C518',
+  size = 24,
+}: StarRatingProps) {
   const ratingArr = useSelector(selectRating)
   let rating = 0
   const dispatch = useDispatch()
@@ -38,9 +43,7 @@ function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }: StarRat
 
   return (
     <>
-   
       <RateBox>
-      
         {Array.from({ length: maxRating }).map((_, index) => (
           <Star
             key={`star-${index}`}
@@ -52,7 +55,7 @@ function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }: StarRat
             full={index + 1 <= (HoverRate || CacheRate || rating)}
           />
         ))}
-         <TextStyle color={color}>
+        <TextStyle color={color}>
           {HoverRate ? HoverRate : CacheRate || rating || '?'}
         </TextStyle>
       </RateBox>
@@ -60,12 +63,12 @@ function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }: StarRat
   )
 }
 interface StarProps {
-  onRate: () => void;
-  onHoverIn: () => void;
-  onHoverOut: () => void;
-  size: number;
-  color: string;
-  full: boolean;
+  onRate: () => void
+  onHoverIn: () => void
+  onHoverOut: () => void
+  size: number
+  color: string
+  full: boolean
 }
 function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
   const starStyle = {
@@ -93,4 +96,4 @@ function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
   )
 }
 
-export default (StarRating)
+export default StarRating

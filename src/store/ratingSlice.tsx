@@ -8,7 +8,7 @@ const ratingSlice = createSlice({
   name: 'rating',
   initialState,
   reducers: {
-    setRating(state:RatingReduceProp, action) {
+    setRating(state: RatingReduceProp, action) {
       const { rate, id } = action.payload
       const index = state.value.findIndex((item) => item.id === id)
       if (index !== -1) {
@@ -30,8 +30,8 @@ interface RatingProp {
   id: number
 }
 interface State {
-  rating:{
-    value:RatingProp[]
+  rating: {
+    value: RatingProp[]
   }
 }
 export const { setRating } = ratingSlice.actions

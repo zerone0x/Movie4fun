@@ -132,13 +132,11 @@ interface Movie {
   poster_path: string
   id: number
   vote_average: number
-  
-
 }
 interface PosterProps {
-  movies: Movie[];
-  header: string;
-  link?: string;
+  movies: Movie[]
+  header: string
+  link?: string
 }
 const sliderSettings = (moviesLength: number) => ({
   dots: true,
@@ -148,36 +146,34 @@ const sliderSettings = (moviesLength: number) => ({
   slidesToScroll: Math.min(6, moviesLength),
   prevArrow: <PrevArrow className="prev-arrow" onClick={() => {}} />,
   nextArrow: <NextArrow className="next-arrow" onClick={() => {}} />,
-}
-)
-function Poster({ movies, header = '', link='' }: PosterProps) {
-const settings = useMemo(() => sliderSettings(movies?.length), [movies]);
+})
+function Poster({ movies, header = '', link = '' }: PosterProps) {
+  const settings = useMemo(() => sliderSettings(movies?.length), [movies])
 
   return (
     <MovieBox>
       {header && (
-  <Link to={link || '#'}>
-    <SectionTitle>{header}</SectionTitle>
-  </Link>
-)}
+        <Link to={link || '#'}>
+          <SectionTitle>{header}</SectionTitle>
+        </Link>
+      )}
       {movies.length > 0 ? (
-         <StyledSlider {...settings}>
-        {movies.map((movie, index) => (
-          <Card key={`card-${movie.id}`}>
-            <PosterPic movie={movie}  height={300} width="100%"/>
-            <MovieDetail>
-              <Title>{movie.original_title}</Title>
-              <Year>{movie.release_date}</Year>
-              <RatingDetail movie={movie}/>
-              {/* <StarRating id={movie.id} /> */}
-            </MovieDetail>
-          </Card>
-        ))}
-      </StyledSlider>
-        ) : (
-          <p>Your watchlist is empty.</p>
-        )}
-      
+        <StyledSlider {...settings}>
+          {movies.map((movie, index) => (
+            <Card key={`card-${movie.id}`}>
+              <PosterPic movie={movie} height={300} width="100%" />
+              <MovieDetail>
+                <Title>{movie.original_title}</Title>
+                <Year>{movie.release_date}</Year>
+                <RatingDetail movie={movie} />
+                {/* <StarRating id={movie.id} /> */}
+              </MovieDetail>
+            </Card>
+          ))}
+        </StyledSlider>
+      ) : (
+        <p>Your watchlist is empty.</p>
+      )}
     </MovieBox>
   )
 }
