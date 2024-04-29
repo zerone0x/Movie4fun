@@ -14,15 +14,16 @@ import RatingDetail from '../components/RatingDetail'
 import styled from 'styled-components'
 import { ArrowDown, ArrowUp} from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai"; 
-import { IconContext } from "react-icons"; 
-import ReactPaginate from 'react-paginate';
 import PageSplit from '../components/PageSplit'
 const WatchPage = styled.div`
 background: #CECECA;
 color: black;
 padding: 1rem 15rem;
 min-height: 100vh;
+
+@media (max-width: 768px) {
+  padding: 0.5rem 0;
+}
 `
 const WatchBox = styled.ul`
 color: black;
@@ -31,7 +32,8 @@ flex-direction: column;
 flex:0;
 margin: 0 auto;
 min-height: 100vh;
-// max-width: 1200px;
+max-width: 1200px;
+  width: 80%
 gap: 1rem;
 background: white;
 `
@@ -42,9 +44,15 @@ gap: 1rem;
 border-bottom: 1px solid #f5c518;
 `
 const WatchHeader = styled.div`
-display: flex;
-justify-content: space-between;
-`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }`
 const Btn = styled.button`
 border: none;
 background: none;
@@ -59,8 +67,13 @@ display: flex;
 align-items: center;
 gap: 1rem;
 `
+
 const WatchSelect = styled.select`
-padding-left: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
 `
 
 interface WatchListItemProp{
@@ -123,6 +136,7 @@ function WatchList() {
     overview: string;
     vote_average: number;
   }
+  console.log(WatchList[0])
   return (
     <WatchPage>
       <WatchHeader>

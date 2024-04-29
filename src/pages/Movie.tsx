@@ -5,7 +5,6 @@ import AddWatchBtn from '../ui/AddWatchBtn'
 import styled from 'styled-components'
 import RatingDetail from '../components/RatingDetail'
 import Spinner from '../ui/Spinner'
-import { set } from 'lodash'
 import { useQuery } from 'react-query'
 import { fetchMovieById } from '../services/fetchDataAPI'
 
@@ -21,7 +20,8 @@ const MovieDetail = styled.div`
   flex-direction: column;
   flex: 1;
   @media (max-width: 768px) {
-  
+    padding: 2rem;
+  flex-direction: column;
   }
 `
 const MovieBox = styled.div`
@@ -34,6 +34,10 @@ const PosterAdd = styled.div`
 const PosterItem = styled.img`
   min-width: 300px;
   min-height: 400px;
+  @media (max-width: 768px) {
+    max-width: 90%;
+    max-height: 90%;
+  }
 `
 const GenreList = styled.ul`
   display: flex;
@@ -65,14 +69,27 @@ const MovieInfo = styled.div`
   gap: 1rem;
 
 
+
 `
 const MovieHeader = styled.div`
 display: flex;
 justify-content: space-between;
+@media (max-width: 768px) {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
 `
 
 const MovieBody = styled.div`
 display: flex;
+@media (max-width: 768px) {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
 `
 interface movieProperty {
   original_title: string;
