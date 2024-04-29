@@ -22,14 +22,13 @@ const TopHeader = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   gap: 2.5rem;
-  // max-width: 1200px;
   width: 100%;
   align-items: center;
+  
   justify-content: center;
-
   @media (max-width: 768px) {
-    justify-content: space-between;  // 在小屏幕上分散元素以填充更多空间
-    gap: 1rem;  // 减少元素之间的间距以节省空间
+    justify-content: space-between;
+    gap: 1rem; 
     padding: 0 1rem;  // 在小屏幕上添加padding以防止内容紧贴边界
   }
 `;
@@ -37,8 +36,7 @@ const ContentContainer = styled.div`
 const GroupBtn = styled.div`
 display: flex;
 gap: 2.5rem;
-  align-items: center;
-  justify-content: center;
+
 
   @media (max-width: 768px) {
     justify-content: end; 

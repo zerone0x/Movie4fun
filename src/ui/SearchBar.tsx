@@ -69,6 +69,12 @@ const SearchInput = styled.div`
   color: black;
   border: none;
   outline: none;
+  width: 100%;
+  
+  @media (min-width: 601px) {
+    width: 500px;
+  }
+
 `
 const SearchTxt = styled.input<SearchBarProperty>`
   border-top-left-radius: 5px;
@@ -81,8 +87,6 @@ const SearchTxt = styled.input<SearchBarProperty>`
 
   @media (max-width: 600px) {
     width: ${props => props.isExpanded ? '100%' : '0'}; /* 控制宽度 */
-    // width: 0
-    // visibility: hidden;
     visibility: ${props => props.isExpanded ? 'visible' : 'hidden'}; /* 控制可见性 */
   }
 `
