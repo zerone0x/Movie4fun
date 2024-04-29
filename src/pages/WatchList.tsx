@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react'
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai"; 
 import { IconContext } from "react-icons"; 
 import ReactPaginate from 'react-paginate';
+import PageSplit from '../components/PageSplit'
 const WatchPage = styled.div`
 background: #CECECA;
 color: black;
@@ -62,30 +63,6 @@ const WatchSelect = styled.select`
 padding-left: 0.5rem;
 `
 
-const PaginationContainer = styled(ReactPaginate)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5%;
-  gap:10px;
-  cursor: pointer;
-  
-
-  .page-item {
-    padding: 10px 13px;
-    border-radius: 40%;
-    &:hover {
-      background: grey;
-      color: black;
-    }
-  }
-
-  .active {
-    background: #f5c518;
-    color: black;
-  }
-`;
-
 interface WatchListItemProp{
   id: number;
   title: string;
@@ -115,10 +92,6 @@ function WatchList() {
     }
   }, [WatchList, currentPage, moviesPerPage]);
   
-  const handlePageClick = (data: { selected: number }) => {
-    dispatch(setCurrentPage(data.selected+1));
-  };
-
 
   const handleSelectChange = (event:  { target: { value: string } }) => {
     const value = event.target.value;
@@ -190,23 +163,7 @@ function WatchList() {
             </WatchItem>
           ))}
         </WatchBox>
-        <PaginationContainer
-        breakLabel="..."
-        pageCount={Math.ceil(WatchList.length / moviesPerPage)}
-        onPageChange={handlePageClick}
-        pageClassName={"page-item"}
-        activeClassName={'active'}
-        previousLabel={
-          <IconContext.Provider value={{ color: "#f5c518", size: "36px" }}>
-            <AiFillLeftCircle />
-          </IconContext.Provider>
-        }
-        nextLabel={
-          <IconContext.Provider value={{ color: "#f5c518", size: "36px" }}>
-            <AiFillRightCircle />
-          </IconContext.Provider>
-        }
-      />
+       <PageSplit movieData={WatchList} moviesPerPage={moviesPerPage}/>
       </>
 
 
