@@ -27,4 +27,4 @@ function Star({ size, color, full }: StarProperty) {
   )
 }
 
-export default memo(Star)
+export default (Star)

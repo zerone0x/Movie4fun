@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import ratingSlice, { selectRating, setRating } from '../store/ratingSlice'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { selectHoverRate, setHoverRate } from '../store/PopupSlice'
 const TextStyle = styled.p`
 font-size: 18px;
-color: ${(props) => props.color}
+color: blue,
 margin:0;`
 
 const RateBox = styled.div`
@@ -38,7 +38,9 @@ function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }: StarRat
 
   return (
     <>
+   
       <RateBox>
+      
         {Array.from({ length: maxRating }).map((_, index) => (
           <Star
             key={`star-${index}`}
@@ -50,8 +52,8 @@ function StarRating({ id, maxRating = 5, color = '#F5C518', size = 24 }: StarRat
             full={index + 1 <= (HoverRate || CacheRate || rating)}
           />
         ))}
-        <TextStyle color={color}>
-          {HoverRate ? HoverRate : CacheRate || rating || ''}
+         <TextStyle color={color}>
+          {HoverRate ? HoverRate : CacheRate || rating || '?'}
         </TextStyle>
       </RateBox>
     </>
@@ -91,4 +93,4 @@ function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
   )
 }
 
-export default memo(StarRating)
+export default (StarRating)

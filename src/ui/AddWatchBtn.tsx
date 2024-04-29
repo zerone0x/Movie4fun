@@ -66,4 +66,4 @@ function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
   )
 }
 
-export default memo(AddWatchBtn)
+export default (AddWatchBtn)

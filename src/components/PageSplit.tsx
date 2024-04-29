@@ -16,7 +16,7 @@ const PaginationContainer = styled(ReactPaginate)`
 
   .page-item {
     padding: 10px 13px;
-    border-radius: 40%;
+    border-radius: 50%;
     &:hover {
       background: grey;
       color: black;
@@ -24,8 +24,8 @@ const PaginationContainer = styled(ReactPaginate)`
   }
 
   .active {
-    background: #f5c518;
-    color: black;
+    color: white;
+    background: black;
   }
 `;
 
