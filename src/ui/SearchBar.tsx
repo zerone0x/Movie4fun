@@ -59,8 +59,7 @@ const SearchBox = styled.div`
 
   @media (max-width: 768px) {
     width: 100%; // 在小屏幕上使搜索栏宽度为100%
-    margin-bottom: 1rem; // 在搜索栏下方添加一些间距
-    z-index: 1; // 提高z-index以覆盖内容容器
+    // z-index: 1; // 提高z-index以覆盖内容容器
   }
 `;
 const SearchInput = styled.div`
@@ -78,7 +77,7 @@ const SearchTxt = styled.input<SearchBarProperty>`
   line-height: 1.75rem;
   width: 100%;
   border-right: none;
-  display: block; /* 默认始终显示，不受isExpanded控制 */
+  // display: block; /* 默认始终显示，不受isExpanded控制 */
 
   @media (max-width: 600px) {
     width: ${props => props.isExpanded ? '100%' : '0'}; /* 控制宽度 */
@@ -96,7 +95,15 @@ interface suggestionProperty {
   original_title: string
   release_date: string
 }
-function SearchBar() {
+
+interface SearchBarComponentProperty {
+  onFocus: () => void
+  onBlur: () => void
+  onActiveStatus: boolean
+  onStatusChange: (onActiveStatus: boolean) => void
+}
+
+function SearchBar({onFocus, onBlur, onActiveStatus, onStatusChange}: SearchBarComponentProperty){
   const dispatch = useDispatch()
   const query = useSelector(selectQuery)
   const navigate = useNavigate()
@@ -131,8 +138,9 @@ function SearchBar() {
     if (!event.target.closest('#search-container')) {
       setIsVisible(false);
       setIsExpanded(false);
+      onBlur()
     }
-  }, []);
+  }, [setIsExpanded, onBlur]);
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick)
@@ -147,9 +155,12 @@ function SearchBar() {
       searchMovie()
       setIsVisible(false);
       setIsExpanded(false);
+      onBlur()
     }
   }
   function searchMovie() {
+    let activeStatus = !onActiveStatus;
+    onStatusChange(activeStatus); 
     setIsExpanded(prev => !prev)
     if (query) {
       navigate(`/search?query=${encodeURIComponent(query)}`)
