@@ -44,6 +44,7 @@ gap: 2.5rem;
     justify-content: end; 
     gap: 1rem;  
     padding: 0 1rem; 
+    margin-left: auto;
   }`
 const WatchListBtn = styled.button`
   display: flex;
@@ -83,9 +84,12 @@ const WatchCount = styled.p`
   margin: 0;
   text-align: center;
   font-weight: 600;
-  @media (max-width: 768px) {
-    display: none;
-  }
+
+  // @media (max-width: 768px) {
+  //   display: none;
+ 
+
+  // }
 `
 const SearchItem =styled.div`
 `
@@ -106,6 +110,7 @@ const ResponsiveHeaderContainer = styled(ContentContainer)<ResponseHeader>`
       }
     `}
   }
+
 `;
 
 const IconGroup = styled.div`
