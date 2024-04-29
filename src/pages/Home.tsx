@@ -13,18 +13,28 @@ const HomeBox = styled.div`
   background: black;
   display: flex;
   flex: 1;
-`
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+`;
+
 const MovieBox = styled.div`
   max-width: 1200px;
-  // TODO this is a bug for home page dont need accurate width
   margin: 0 auto;
-`
+  width: 80%
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
 
 const Header = styled.h1`
   font-size: 3rem;
   color: #f5c518;
   margin-bottom: 20px;
-`
+  @media (max-width: 768px) {
+    font-size: 2rem; 
+  }
+`;
 
 
 function Home() {

@@ -57,10 +57,12 @@ const SearchBox = styled.div`
   position: relative;
   border-radius: 8px;
 
-  &:focus-within {
-    outline: 2px solid #deb522;
+  @media (max-width: 768px) {
+    width: 100%; // 在小屏幕上使搜索栏宽度为100%
+    margin-bottom: 1rem; // 在搜索栏下方添加一些间距
+    z-index: 1; // 提高z-index以覆盖内容容器
   }
-`
+`;
 const SearchInput = styled.div`
   display: flex;
   flex-grow: 1;
@@ -76,12 +78,23 @@ const SearchTxt = styled.input<SearchBarProperty>`
   line-height: 1.75rem;
   width: 100%;
   border-right: none;
+  display: block; /* 默认始终显示，不受isExpanded控制 */
+
   @media (max-width: 600px) {
-    display:${props => props.isExpanded ? 'block' : 'none'};
+    width: ${props => props.isExpanded ? '100%' : '0'}; /* 控制宽度 */
+    // width: 0
+    // visibility: hidden;
+    visibility: ${props => props.isExpanded ? 'visible' : 'hidden'}; /* 控制可见性 */
   }
 `
 interface SearchBarProperty {
   isExpanded: boolean
+}
+interface suggestionProperty {
+  id: number
+  poster_path: string
+  original_title: string
+  release_date: string
 }
 function SearchBar() {
   const dispatch = useDispatch()
@@ -95,7 +108,6 @@ function SearchBar() {
   useEffect(() => {
     if (suggestResults){
       setSuggestions(suggestResults || [])
-      console.log(suggestResults)
     } 
   }, [setSuggestions, suggestResults])
 
@@ -112,10 +124,14 @@ function SearchBar() {
     dispatch(setQuery(e.target.value))
     setIsVisible(true)
   }
+  // REVIEW important to learn later 
   // it will hide the searchresults when user move pointer to other place  NOTE
-  const handleDocumentClick = useCallback(() => {
-    setIsVisible(false);
-    setIsExpanded(false);
+  const handleDocumentClick = useCallback((event) => {
+    // 确保event不是来源于 input 或 button
+    if (!event.target.closest('#search-container')) {
+      setIsVisible(false);
+      setIsExpanded(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -129,31 +145,22 @@ function SearchBar() {
   function handleKeyDown(e: { key: string }) {
     if (e.key === 'Enter') {
       searchMovie()
+      setIsVisible(false);
+      setIsExpanded(false);
     }
   }
   function searchMovie() {
-    
+    setIsExpanded(prev => !prev)
     if (query) {
       navigate(`/search?query=${encodeURIComponent(query)}`)
-    }else{
-      setIsExpanded(prev => !prev)
     }
     
   }
-  useEffect(() => {
-    console.log(isExpanded); // 这里将会在 isExpanded 更新后输出新值
-}, [isExpanded]);
-
 
 if (isError) return <div>Error: {error}</div>
-  interface suggestionProperty {
-    id: number
-    poster_path: string
-    original_title: string
-    release_date: string
-  }
+
   return (
-    <SearchBox>
+    <SearchBox id="search-container">
       <SearchInput>
         <SearchTxt
           type="search"

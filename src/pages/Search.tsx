@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
 import {  useEffect } from 'react'
-import axios from 'axios'
 import { useSearch } from '../data/getSearchRes'
 import styled from 'styled-components'
 import { useQuery } from 'react-query'
@@ -49,7 +48,10 @@ const Title = styled.h4`
 const SearchTitle = styled.h1`
 background-color: #F0F0F0;
 padding: 2rem;
+color: black;
+
 `
+
 function Search() {
   interface searchProperty{
     id: number
@@ -72,9 +74,10 @@ function Search() {
   if (isError) return <div>Error: {error}</div>
   return (
     <>
-      {searchRes?.length > 0 ? (
-<SearchBox>
+   
 <SearchTitle>Search "{searchQuery}"</SearchTitle>
+      {searchRes?.length > 0 ? (
+ <SearchBox>
 <SearchRes>
           {searchRes.slice(0, 10).map((searchItem:searchProperty, index) => (
               <div key={`search-item-${searchItem.id}`}>
@@ -99,18 +102,8 @@ function Search() {
           ))}
         </SearchRes>
 </SearchBox>
-
-
-
-
-
-
-
-
-
-
       ) : (
-        <Spinner />
+        <SearchRes>No search results o(︶︿︶)o</SearchRes>
       )}
     </>
   )
