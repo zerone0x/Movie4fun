@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
 const initialState = {
   value: [],
+  currentPage: 1,
+  moviesPerPage: 10, 
 }
 
 const watchListSlice = createSlice({
@@ -22,6 +25,7 @@ const watchListSlice = createSlice({
         (movie) => movie.id !== action.payload.id
       )
     },
+    // Sort by diff properties of the movie
     sortWatchList(state:ReduceStateWatchProp, action) {
       if (action.payload === 'title') {
         state.value.sort((a, b) => a.title.localeCompare(b.title))
@@ -40,9 +44,23 @@ const watchListSlice = createSlice({
       )
       }
     },
+
     reverseWatchList(state) {
       state.value.reverse()
     },
+
+       // page split 
+       nextPage: (state) => {
+        state.currentPage += 1
+      },
+
+      prevPage: (state) => {
+        state.currentPage -= 1
+      },
+      setCurrentPage:(state, action) => {
+        state.currentPage = action.payload
+      }
+      
 
 
   },
@@ -69,11 +87,14 @@ interface WatchListItemProp{
 interface State {
   watchList:{
     value:WatchListItemProp[]
+    currentPage: number
+    moviesPerPage: number
   }
 }
 
-export const { setWatchList, addWatchList, removeWatchList, reverseWatchList, sortWatchList} =
+export const { nextPage, prevPage, setCurrentPage, setWatchList, addWatchList, removeWatchList, reverseWatchList, sortWatchList} =
   watchListSlice.actions
 export const selectWatchList = (state: State) => state.watchList.value
+export const selectAllWatchList = (state: State) => state.watchList
 export const selectWatchListCount = (state: State) => state.watchList.value.length
 export default watchListSlice.reducer

@@ -5,13 +5,18 @@ import {
   addWatchList,
   removeWatchList,
   sortWatchList,
-  reverseWatchList
+  reverseWatchList,
+  selectAllWatchList,
+  setCurrentPage
 } from '../store/watchListSlice'
 import PosterPic from '../components/PosterPic'
 import RatingDetail from '../components/RatingDetail'
 import styled from 'styled-components'
-import { ArrowDown, ArrowUp, ChevronDown, ListOrdered, LucideListOrdered, SortAsc } from 'lucide-react'
-import { useState } from 'react'
+import { ArrowDown, ArrowUp} from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai"; 
+import { IconContext } from "react-icons"; 
+import ReactPaginate from 'react-paginate';
 const WatchPage = styled.div`
 background: #CECECA;
 color: black;
@@ -24,7 +29,8 @@ display: flex;
 flex-direction: column;
 flex:0;
 margin: 0 auto;
-max-width: 1200px;
+min-height: 100vh;
+// max-width: 1200px;
 gap: 1rem;
 background: white;
 `
@@ -55,11 +61,65 @@ gap: 1rem;
 const WatchSelect = styled.select`
 padding-left: 0.5rem;
 `
-// TODO 分页
-// https://poe.com/s/A4gmdjmhTHYgOFqWBuyZ
+
+const PaginationContainer = styled(ReactPaginate)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  gap:10px;
+  cursor: pointer;
+  
+
+  .page-item {
+    padding: 10px 13px;
+    border-radius: 40%;
+    &:hover {
+      background: grey;
+      color: black;
+    }
+  }
+
+  .active {
+    background: #f5c518;
+    color: black;
+  }
+`;
+
+interface WatchListItemProp{
+  id: number;
+  title: string;
+  vote_average: number;
+  release_date: string;
+  original_title: string;
+  poster_path: string;
+  overview: string;
+  runtime: number;
+  genres: {name:string}[];
+
+}
+
 function WatchList() {
-  const WatchList = useSelector(selectWatchList)
+  const {value:WatchList, currentPage, moviesPerPage} = useSelector(selectAllWatchList)
   const dispatch = useDispatch()
+  const [filterMovies, setFilterMovies] = useState<WatchListItemProp[]>([]);
+  useEffect(() => {
+    const indexOfLastMovie = currentPage * moviesPerPage;
+    const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
+    const currentMovies = WatchList.slice(indexOfFirstMovie, indexOfLastMovie);
+    setFilterMovies(currentMovies);
+  }, [WatchList, currentPage, moviesPerPage]); 
+  useEffect(() => {
+    if (currentPage > 0 && WatchList.length <= currentPage * moviesPerPage) {
+      setCurrentPage(currentPage - 1);
+    }
+  }, [WatchList, currentPage, moviesPerPage]);
+  
+  const handlePageClick = (data: { selected: number }) => {
+    dispatch(setCurrentPage(data.selected+1));
+  };
+
+
   const handleSelectChange = (event:  { target: { value: string } }) => {
     const value = event.target.value;
     switch(value) {
@@ -110,11 +170,11 @@ function WatchList() {
       </WatchSort>
       </WatchHeader>
      
-      {WatchList.length > 0 ? (
-        
+      {filterMovies.length > 0 ? (
+        <>
         <WatchBox>
-          {WatchList.map((movie:movieProperty) => (
-            <WatchItem key={`watchlist-movie-{movie.id}`}>
+          {filterMovies.map((movie:movieProperty) => (
+            <WatchItem key={`watchlist-movie-${movie.id}`}>
               <PosterPic movie={movie} height={200} width="130px" />
               <div>
                 <h4>{movie.original_title}</h4>
@@ -130,7 +190,24 @@ function WatchList() {
             </WatchItem>
           ))}
         </WatchBox>
-
+        <PaginationContainer
+        breakLabel="..."
+        pageCount={Math.ceil(WatchList.length / moviesPerPage)}
+        onPageChange={handlePageClick}
+        pageClassName={"page-item"}
+        activeClassName={'active'}
+        previousLabel={
+          <IconContext.Provider value={{ color: "#f5c518", size: "36px" }}>
+            <AiFillLeftCircle />
+          </IconContext.Provider>
+        }
+        nextLabel={
+          <IconContext.Provider value={{ color: "#f5c518", size: "36px" }}>
+            <AiFillRightCircle />
+          </IconContext.Provider>
+        }
+      />
+      </>
 
 
       ) : (

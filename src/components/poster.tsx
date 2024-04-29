@@ -149,7 +149,7 @@ interface Movie {
 interface PosterProps {
   movies: Movie[];
   header: string;
-  link: string;
+  link?: string;
 }
 function Poster({ movies, header = '', link='' }: PosterProps) {
 
