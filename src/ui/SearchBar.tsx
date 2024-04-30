@@ -227,7 +227,7 @@ function SearchBar({
                       )}
                       <SearchSuggestionText>
                         <span>{suggestion.original_title}</span>
-                        <span>{suggestion.release_date}</span>
+                        <time>{suggestion.release_date}</time>
                       </SearchSuggestionText>
                     </SearchSuggestionItem>
                   </Link>

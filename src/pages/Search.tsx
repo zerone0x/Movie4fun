@@ -106,7 +106,7 @@ function Search() {
                     )}
                     <SearchText>
                       <Title>{searchItem.original_title}</Title>
-                      <span>{searchItem.release_date}</span>
+                      <time>{searchItem.release_date}</time>
                     </SearchText>
                   </SearchItem>
                 </Link>

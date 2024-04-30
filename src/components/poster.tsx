@@ -94,7 +94,7 @@ const Title = styled.h3`
   text-overflow: ellipsis;
 `
 
-const Year = styled.p`
+const Year = styled.time`
   font-size: 14px;
   color: #888;
   margin-bottom: 10px;

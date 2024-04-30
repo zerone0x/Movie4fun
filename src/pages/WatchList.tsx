@@ -187,7 +187,7 @@ function WatchList() {
                 <PosterPic movie={movie} height={200} width="130px" />
                 <div>
                   <h4>{movie.original_title}</h4>
-                  <span>{movie.release_date}</span>
+                  <time>{movie.release_date}</time>
                   {movie?.runtime && <span> {movie?.runtime}min </span>}
                   {/* <ul>
                 {movie.genres.map((genre, index) => (
