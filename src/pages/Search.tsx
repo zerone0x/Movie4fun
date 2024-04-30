@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'
 import { fetchMovieByQuery } from '../services/fetchDataAPI'
+import { Helmet } from 'react-helmet-async'
 const SearchRes = styled.ul`
   background-color: #f0f0f0;
   color: black;
@@ -78,6 +79,16 @@ function Search() {
   if (isError) return <div>Error: {error}</div>
   return (
     <>
+    <Helmet>
+    <title>Search Results for "{searchQuery}" - movies4fun</title>
+    <meta name="description" content={`Search results for ${searchQuery} on movies4fun.`} />
+    <meta property="og:title" content={`Search Results for "${searchQuery}" - movies4fun`} />
+    <meta property="og:description" content={`Find movies related to ${searchQuery} on movies4fun.`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`https://movie4fun.netlify.app/search?query=${encodeURIComponent(searchQuery)}`} />
+    <meta property="og:image" content="todo" />
+    <meta property="og:site_name" content="movies4fun" />
+  </Helmet>
       <SearchTitle>Search "{searchQuery}"</SearchTitle>
       {searchRes?.length > 0 ? (
         <SearchBox>

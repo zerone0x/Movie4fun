@@ -50,7 +50,7 @@ const ModalBox = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 `
-const ModalContainer = styled.div`
+const ModalContainer = styled.dialog`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,6 +115,7 @@ function RatePopup() {
           <ModalBox>
             <CloseBtn onClick={() => dispatch(closePopup())}>X</CloseBtn>
             <ModalContainer>
+              <form>
               <RateText>RATE THIS</RateText>
               <h2>{selectedMovie.original_title}</h2>
               <StarRating
@@ -136,6 +137,7 @@ function RatePopup() {
                   Remove Rating
                 </Btn>
               )}
+              </form>
             </ModalContainer>
           </ModalBox>
         </>

@@ -47,6 +47,7 @@ function PosterPic({ movie, height = 200, width = '100px' }: posterProps) {
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.original_title}
               loading="lazy"
+              decoding="async"
             />
           ) : (
             <span>No Poster</span>

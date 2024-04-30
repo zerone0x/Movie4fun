@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Poster from '../components/poster'
 import { TVContext } from '../data/getTV'
+import { Helmet } from 'react-helmet-async'
 
 const HomeBox = styled.div`
   padding: 4rem;
@@ -37,13 +38,21 @@ function Home() {
   const movies = useContext(MovieContext)
   const movieList = movies?.movies
   const tvInfo = useContext(TVContext)
-  const tvList = tvInfo?.tvSource
+  // const tvList = tvInfo?.Source
 
   // const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
 
   return (
     <HomeBox>
+      <Helmet>
+        <title>Home - movies4fun</title>
+        <meta property="og:title" content="movies4fun" />
+        <meta property="og:description" content="Browse our top trending movies and TV shows to find your next favorite." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://movie4fun.netlify.app/" />
+        <meta property="og:image" content="http://www.yourwebsite.com/path-to-your-image.jpg" />
+      </Helmet>
       <MovieBox>
         <Header>What to watch</Header>
         <Poster movies={movieList} header="Top Trend" />

@@ -7,6 +7,7 @@ import RatingDetail from '../components/RatingDetail'
 import Spinner from '../ui/Spinner'
 import { useQuery } from 'react-query'
 import { fetchMovieById } from '../services/fetchDataAPI'
+import { Helmet } from 'react-helmet-async'
 
 const MovieDetail = styled.div`
   background: linear-gradient(
@@ -117,6 +118,16 @@ function Movie() {
     <>
       {movie ? (
         <MovieDetail>
+          <Helmet>
+        <title>{movie.original_title} - Movie Details</title>
+        <meta name="description" content={movie.overview} />
+        <meta property="og:title" content={movie.original_title} />
+        <meta property="og:description" content={movie.overview} />
+        <meta property="og:type" content="video.movie" />
+        <meta property="og:url" content={`https://movie4fun.netlify.app/movies/${movie.id}`} />
+        <meta property="og:image" content={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+        <meta property="og:site_name" content="movies4fun" />
+      </Helmet>
           <MovieBox>
             <h1>{movie.original_title}</h1>
             <MovieHeader>
@@ -136,6 +147,8 @@ function Movie() {
                 <PosterItem
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.original_title}
+                  loading="lazy"
+                  decoding="async"
                 />
               </PosterAdd>
               <MovieInfo>

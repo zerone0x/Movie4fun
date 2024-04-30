@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import { ArrowDown, ArrowUp } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import PageSplit from '../components/PageSplit'
+import { Helmet } from 'react-helmet-async'
 const WatchPage = styled.div`
   background: #cececa;
   color: black;
@@ -150,6 +151,16 @@ function WatchList() {
   console.log(WatchList[0])
   return (
     <WatchPage>
+      <Helmet>
+    <title>Your WatchList - movies4fun</title>
+    <meta name="description" content="View your personalized WatchList on movies4fun. Check out your saved movies sorted by your preferences!" />
+    <meta property="og:title" content="Your WatchList - movies4fun" />
+    <meta property="og:description" content="Explore your WatchList and manage your favorite movies on movies4fun." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://movie4fun.netlify.app/watchlist" />
+    <meta property="og:image" content="https://movie4fun.netlify.app/default-watchlist-image.jpg" />
+    <meta property="og:site_name" content="movies4fun" />
+  </Helmet>
       <WatchHeader>
         <h1>Your WatchList</h1>
         <WatchSort>
