@@ -22,23 +22,56 @@ const ContentContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
+  
   @media (max-width: 768px) {
     justify-content: space-between;
     gap: 1rem;
-    // padding: 0 1rem; 
+  flex-grow: 1;
+  //   // padding: 0 1rem; 
   
-  }
+  // }
 `
 
 const GroupBtn = styled.div`
   display: flex;
   gap: 2.5rem;
+  
 
   @media (max-width: 768px) {
     justify-content: end;
     gap: 1rem;
     padding: 0 1rem;
     margin-left: auto;
+  }
+`
+const IconGroup = styled.div`
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    justify-content: start;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+`
+
+const ImdbIcon = styled.button`
+height: 3.5rem;
+padding: 0.5rem 1rem;
+background-color: #121212;
+color: white;
+border: none;
+outline: none;
+outline: none;
+border-radius: 5px;
+&:hover {
+  background-color: grey;
+}
+  @media (max-width: 768px) {
+    order: 1;
+    padding: 0.5rem;
   }
 `
 const WatchListBtn = styled.button`
@@ -82,48 +115,33 @@ const WatchCount = styled.p`
 
   // }
 `
-const SearchItem = styled.div``
-const ImdbIcon = styled.button`
-height: 3.5rem;
-padding: 0.5rem 1rem;
-background-color: #121212;
-color: white;
-border: none;
-outline: none;
-outline: none;
-border-radius: 5px;
-&:hover {
-  background-color: grey;
-}
-  @media (max-width: 768px) {
-    order: 1;
-    padding: 0.5rem;
-  }
-`
-
-
-const IconGroup = styled.div`
+const SearchItem = styled.div`
   display: flex;
-  gap: 2.5rem;
   align-items: center;
-  justify-content: center;
+  gap: 1rem;
+  width: 100%;
 
   @media (max-width: 768px) {
-    justify-content: start;
-    gap: 1rem;
-    padding: 0 1rem;
+    width: 100%;
   }
 `
+
+
+
+
 const ResponsiveHeaderContainer = styled(ContentContainer)<ResponseHeader>`
   @media (max-width: 768px) {
     ${({ active }) =>
       active &&
       `
-      ${WatchListBtn}, ${ImdbIcon}{
+      ${WatchListBtn}, ${ImdbIcon}, ${IconGroup}{
         display: none;
       }
       ${SearchItem} {
         width: 100%;
+      }
+      ${GroupBtn} {
+        flex-grow: 1;
       }
     `}
   }
