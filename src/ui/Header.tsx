@@ -21,12 +21,12 @@ const ContentContainer = styled.div`
   gap: 2.5rem;
   width: 100%;
   align-items: center;
-
   justify-content: center;
   @media (max-width: 768px) {
-    // justify-content: space-between;
+    justify-content: space-between;
     gap: 1rem;
     // padding: 0 1rem; 
+  
   }
 `
 

@@ -81,9 +81,10 @@ const SearchTxt = styled.input<SearchBarProperty>`
   border-bottom-left-radius: 5px;
   line-height: 1.75rem;
   width: 100%;
-  border-right: none;
-    
-
+  border-right-radius: none;
+  border: none;
+  outline: none;  
+  
   @media (max-width: 600px) {
     width: ${(props) => (props.isExpanded ? '100%' : '0')}; 
     visibility: ${(props) =>
