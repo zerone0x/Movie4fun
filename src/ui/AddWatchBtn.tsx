@@ -6,6 +6,7 @@ import {
 } from '../store/watchListSlice'
 import styled from 'styled-components'
 import { memo } from 'react'
+import { BookmarkPlus, Check } from 'lucide-react'
 
 const AddButton = styled.button<ButtonProps>`
   position: absolute;
@@ -63,7 +64,7 @@ function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
       data-isthisinwatchlist={isThisInWatchList.toString()}
       size={size}
     >
-      {isThisInWatchList ? '✔️' : '➕'}
+      {isThisInWatchList ? <Check /> : <BookmarkPlus />}
     </AddButton>
   )
 }

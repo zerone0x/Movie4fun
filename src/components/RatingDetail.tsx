@@ -8,6 +8,10 @@ const RatingStar = styled.div`
   &:hover {
     background-color: grey;
   }
+  @media (min-width: 601px) {
+    background-color: none;
+  }
+
 `
 const RatingBox = styled.div`
   display: flex;

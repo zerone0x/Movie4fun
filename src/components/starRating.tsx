@@ -6,13 +6,16 @@ import styled from 'styled-components'
 import { selectHoverRate, setHoverRate } from '../store/PopupSlice'
 const TextStyle = styled.p`
 font-size: 18px;
-color: blue,
+color: white;
 margin:0;`
 
 const RateBox = styled.div`
   display: flex;
   align-items: center;
 `
+const StarBtn = styled.button`
+  background: none;
+  border: none;`
 interface ratingArrProps {
   id: number
   rate: number
@@ -40,14 +43,25 @@ function StarRating({
 
   const CacheRate = useSelector(selectHoverRate)
   const [HoverRate, setHoverRating] = useState(0)
+  // const StarTxt =  HoverRate ? HoverRate : CacheRate || rating || '?'
+  // const StarSize = StarTxt === '?' ? 24 : 24 + StarTxt
+  function setRate(e: any, index: number) {
+    e.preventDefault()
+    dispatch(setHoverRate(index + 1))
+  }
 
   return (
     <>
+     {/* <TextStyle>
+          {HoverRate ? HoverRate : CacheRate || rating || '?'}
+        </TextStyle> */}
+    {/* <StarSvg size={StarSize} /> */}
       <RateBox>
+        
         {Array.from({ length: maxRating }).map((_, index) => (
           <Star
             key={`star-${index}`}
-            onRate={() => dispatch(setHoverRate(index + 1))}
+            onRate={(e) =>setRate(e, index)}
             size={size}
             onHoverIn={() => setHoverRating(index + 1)}
             onHoverOut={() => setHoverRating(0)}
@@ -55,9 +69,7 @@ function StarRating({
             full={index + 1 <= (HoverRate || CacheRate || rating)}
           />
         ))}
-        <TextStyle color={color}>
-          {HoverRate ? HoverRate : CacheRate || rating || '?'}
-        </TextStyle>
+       
       </RateBox>
     </>
   )
@@ -79,7 +91,7 @@ function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
   }
 
   return (
-    <span
+    <StarBtn
       onClick={onRate}
       onMouseEnter={onHoverIn}
       onMouseLeave={onHoverOut}
@@ -92,8 +104,28 @@ function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
       >
         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
       </svg>
-    </span>
+    </StarBtn>
   )
+}
+
+function StarSvg({ size = 24}) {
+  const starStyle = {
+    width: `${size}px`,
+    height: `${size}px`,
+    display: 'block',
+    cursor: 'pointer',
+  }
+
+  return (
+  
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill={'#5799EF'}
+    style={starStyle}
+  >
+    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+  </svg>)
 }
 
 export default StarRating

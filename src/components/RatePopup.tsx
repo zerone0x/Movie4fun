@@ -9,6 +9,7 @@ import {
   selectSelectedMovie,
   setHoverRate,
 } from '../store/PopupSlice'
+import { X } from 'lucide-react'
 
 const Btn = styled.button<ButtonProp>`
   background: #f5c518;
@@ -37,7 +38,7 @@ const CloseBtn = styled.button`
   outline: none;
   background-color: #333;
 `
-const ModalBox = styled.div`
+const ModalBox = styled.dialog`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -47,14 +48,18 @@ const ModalBox = styled.div`
   background-color: #333;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  border: none;
 `
-const ModalContainer = styled.dialog`
+const ModalContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  h2 {
+    color: white;
+    font-size: 2.5rem;
+  }
 `
 const Overlay = styled.div`
   position: fixed;
@@ -67,6 +72,7 @@ const Overlay = styled.div`
 `
 const RateText = styled.span`
   color: #f5c518;
+  font-size: 1.4rem;
 `
 interface ButtonProp {
   isActive: boolean
@@ -96,7 +102,8 @@ function RatePopup() {
     dispatch(setHoverRate(0))
     dispatch(closePopup())
   }
-  function handleRate() {
+  function handleRate(e: any) {
+    e.preventDefault()
     dispatch(setRating({ rate: HoverRate, id: MovieID }))
     dispatch(setHoverRate(0))
     dispatch(closePopup())
@@ -111,11 +118,12 @@ function RatePopup() {
     <>
       {isOpen && selectedMovie ? (
         <>
+        {/* todo note  learn this  */}
           <Overlay onClick={() => dispatch(closePopup())} />
-          <ModalBox>
-            <CloseBtn onClick={() => dispatch(closePopup())}>X</CloseBtn>
-            <ModalContainer>
-              <form>
+          <ModalBox open>
+            <ModalContainer >
+              {/* TODO add svg  */}
+            <CloseBtn onClick={() => dispatch(closePopup())}><X/></CloseBtn>
               <RateText>RATE THIS</RateText>
               <h2>{selectedMovie.original_title}</h2>
               <StarRating
@@ -124,10 +132,11 @@ function RatePopup() {
                 color="#5799EF"
               />
               <Btn
+              // type="submit"
                 disabled={isBtnDisabled()}
                 isActive={true}
-                onClick={() => {
-                  handleRate()
+                onClick={(e) => {
+                  handleRate(e)
                 }}
               >
                 Rate
@@ -137,7 +146,6 @@ function RatePopup() {
                   Remove Rating
                 </Btn>
               )}
-              </form>
             </ModalContainer>
           </ModalBox>
         </>

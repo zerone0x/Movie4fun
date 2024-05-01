@@ -59,7 +59,7 @@ const SearchBox = styled.div`
 
   @media (max-width: 768px) {
     width: 100%; // 在小屏幕上使搜索栏宽度为100%
-    // z-index: 1; // 提高z-index以覆盖内容容器
+    z-index: 1; // 提高z-index以覆盖内容容器
   }
 `
 const SearchInput = styled.div`
@@ -72,7 +72,7 @@ const SearchInput = styled.div`
   width: 100%;
 
   @media (min-width: 601px) {
-    width: 500px;
+    // width: 500px;
   }
 `
 const SearchTxt = styled.input<SearchBarProperty>`

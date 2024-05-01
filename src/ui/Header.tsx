@@ -1,11 +1,9 @@
 import { useSelector } from 'react-redux'
 import { selectWatchListCount } from '../store/watchListSlice'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImdb } from '@fortawesome/free-brands-svg-icons'
 import SearchBar from './SearchBar'
 import styled from 'styled-components'
-import { Bookmark, Menu, User, Video } from 'lucide-react'
+import { Bookmark, Clapperboard, Menu, User, Video } from 'lucide-react'
 import { useState } from 'react'
 
 const TopHeader = styled.div`
@@ -28,7 +26,7 @@ const ContentContainer = styled.div`
   @media (max-width: 768px) {
     justify-content: space-between;
     gap: 1rem;
-    padding: 0 1rem; // 在小屏幕上添加padding以防止内容紧贴边界
+    padding: 0 1rem; 
   }
 `
 
@@ -85,9 +83,21 @@ const WatchCount = styled.p`
   // }
 `
 const SearchItem = styled.div``
-const ImdbIcon = styled.div`
+const ImdbIcon = styled.button`
+height: 3.5rem;
+padding: 0.5rem 1rem;
+background-color: #121212;
+color: white;
+border: none;
+outline: none;
+outline: none;
+border-radius: 5px;
+&:hover {
+  background-color: grey;
+}
   @media (max-width: 768px) {
     order: 1;
+    padding: 0.5rem;
   }
 `
 const ResponsiveHeaderContainer = styled(ContentContainer)<ResponseHeader>`
@@ -95,7 +105,7 @@ const ResponsiveHeaderContainer = styled(ContentContainer)<ResponseHeader>`
     ${({ active }) =>
       active &&
       `
-      ${WatchListBtn}, ${ImdbIcon} {
+      ${WatchListBtn}, ${ImdbIcon}{
         display: none;
       }
       ${SearchItem} {
@@ -141,8 +151,7 @@ function Header() {
         <IconGroup>
           <ImdbIcon>
             <Link to="/">
-              {/* <FontAwesomeIcon  icon={faImdb} size="3x" height="1.5rem" /> */}
-              <Video />
+              <Clapperboard />
             </Link>
           </ImdbIcon>
           <WatchListBtn className="imdb-icon">

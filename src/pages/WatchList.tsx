@@ -12,7 +12,7 @@ import {
 import PosterPic from '../components/PosterPic'
 import RatingDetail from '../components/RatingDetail'
 import styled from 'styled-components'
-import { ArrowDown, ArrowUp } from 'lucide-react'
+import { ArrowDown, ArrowUp, ArrowUpDown, Check } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import PageSplit from '../components/PageSplit'
 import { Helmet } from 'react-helmet-async'
@@ -34,9 +34,16 @@ flex:0;
 margin: 0 auto;
 min-height: 100vh;
 max-width: 1200px;
-  width: 80%
+width: 80%
 gap: 1rem;
 background: white;
+h3{
+  font-size: 2.3rem;
+}
+time{
+  font-size: 1.3rem;
+}
+
 `
 const WatchItem = styled.li`
   display: flex;
@@ -51,6 +58,9 @@ const WatchHeader = styled.div`
   margin-bottom: 1.3rem;
   margin: 0 auto;
   max-width: 1200px;
+  h1{
+    font-size: 3.8rem;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -81,8 +91,9 @@ const WatchSelect = styled.select`
 `
 
 const WatchItemOverview = styled.p`
+font-size: 1.5rem;
   @media (max-width: 768px) {
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 `
 
@@ -173,8 +184,7 @@ function WatchList() {
             <option value="4">Title</option>
           </WatchSelect>
           <Btn onClick={() => dispatch(reverseWatchList())}>
-            <ArrowDown />
-            <ArrowUp />
+          <ArrowUpDown />
           </Btn>
         </WatchSort>
       </WatchHeader>
@@ -186,7 +196,7 @@ function WatchList() {
               <WatchItem key={`watchlist-movie-${movie.id}`}>
                 <PosterPic movie={movie} height={200} width="130px" />
                 <div>
-                  <h4>{movie.original_title}</h4>
+                  <h3>{movie.original_title}</h3>
                   <time>{movie.release_date}</time>
                   {movie?.runtime && <span> {movie?.runtime}min </span>}
                   {/* <ul>
