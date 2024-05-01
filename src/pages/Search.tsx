@@ -85,7 +85,7 @@ function Search() {
     <meta property="og:title" content={`Search Results for "${searchQuery}" - movies4fun`} />
     <meta property="og:description" content={`Find movies related to ${searchQuery} on movies4fun.`} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={`https://movie4fun.netlify.app/search?query=${encodeURIComponent(searchQuery)}`} />
+    <meta property="og:url" content={`https://movie4fun.netlify.app/search?query=${encodeURIComponent(searchQuery ? searchQuery : '')}`} />
     <meta property="og:image" content="todo" />
     <meta property="og:site_name" content="movies4fun" />
   </Helmet>

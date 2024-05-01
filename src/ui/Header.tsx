@@ -24,9 +24,9 @@ const ContentContainer = styled.div`
 
   justify-content: center;
   @media (max-width: 768px) {
-    justify-content: space-between;
+    // justify-content: space-between;
     gap: 1rem;
-    padding: 0 1rem; 
+    // padding: 0 1rem; 
   }
 `
 
@@ -100,6 +100,20 @@ border-radius: 5px;
     padding: 0.5rem;
   }
 `
+
+
+const IconGroup = styled.div`
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    justify-content: start;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+`
 const ResponsiveHeaderContainer = styled(ContentContainer)<ResponseHeader>`
   @media (max-width: 768px) {
     ${({ active }) =>
@@ -112,19 +126,6 @@ const ResponsiveHeaderContainer = styled(ContentContainer)<ResponseHeader>`
         width: 100%;
       }
     `}
-  }
-`
-
-const IconGroup = styled.div`
-  display: flex;
-  gap: 2.5rem;
-  align-items: center;
-  justify-content: center;
-
-  @media (max-width: 768px) {
-    justify-content: start;
-    gap: 1rem;
-    padding: 0 1rem;
   }
 `
 

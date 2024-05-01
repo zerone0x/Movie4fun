@@ -58,8 +58,8 @@ const SearchBox = styled.div`
   border-radius: 8px;
 
   @media (max-width: 768px) {
-    width: 100%; // 在小屏幕上使搜索栏宽度为100%
-    z-index: 1; // 提高z-index以覆盖内容容器
+    width: 100%; 
+    // z-index: 1; 
   }
 `
 const SearchInput = styled.div`
@@ -72,7 +72,7 @@ const SearchInput = styled.div`
   width: 100%;
 
   @media (min-width: 601px) {
-    // width: 500px;
+    width: 500px;
   }
 `
 const SearchTxt = styled.input<SearchBarProperty>`
@@ -82,12 +82,12 @@ const SearchTxt = styled.input<SearchBarProperty>`
   line-height: 1.75rem;
   width: 100%;
   border-right: none;
-  // display: block; /* 默认始终显示，不受isExpanded控制 */
+    
 
   @media (max-width: 600px) {
-    width: ${(props) => (props.isExpanded ? '100%' : '0')}; /* 控制宽度 */
+    width: ${(props) => (props.isExpanded ? '100%' : '0')}; 
     visibility: ${(props) =>
-      props.isExpanded ? 'visible' : 'hidden'}; /* 控制可见性 */
+      props.isExpanded ? 'visible' : 'hidden'}; 
   }
 `
 interface SearchBarProperty {
@@ -226,7 +226,7 @@ function SearchBar({
                         <span>No Poster</span>
                       )}
                       <SearchSuggestionText>
-                        <span>{suggestion.original_title}</span>
+                        <h4>{suggestion.original_title}</h4>
                         <time>{suggestion.release_date}</time>
                       </SearchSuggestionText>
                     </SearchSuggestionItem>
