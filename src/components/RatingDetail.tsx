@@ -4,14 +4,10 @@ import styled from 'styled-components'
 import { openPopup } from '../store/PopupSlice'
 import { selectRating } from '../store/ratingSlice'
 import { memo } from 'react'
-const RatingStar = styled.div`
-  &:hover {
-    background-color: grey;
-  }
-  @media (min-width: 601px) {
-    background-color: none;
-  }
-
+const RatingStar = styled.button`
+background:none;
+border:none;
+outline:none;
 `
 const RatingBox = styled.div`
   display: flex;

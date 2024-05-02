@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import { memo, useMemo } from 'react'
 
 const StyledSlider = styled(Slider)`
+
   .slick-slide {
     padding: 0 10px;
   }
@@ -49,30 +50,37 @@ const StyledSlider = styled(Slider)`
     transform: scale(1.1);
   }
   .slick-prev {
-    left: 10px;
+    left: -30px;
   }
 
   .slick-next {
-    right: -10px;
+    right: -50px;
   }
 `
-
+const MovieSlider = styled.div`
+padding: 0 10px;
+    margin: 0 10px;
+    flex: 1 1 auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+  }
+`
 const MovieDetail = styled.div`
   padding: 10px;
   border-radius: 0 0 4px 4px;
 `
-const MovieBox = styled.div`
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-`
+
 
 const SectionTitle = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
-  &::after {
-    content: '>';
-  }
+  // &::after {
+  //   content: '>';
+  // }
   &::before {
     content: '| ';
     color: #f5c518;
@@ -111,6 +119,12 @@ const ArrowButton = styled.button`
     border: #f5c518;
   }
 `
+
+const PosterBox = styled.div`
+padding: 1rem;
+`
+
+
 interface ArrowProps {
   className: string
   onClick: () => void
@@ -149,33 +163,48 @@ const sliderSettings = (moviesLength: number) => ({
 })
 function Poster({ movies, header = '', link = '' }: PosterProps) {
   const settings = useMemo(() => sliderSettings(movies?.length), [movies])
-
+  if(!movies.length){
+    return (
+      <p>Your watchlist is empty.</p>
+    )
+  }
   return (
-    <MovieBox>
+    <PosterBox>
       {header && (
         <Link to={link || '#'}>
           <SectionTitle>{header}</SectionTitle>
         </Link>
       )}
-      {movies.length > 0 ? (
+  
+      {movies.length > 6 ? (
         <StyledSlider {...settings}>
-          {movies.map((movie, index) => (
+          {movies.map((movie) => (
             <Card key={`card-${movie.id}`}>
               <PosterPic movie={movie} height={300} width="100%" />
               <MovieDetail>
                 <Title>{movie.original_title}</Title>
                 <Year>{movie.release_date}</Year>
                 <RatingDetail movie={movie} />
-                {/* <StarRating id={movie.id} /> */}
               </MovieDetail>
             </Card>
           ))}
         </StyledSlider>
       ) : (
-        <p>Your watchlist is empty.</p>
+        <MovieSlider>  
+          {movies.map((movie) => (
+            <Card key={`card-${movie.id}`}>
+              <PosterPic movie={movie} height={300} width="100%" />
+              <MovieDetail>
+                <Title>{movie.original_title}</Title>
+                <Year>{movie.release_date}</Year>
+                <RatingDetail movie={movie} />
+              </MovieDetail>
+            </Card>
+          ))}
+        </MovieSlider>
       )}
-    </MovieBox>
-  )
+    </PosterBox>
+  );
 }
 
 export default memo(Poster)

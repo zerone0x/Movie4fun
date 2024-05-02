@@ -23,12 +23,14 @@ const MovieBox = styled.div`
   width: 80% @media (max-width: 768px) {
     width: 100%;
   }
+  // padding: 4rem;
 `
 
 const Header = styled.h1`
   font-size: 3rem;
   color: #f5c518;
   margin-bottom: 20px;
+  font-weight: 550;
   @media (max-width: 768px) {
     font-size: 2rem;
   }
@@ -54,7 +56,7 @@ function Home() {
         <meta property="og:image" content="http://www.yourwebsite.com/path-to-your-image.jpg" />
       </Helmet>
       <MovieBox>
-        <Header>What to watch</Header>
+        <Header>Watch for fun</Header>
         <Poster movies={movieList} header="Top Trend" />
         <Poster
           movies={watchList}
