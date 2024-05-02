@@ -38,6 +38,7 @@ interface WatchListItemProp {
   overview: string
   runtime: number
   genres: { name: string }[]
+  backdrop_path: string
 }
 
 interface PageSplitProps {

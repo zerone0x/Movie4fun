@@ -41,6 +41,7 @@ interface WatchListItemProps {
   genres: { name: string }[]
   overview: string
   runtime: number
+  backdrop_path: string
 }
 
 function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
