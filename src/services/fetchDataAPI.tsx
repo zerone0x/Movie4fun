@@ -36,6 +36,7 @@ export const fetchActorByQuery = async (query: string) => {
 
 export const fetchTrendTV = async () => {
   const { data } = await client.get('trending/tv/day')
+  console.log(data)
   return data.results
 }
 
