@@ -30,7 +30,7 @@ const Header = styled.h1`
   font-size: 3rem;
   color: #f5c518;
   margin-bottom: 20px;
-  font-weight: 550;
+  // font-weight: 550;
   @media (max-width: 768px) {
     font-size: 2rem;
   }

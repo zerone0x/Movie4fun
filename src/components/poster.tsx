@@ -74,10 +74,10 @@ const MovieDetail = styled.div`
   border-radius: 0 0 4px 4px;
 `
 
-
 const SectionTitle = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
+  // font-weight: 450;
   // &::after {
   //   content: '>';
   // }
@@ -100,6 +100,7 @@ const Title = styled.h3`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 400;
 `
 
 const Year = styled.time`
