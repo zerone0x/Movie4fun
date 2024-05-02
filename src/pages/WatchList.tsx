@@ -99,15 +99,17 @@ font-size: 1.5rem;
 
 interface WatchListItemProp {
   id: number
-  title: string
-  vote_average: number
-  release_date: string
-  original_title: string
-  poster_path: string
-  overview: string
-  runtime: number
   genres: { name: string }[]
+  poster_path: string
+  runtime: number
+  overview: string
+  vote_average: number
   backdrop_path: string
+  media_type: string
+  original_title?: string
+  original_name?: string
+  release_date?: string
+  first_air_date?: string
 }
 
 function WatchList() {
@@ -151,15 +153,18 @@ function WatchList() {
   }
 
   interface movieProperty {
-    original_title: string
     id: number
     genres: { name: string }[]
     poster_path: string
-    release_date: string
     runtime: number
     overview: string
     vote_average: number
     backdrop_path: string
+    media_type: string
+    original_title?: string
+    original_name?: string
+    release_date?: string
+    first_air_date?: string
   }
   console.log(WatchList[0])
   return (
@@ -198,8 +203,8 @@ function WatchList() {
               <WatchItem key={`watchlist-movie-${movie.id}`}>
                 <PosterPic movie={movie} height={200} width="130px" />
                 <div>
-                  <h3>{movie.original_title}</h3>
-                  <time>{movie.release_date}</time>
+                  <h3>{movie?.original_title ? movie.original_title : movie?.original_name}</h3>
+                  <time>{movie?.release_date ? movie.release_date : movie?.first_air_date}</time>
                   {movie?.runtime && <span> {movie?.runtime}min </span>}
                   {/* <ul>
                 {movie.genres.map((genre, index) => (

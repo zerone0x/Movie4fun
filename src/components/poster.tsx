@@ -127,6 +127,16 @@ const ArrowButton = styled.button`
 const PosterBox = styled.div`
 padding: 1rem;
 `
+const EmptyWatchList = styled.div`
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  p {
+    font-size: 1.7rem;
+    color: #f5c518;
+  text-align: center;
+  }
+`
 
 
 interface ArrowProps {
@@ -144,15 +154,19 @@ function NextArrow(props: ArrowProps) {
   return <ArrowButton className={className} onClick={onClick} />
 }
 
-interface Movie {
-  original_title: string
-  release_date: string
-  poster_path: string
+interface Media {
   id: number
+  poster_path: string
   vote_average: number
+  media_type: string
+  original_title?: string
+  original_name?: string
+  release_date?: string
+  first_air_date?: string
 }
+
 interface PosterProps {
-  movies: Movie[]
+  movies: Media[]
   header: string
   link?: string
 }
@@ -167,10 +181,17 @@ const sliderSettings = (moviesLength: number) => ({
 })
 function Poster({ movies, header = '', link = '' }: PosterProps) {
   const settings = useMemo(() => sliderSettings(movies?.length), [movies])
-  if(!movies.length){
+  if (!movies.length) {
     return (
-      <p>Your watchlist is empty.</p>
-    )
+      <EmptyWatchList>
+        {header && (
+          <Link to={link || '#'}>
+            <SectionTitle>{header}</SectionTitle>
+          </Link>
+        )}
+        <p>Your watchlist is empty(T . T)</p>
+      </EmptyWatchList>
+    );
   }
   return (
     <PosterBox>
@@ -179,6 +200,10 @@ function Poster({ movies, header = '', link = '' }: PosterProps) {
           <SectionTitle>{header}</SectionTitle>
         </Link>
       )}
+      {/* <div>
+        <button>Movies</button>
+        <button>TV</button>
+      </div> */}
   
       {movies.length > 6 ? (
         <StyledSlider {...settings}>
@@ -186,8 +211,8 @@ function Poster({ movies, header = '', link = '' }: PosterProps) {
             <Card key={`card-${movie.id}`}>
               <PosterPic movie={movie} height={300} width="100%" />
               <MovieDetail>
-                <Title>{movie.original_title}</Title>
-                <Year>{movie.release_date}</Year>
+              <Title>{movie?.original_title ? movie.original_title : movie?.original_name}</Title>
+              <Year>{movie?.release_date ? movie.release_date : movie?.first_air_date}</Year>
                 <RatingDetail movie={movie} />
               </MovieDetail>
             </Card>
@@ -199,8 +224,8 @@ function Poster({ movies, header = '', link = '' }: PosterProps) {
             <Card key={`card-${movie.id}`}>
               <PosterPic movie={movie} height={300} width="100%" />
               <MovieDetail>
-                <Title>{movie.original_title}</Title>
-                <Year>{movie.release_date}</Year>
+              <Title>{movie?.original_title ? movie.original_title : movie?.original_name}</Title>
+              <Year>{movie?.release_date ? movie.release_date : movie?.first_air_date}</Year>
                 <RatingDetail movie={movie} />
               </MovieDetail>
             </Card>

@@ -3,11 +3,18 @@ import { fetchTrendTV } from '../services/fetchDataAPI'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'
 interface TVType {
-  original_name: string
-  first_air_date: string
-  poster_path: string
   id: number
+  genres: { name: string }[]
+  poster_path: string
+  runtime: number
+  overview: string
   vote_average: number
+  backdrop_path: string
+  media_type: string
+  original_title?: string
+  original_name?: string
+  release_date?: string
+  first_air_date?: string
 }
 interface TVContextType {
   tvSource: TVType[]

@@ -1,8 +1,8 @@
 import { createContext } from 'react'
-import { fetchTrendMovies } from '../services/fetchDataAPI'
+import { fetchTVTopRated } from '../services/fetchDataAPI'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'
-interface MovieType {
+interface TVTopRateType {
   id: number
   genres: { name: string }[]
   poster_path: string
@@ -16,26 +16,26 @@ interface MovieType {
   release_date?: string
   first_air_date?: string
 }
-interface MovieContextType {
-  movies: MovieType[]
+interface TVTopRateContextType {
+  tvSource: TVTopRateType[]
 }
-const defaultContextValue: MovieContextType = {
-  movies: [],
+const defaultContextValue: TVTopRateContextType = {
+  tvSource: [],
 }
 
-export const MovieContext = createContext<MovieContextType>(defaultContextValue)
+export const TVTopRateContext = createContext<TVTopRateContextType>(defaultContextValue)
 
-export const MovieProvider = ({ children }: any) => {
+export const TVTopRateProvider = ({ children }: any) => {
   const {
-    data: movies,
+    data: tvSource,
     error,
     isLoading,
     isError,
-  } = useQuery('trendMovies', fetchTrendMovies)
+  } = useQuery('trendTVTopRates', fetchTVTopRated)
   if (isLoading) return <Spinner />
   if (isError) return <div>Error: {error}</div>
 
   return (
-    <MovieContext.Provider value={{ movies }}>{children}</MovieContext.Provider>
+    <TVTopRateContext.Provider value={{ tvSource }}>{children}</TVTopRateContext.Provider>
   )
 }
