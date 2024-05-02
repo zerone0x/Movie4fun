@@ -9,17 +9,11 @@ import { fetchMovieById } from '../services/fetchDataAPI'
 import { Helmet } from 'react-helmet-async'
 
 const MovieDetail = styled.div<MovieBackgroundProps>`
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 1) 100%
-  );
   padding-top: 4rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
-  backdrop-filter: blur(10px);
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -35,8 +29,34 @@ const MovieDetail = styled.div<MovieBackgroundProps>`
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    filter: blur(3px);  // 调整模糊程度
+    filter: blur(3px);
+    z-index: -2;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(128, 128, 128, 0.6); 
     z-index: -1;
+    backdrop-filter: blur(3px); // 应用模糊效果
+   
+  }
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+
+  @media (min-width: 769px) {
+    &::before,
+    &::after {
+      height: 700px;
+    }
   }
 
   @media (max-width: 768px) {
@@ -55,8 +75,8 @@ const PosterAdd = styled.div`
 margin:1rem
 `
 const PosterItem = styled.img`
-  min-width: 300px;
-  min-height: 400px;
+  min-width: 400px;
+  min-height: 500px;
 
   @media (max-width: 768px) {
     max-width: 90%;
@@ -83,7 +103,7 @@ const GenreList = styled.ul`
   }
 `
 const MovieInfo = styled.div`
-  padding: 1rem;
+  padding: 5rem;
   // background-color: rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
   color: white;
@@ -91,6 +111,9 @@ const MovieInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `
 const MovieHeader = styled.div`
   display: flex;
@@ -187,7 +210,7 @@ function Movie() {
                 ))}
               </GenreList>
               <ScoreStar>
-              <h4>User Score:</h4><RatingDetail movie={movie} /></ScoreStar>
+              <h3>User Score:</h3><RatingDetail movie={movie} /></ScoreStar>
             </MovieHeader>
             
                 {/* <p>Runtime: {movie.runtime} minutes</p> */}
