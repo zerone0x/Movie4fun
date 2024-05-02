@@ -125,7 +125,7 @@ function RatePopup() {
               {/* TODO add svg  */}
             <CloseBtn onClick={() => dispatch(closePopup())}><X/></CloseBtn>
               <RateText>RATE THIS</RateText>
-              <h2>{selectedMovie.original_title}</h2>
+              <h2>{selectedMovie.original_title ? selectedMovie.original_title : selectedMovie.original_name}</h2>
               <StarRating
                 id={selectedMovie.id}
                 maxRating={10}

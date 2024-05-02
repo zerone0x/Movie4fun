@@ -14,17 +14,29 @@ const PaginationContainer = styled(ReactPaginate)`
   cursor: pointer;
 
   .page-item {
-    padding: 10px 13px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    // background-color: #f0f0f0;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+
     &:hover {
-      background: grey;
-      color: black;
+      background-color: #e0e0e0;
+      color: #000;
     }
   }
 
   .active {
-    color: white;
-    background: black;
+    background-color: #000;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
 `
 
@@ -47,7 +59,7 @@ interface PageSplitProps {
   movieData: [] | WatchListItemProp[]
   moviesPerPage: number
 }
-
+// TODO 分页路由
 function PageSplit({ movieData, moviesPerPage }: PageSplitProps) {
   const dispatch = useDispatch()
   const handlePageClick = (data: { selected: number }) => {

@@ -25,7 +25,8 @@ const popupSlice = createSlice({
 })
 
 interface selectedMovieProp {
-  original_title: string
+  original_title?: string
+  original_name?: string
   id: number
 }
 
