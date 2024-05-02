@@ -16,7 +16,7 @@ const watchListSlice = createSlice({
     addWatchList(state: ReduceStateWatchProp, action) {
       if (
         state.value.some(
-          (movie: WatchListItemProp) => movie.id === action.payload.id
+          (movie: WatchListItemProp) => movie.id === action.payload.id && movie.media_type === action.payload.media_type
         )
       ) {
         return
@@ -25,23 +25,27 @@ const watchListSlice = createSlice({
     },
     removeWatchList(state: ReduceStateWatchProp, action) {
       state.value = state.value.filter(
-        (movie) => movie.id !== action.payload.id
+        (movie) => movie.id !== action.payload.id && movie.media_type !== action.payload.media_type
       )
     },
     // Sort by diff properties of the movie
     sortWatchList(state: ReduceStateWatchProp, action) {
       if (action.payload === 'title') {
-        state.value.sort((a, b) => a.title.localeCompare(b.title))
+        state.value.sort((a, b) => {
+          const titleA = a.original_title || a.original_name || '';
+          const titleB = b.original_title || b.original_name || '';
+          return titleA.localeCompare(titleB);
+        });
       }
       if (action.payload === 'rating') {
-        state.value.sort((a, b) => b.vote_average - a.vote_average)
+        state.value.sort((a, b) => b.vote_average - a.vote_average);
       }
       if (action.payload === 'release') {
         state.value.sort((a, b) => {
-          const dateA = new Date(a.release_date)
-          const dateB = new Date(b.release_date)
-          return dateB.getTime() - dateA.getTime()
-        })
+          const dateA = new Date(a.release_date || a.first_air_date || '');
+          const dateB = new Date(b.release_date || b.first_air_date || '');
+          return dateB.getTime() - dateA.getTime();
+        });
       }
     },
 
@@ -69,15 +73,17 @@ interface ReduceStateWatchProp {
 
 interface WatchListItemProp {
   id: number
-  title: string
-  vote_average: number
-  release_date: string
-  original_title: string
-  poster_path: string
-  overview: string
-  runtime: number
   genres: { name: string }[]
+  poster_path: string
+  runtime: number
+  overview: string
+  vote_average: number
   backdrop_path: string
+  media_type: string
+  original_title?: string
+  original_name?: string
+  release_date?: string
+  first_air_date?: string
 }
 
 interface State {

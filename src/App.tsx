@@ -14,6 +14,8 @@ import { ReactQueryDevtools } from 'react-query-devtools'
 import { TVProvider } from './data/getTV'
 import { Suspense, lazy } from 'react'
 import Spinner from './ui/Spinner'
+import { TopRatedProvider } from './data/getTopRated'
+import { TVTopRateProvider } from './data/getTvTopRated'
 
 const queryClient = new QueryClient()
 
@@ -34,19 +36,22 @@ function App() {
             <SearchProvider>
               <TVProvider>
                 <MovieProvider>
+                  <TopRatedProvider>
+                    <TVTopRateProvider>
                   <Routes>
                     <Route element={<AppLayout />}>
                       <Route index element={<Navigate replace to="home" />} />
                       <Route path="home" element={<Home />} />
                       <Route path="watchlist" element={<WatchList />} />
                       <Route path="top250" element={<Top250 />} />
-                      <Route path="movie/:movieId" element={<Movie />} />
-                      {/* <Route path="tv/:tvId" element={<Movie />} /> */}
+                      <Route path=":type/:mediaId" element={<Movie />} />
                       <Route path="search" element={<Search />} />
                       {/* TODO - Add a route for the actor page */}
                     </Route>
                     <Route path="*" element={<PageNotFound />} />
                   </Routes>
+                  </TVTopRateProvider>
+                  </TopRatedProvider>
                 </MovieProvider>
               </TVProvider>
             </SearchProvider>

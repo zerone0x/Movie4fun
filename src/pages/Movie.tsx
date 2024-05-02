@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import AddWatchBtn from '../ui/AddWatchBtn'
 import styled from 'styled-components'
 import RatingDetail from '../components/RatingDetail'
 import Spinner from '../ui/Spinner'
 import { useQuery } from 'react-query'
-import { fetchMovieById } from '../services/fetchDataAPI'
+import { fetchMovieById, fetchTVById } from '../services/fetchDataAPI'
 import { Helmet } from 'react-helmet-async'
 
 const MovieDetail = styled.div<MovieBackgroundProps>`
@@ -138,47 +138,65 @@ const ScoreStar = styled.div`
 display: flex;
 gap: 1rem;
   `
-interface movieProperty {
-  original_title: string
+interface mediaProperty {
   id: number
   genres: { name: string }[]
   poster_path: string
-  release_date: string
   runtime: number
   overview: string
   vote_average: number
   backdrop_path: string
+  media_type: string
+  original_title?: string
+  original_name?: string
+  release_date?: string
+  first_air_date?: string
 }
+
 interface MovieBackgroundProps {
   backpng: string
 }
 
 function Movie() {
-  const [movie, setMovie] = useState<movieProperty | null>(null)
-  let { movieId } = useParams()
-
+  const [movie, setMedia] = useState<mediaProperty | null>(null)
+  let { type, mediaId } = useParams()
+ 
   const {
-    data: movieInfo,
+    data: mediaInfo,
     error,
     isLoading,
     isError,
-  } = useQuery(['MovieById', movieId], () => fetchMovieById(movieId))
-  useEffect(() => {
-    if (movieInfo) {
-      setMovie(movieInfo)
+  } = useQuery(
+    [type === 'movie' ? 'MovieById' : 'TVById', mediaId],
+    () => {
+      if (type === 'movie') {
+        return fetchMovieById(mediaId)
+      } else if (type === 'tv') {
+        return fetchTVById(mediaId)
+      }
+      return Promise.reject(new Error('Invalid media type'))
     }
-  }, [movieInfo])
+  )
+  
+  useEffect(() => {
+    if (mediaInfo) {
+      setMedia(mediaInfo)
+    }
+  }, [mediaInfo])
+      
+
   if (isLoading) return <Spinner />
-  if (isError) return <div>Error: {error}</div>
+  // TODO Error page 
+  if (isError) return <div>Error: Can't find movie with this id</div>
 
   return (
     <>
       {movie ? (
         <MovieDetail backpng={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}>
           <Helmet>
-        <title>{movie.original_title} - Movie Details</title>
+        <title>{movie?.original_title ? movie.original_title : movie?.original_name} - Movie Details</title>
         <meta name="description" content={movie.overview} />
-        <meta property="og:title" content={movie.original_title} />
+        <meta property="og:title" content={movie?.original_title ? movie.original_title : movie?.original_name} />
         <meta property="og:description" content={movie.overview} />
         <meta property="og:type" content="video.movie" />
         <meta property="og:url" content={`https://movie4fun.netlify.app/movies/${movie.id}`} />
@@ -186,21 +204,19 @@ function Movie() {
         <meta property="og:site_name" content="movies4fun" />
       </Helmet>
           <MovieBox >
-            
-            
             <MovieBody >
               <PosterAdd>
                 <AddWatchBtn movie={movie} size={40} />
                 <PosterItem
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.original_title}
+                  alt={movie?.original_title ? movie.original_title : movie?.original_name}
                   loading="lazy"
                   decoding="async"
                 />
               </PosterAdd>
               <MovieInfo  >
-              <h1>{movie.original_title}</h1>
-              <time> {movie?.release_date}</time>
+              <h1>{movie?.original_title ? movie.original_title : movie?.original_name}</h1>
+              <time> {movie?.release_date ? movie.release_date : movie?.first_air_date}</time>
               <MovieHeader>
               <GenreList>
                 <li>

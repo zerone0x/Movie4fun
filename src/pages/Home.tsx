@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import Poster from '../components/poster'
 import { TVContext } from '../data/getTV'
 import { Helmet } from 'react-helmet-async'
+import { TopRatedContext } from '../data/getTopRated'
+import { TVTopRateContext } from '../data/getTvTopRated'
 
 const HomeBox = styled.div`
   padding: 4rem;
@@ -40,7 +42,11 @@ function Home() {
   const movies = useContext(MovieContext)
   const movieList = movies?.movies
   const tvInfo = useContext(TVContext)
-  // const tvList = tvInfo?.tvSource
+  const tvList = tvInfo?.tvSource
+  const topRatedInfo = useContext(TopRatedContext)
+  const topRatedList = topRatedInfo?.movies
+  const topRatedTVInfo = useContext(TVTopRateContext)
+  const topRatedTVList = topRatedTVInfo?.tvSource
 
   // const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
@@ -57,8 +63,10 @@ function Home() {
       </Helmet>
       <MovieBox>
         <Header>Watch for fun</Header>
-        <Poster movies={movieList} header="Top Movie Trend" />
-        {/* <Poster movies={tvList} header="Top TV Shows" /> */}
+        <Poster movies={movieList} header="Top Movie" />
+        <Poster movies={tvList} header="Top TV show" />
+        <Poster movies={topRatedList} header="Top Rated Movie" />
+        <Poster movies={topRatedTVList} header="Top Rated TV" />
         <Poster
           movies={watchList}
           header="From your Watchlist"

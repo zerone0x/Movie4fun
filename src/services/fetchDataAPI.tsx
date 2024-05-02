@@ -5,6 +5,16 @@ export const fetchTrendMovies = async () => {
   return data.results
 }
 
+export const fetchMovieTopRated = async () => {
+  const { data } = await client.get('movie/top_rated')
+  console.log(data)
+  return data.results
+}
+
+export const fetchTVTopRated = async () => {
+  const { data } = await client.get('tv/top_rated')
+  return data.results
+}
 export const fetchMovieById = async (movieId: string | undefined) => {
   const { data } = await client.get(`movie/${movieId}`)
   console.log(data)
@@ -36,7 +46,7 @@ export const fetchActorByQuery = async (query: string) => {
 
 export const fetchTrendTV = async () => {
   const { data } = await client.get('trending/tv/day')
-  console.log(data)
+  // console.log(data)
   return data.results
 }
 

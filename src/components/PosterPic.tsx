@@ -19,14 +19,19 @@ const Card = styled.div`
   max-width: 200px;
 `
 
-interface MovieProperty {
+interface Media {
   id: number
-  original_title: string
   poster_path: string
+  vote_average: number
+  media_type: string
+  original_title?: string
+  original_name?: string
+  release_date?: string
+  first_air_date?: string
 }
 
 interface posterProps {
-  movie: MovieProperty
+  movie: Media
   height?: number
   width?: string
 }
@@ -40,12 +45,12 @@ function PosterPic({ movie, height = 200, width = '100px' }: posterProps) {
   return (
     <Card>
       <AddWatchBtn movie={movie} />
-      <Link to={`/movie/${movie.id}`}>
+      <Link to={movie.media_type === 'tv' ? `/tv/${movie.id}` : `/movie/${movie.id}`}>
         <PosterWrapper height={height} width={width}>
           {movie.poster_path !== 'N/A' ? (
             <Poster
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.original_title}
+              alt={movie?.original_title ? movie.original_title : movie?.original_name}
               loading="lazy"
               decoding="async"
             />
