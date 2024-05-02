@@ -175,7 +175,7 @@ function WatchList() {
       <WatchHeader>
         <h1>Your WatchList</h1>
         <WatchSort>
-          <p>Sort by:</p>
+          <h3>Sort by:</h3>
           {/* TODO https://poe.com/s/HVXVZe68aug9dZuJUvTs */}
           <WatchSelect onChange={handleSelectChange}>
             <option value="1">IMDb Rating</option>
