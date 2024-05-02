@@ -7,6 +7,7 @@ export const fetchTrendMovies = async () => {
 
 export const fetchMovieById = async (movieId: string | undefined) => {
   const { data } = await client.get(`movie/${movieId}`)
+  console.log(data)
   return data
 }
 
