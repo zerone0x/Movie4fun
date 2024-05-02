@@ -92,7 +92,7 @@ const WatchListBtn = styled.button`
   }
 
   @media (max-width: 768px) {
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     font-size: 0.9rem;
     .menu-text {
       display: none;

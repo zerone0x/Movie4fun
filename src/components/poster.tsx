@@ -50,7 +50,7 @@ const StyledSlider = styled(Slider)`
     transform: scale(1.1);
   }
   .slick-prev {
-    left: -30px;
+    left: -26px;
   }
 
   .slick-next {

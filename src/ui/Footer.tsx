@@ -1,8 +1,9 @@
+import { Github } from 'lucide-react'
 import { memo } from 'react'
 import styled from 'styled-components'
 
 const FooterCopy = styled.p`
-  font-size: 12px;
+  font-size: 16px;
 `
 const FooterList = styled.ul`
   font-size: 16px;
@@ -35,11 +36,14 @@ const FooterBox = styled.div`
 function Footer() {
   return (
     <FooterBox>
-      <FooterList>
+      {/* <FooterList>
         <FooterItem>Help SiteIndex Movie4Fun Box</FooterItem>
         <FooterItem>Office Mojo Movie4Fun Developer Press Room</FooterItem>
-      </FooterList>
-      <FooterCopy>© 2024 by Movie4Fun.com</FooterCopy>
+      </FooterList> */}
+      <FooterCopy>Made with ❤️ all rights reserved  
+        
+         </FooterCopy>
+         {/* <Github size={20} /> */}
     </FooterBox>
   )
 }
