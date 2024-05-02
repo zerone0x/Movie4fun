@@ -27,6 +27,7 @@ interface ButtonProps {
 
 interface MovieProperty {
   id: number
+  media_type: string
 }
 
 interface AddWatchBtnProps {
@@ -36,19 +37,24 @@ interface AddWatchBtnProps {
 
 interface WatchListItemProps {
   id: number
-  original_title: string
-  poster_path: string
   genres: { name: string }[]
-  overview: string
+  poster_path: string
   runtime: number
+  overview: string
+  vote_average: number
   backdrop_path: string
+  media_type: string
+  original_title?: string
+  original_name?: string
+  release_date?: string
+  first_air_date?: string
 }
 
 function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
   const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
   let isThisInWatchList = watchList.some(
-    (item: WatchListItemProps) => item.id === movie.id
+    (item: WatchListItemProps) => item.id === movie.id && item.media_type === movie.media_type
   )
 
   function handleAddWatchList(movie: MovieProperty) {
