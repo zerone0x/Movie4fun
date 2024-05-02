@@ -85,6 +85,9 @@ const SectionTitle = styled.h1`
     content: '| ';
     color: #f5c518;
   }
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `
 
 const Card = styled.div`

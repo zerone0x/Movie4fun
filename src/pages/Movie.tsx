@@ -79,8 +79,8 @@ const PosterItem = styled.img`
   min-height: 500px;
 
   @media (max-width: 768px) {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 80%;
+    max-height: 80%;
   }
 `
 const GenreList = styled.ul`

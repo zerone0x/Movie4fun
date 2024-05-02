@@ -32,7 +32,7 @@ const Header = styled.h1`
   margin-bottom: 20px;
   // font-weight: 550;
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 2.7rem;
   }
 `
 
@@ -40,7 +40,7 @@ function Home() {
   const movies = useContext(MovieContext)
   const movieList = movies?.movies
   const tvInfo = useContext(TVContext)
-  // const tvList = tvInfo?.Source
+  // const tvList = tvInfo?.tvSource
 
   // const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
@@ -57,7 +57,8 @@ function Home() {
       </Helmet>
       <MovieBox>
         <Header>Watch for fun</Header>
-        <Poster movies={movieList} header="Top Trend" />
+        <Poster movies={movieList} header="Top Movie Trend" />
+        {/* <Poster movies={tvList} header="Top TV Shows" /> */}
         <Poster
           movies={watchList}
           header="From your Watchlist"

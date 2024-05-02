@@ -12,6 +12,7 @@ outline:none;
 const RatingBox = styled.div`
   display: flex;
   gap: 10px;
+  align-items: center;
 `
 
 const AverageRate = styled.div`
