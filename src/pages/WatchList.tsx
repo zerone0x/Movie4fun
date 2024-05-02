@@ -158,6 +158,7 @@ function WatchList() {
     runtime: number
     overview: string
     vote_average: number
+    backdrop_path: string
   }
   console.log(WatchList[0])
   return (

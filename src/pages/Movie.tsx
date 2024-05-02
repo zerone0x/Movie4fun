@@ -147,6 +147,7 @@ interface movieProperty {
   runtime: number
   overview: string
   vote_average: number
+  backdrop_path: string
 }
 interface MovieBackgroundProps {
   backpng: string
