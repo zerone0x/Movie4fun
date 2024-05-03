@@ -7,7 +7,6 @@ import { memo } from 'react'
 const RatingStar = styled.button`
 background:none;
 border:none;
-outline:none;
 `
 const RatingBox = styled.div`
   display: flex;

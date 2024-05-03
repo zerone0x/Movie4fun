@@ -138,6 +138,11 @@ const EmptyWatchList = styled.div`
   }
 `
 
+// TODO placeholder
+const EmptyWatchBox = styled.div`
+height: 100%;
+`
+
 
 interface ArrowProps {
   className: string
@@ -189,7 +194,9 @@ function Poster({ movies, header = '', link = '' }: PosterProps) {
             <SectionTitle>{header}</SectionTitle>
           </Link>
         )}
+        <EmptyWatchBox>
         <p>Your watchlist is empty(T . T)</p>
+        </EmptyWatchBox>
       </EmptyWatchList>
     );
   }

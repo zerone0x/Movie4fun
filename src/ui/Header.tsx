@@ -63,8 +63,6 @@ padding: 0.5rem 1rem;
 background-color: #121212;
 color: white;
 border: none;
-outline: none;
-outline: none;
 border-radius: 5px;
 &:hover {
   background-color: grey;
@@ -84,7 +82,6 @@ const WatchListBtn = styled.button`
   background-color: #121212;
   color: white;
   border: none;
-  outline: none;
   border-radius: 5px;
 
   &:hover {

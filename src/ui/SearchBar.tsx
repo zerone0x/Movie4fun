@@ -48,7 +48,6 @@ const SearchButton = styled.button`
   color: grey;
   background-color: white;
   border: none;
-  outline: none;
 `
 const SearchBox = styled.div`
   display: flex;
@@ -68,7 +67,6 @@ const SearchInput = styled.div`
   max-width: 600px;
   color: black;
   border: none;
-  outline: none;
   width: 100%;
 
   @media (min-width: 601px) {

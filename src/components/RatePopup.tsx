@@ -16,8 +16,7 @@ const Btn = styled.button<ButtonProp>`
   padding: 0.5rem 1rem;
   color: ${(props) => (props.isActive ? '#000' : 'white')};
   font-size: 1rem;
-  border: none;
-  outline: none;
+  border: none;  // outline: none;
   border-radius: 5px;
   background-color: ${(props) => (props.isActive ? '#F5C518' : '#333')};
 
@@ -35,7 +34,6 @@ const CloseBtn = styled.button`
   padding: 8px 16px;
   margin-top: 10px;
   border: none;
-  outline: none;
   background-color: #333;
 `
 const ModalBox = styled.dialog`

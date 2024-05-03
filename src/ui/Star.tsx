@@ -13,7 +13,7 @@ function Star({ size, color, full }: StarProperty) {
     display: 'inline-block',
     background: 'none',
     border: 'none',
-    outline: 'none',}
+   }
 
   return (
     <button style={starStyle}>

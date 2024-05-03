@@ -1,3 +1,13 @@
+# bug
+
+  no poster image
+  error page
+
+# feature
+- select search type
+
+
+
 # applayout
 
 - header

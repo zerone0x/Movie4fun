@@ -29,7 +29,8 @@ const MovieDetail = styled.div<MovieBackgroundProps>`
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    filter: blur(3px);
+    filter: blur(7px);
+    opacity: 0.4;
     z-index: -2;
   }
 
