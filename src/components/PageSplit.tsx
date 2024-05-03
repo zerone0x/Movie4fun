@@ -12,7 +12,7 @@ const PaginationContainer = styled(ReactPaginate)`
   margin-top: 5%;
   gap: 10px;
   cursor: pointer;
-
+  
   .page-item {
     display: inline-flex;
     justify-content: center;
@@ -20,21 +20,20 @@ const PaginationContainer = styled(ReactPaginate)`
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    // background-color: #f0f0f0;
-    color: #333;
+    color: #445566;
     font-size: 16px;
     font-weight: 500;
     transition: background-color 0.3s, color 0.3s;
 
     &:hover {
-      background-color: #e0e0e0;
-      color: #000;
+      background-color: #CF7A65;
+      color: #FFFEF8;
     }
   }
 
   .active {
-    background-color: #000;
-    color: #fff;
+    background-color: #445566;
+    color: #FFFEF8;
     font-weight: 600;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
@@ -73,12 +72,12 @@ function PageSplit({ movieData, moviesPerPage }: PageSplitProps) {
       pageClassName={'page-item'}
       activeClassName={'active'}
       previousLabel={
-        <IconContext.Provider value={{ color: 'black', size: '36px' }}>
+        <IconContext.Provider value={{ color: '#445566', size: '36px' }}>
           <AiFillLeftCircle />
         </IconContext.Provider>
       }
       nextLabel={
-        <IconContext.Provider value={{ color: 'black', size: '36px' }}>
+        <IconContext.Provider value={{ color: '#445566', size: '36px' }}>
           <AiFillRightCircle />
         </IconContext.Provider>
       }
