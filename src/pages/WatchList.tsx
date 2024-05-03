@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react'
 import PageSplit from '../components/PageSplit'
 import { Helmet } from 'react-helmet-async'
 const WatchPage = styled.div`
-  background: #cececa;
+  background: #E0DBCF;
   color: black;
   padding: 1rem 15rem;
   min-height: 100vh;
@@ -36,7 +36,7 @@ min-height: 100vh;
 max-width: 1200px;
 width: 80%
 gap: 1rem;
-background: white;
+background: #FAF8F1;
 h3{
   font-size: 2.3rem;
 }
@@ -49,7 +49,7 @@ const WatchItem = styled.li`
   display: flex;
   padding: 2rem 3rem;
   gap: 1rem;
-  border-bottom: 1px solid #f5c518;
+  border-bottom: 1px solid #445566;
 `
 const WatchHeader = styled.div`
   display: flex;
@@ -85,7 +85,7 @@ const WatchSort = styled.div`
 const WatchSelect = styled.select`
   padding: 0.5rem;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #445566;
   background-color: white;
   cursor: pointer;
 `

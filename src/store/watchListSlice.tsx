@@ -25,7 +25,7 @@ const watchListSlice = createSlice({
     },
     removeWatchList(state: ReduceStateWatchProp, action) {
       state.value = state.value.filter(
-        (movie) => movie.id !== action.payload.id && movie.media_type !== action.payload.media_type
+        (movie) => !(movie.id === action.payload.id && movie.media_type === action.payload.media_type)
       )
     },
     // Sort by diff properties of the movie
