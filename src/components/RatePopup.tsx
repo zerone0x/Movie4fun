@@ -114,13 +114,12 @@ function RatePopup() {
 
   return (
     <>
-      {isOpen && selectedMovie ? (
+      {selectedMovie ? (
         <>
         {/* todo note  learn this  */}
           <Overlay onClick={() => dispatch(closePopup())} />
-          <ModalBox open>
+          <ModalBox open={isOpen}>
             <ModalContainer >
-              {/* TODO add svg  */}
             <CloseBtn onClick={() => dispatch(closePopup())}><X/></CloseBtn>
               <RateText>RATE THIS</RateText>
               <h2>{selectedMovie.original_title ? selectedMovie.original_title : selectedMovie.original_name}</h2>
@@ -130,7 +129,7 @@ function RatePopup() {
                 color="#5799EF"
               />
               <Btn
-              // type="submit"
+                type="submit"
                 disabled={isBtnDisabled()}
                 isActive={true}
                 onClick={(e) => {
@@ -140,7 +139,7 @@ function RatePopup() {
                 Rate
               </Btn>
               {rating !== 0 && (
-                <Btn isActive={false} onClick={() => setRate(0)}>
+                <Btn isActive={false} onClick={() => setRate(0)} type="submit">
                   Remove Rating
                 </Btn>
               )}

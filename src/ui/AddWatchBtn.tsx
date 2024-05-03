@@ -19,6 +19,7 @@ const AddButton = styled.button<ButtonProps>`
   border: none;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
+  
 `
 interface ButtonProps {
   'data-isthisinwatchlist': string
@@ -50,7 +51,7 @@ interface WatchListItemProps {
   first_air_date?: string
 }
 
-function AddWatchBtn({ movie, size = 30 }: AddWatchBtnProps) {
+function AddWatchBtn({ movie, size = 35 }: AddWatchBtnProps) {
   const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
   let isThisInWatchList = watchList.some(
