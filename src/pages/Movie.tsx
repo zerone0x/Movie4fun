@@ -5,17 +5,17 @@ import styled from 'styled-components'
 import RatingDetail from '../components/RatingDetail'
 import Spinner from '../ui/Spinner'
 import { useQuery } from 'react-query'
-import { fetchMovieById, fetchTVById } from '../services/fetchDataAPI'
+import { fetchMovieById, fetchMovieVideos, fetchTVById, fetchTvVideos } from '../services/fetchDataAPI'
 import { Helmet } from 'react-helmet-async'
 
 const MovieDetail = styled.div<MovieBackgroundProps>`
-  padding-top: 4rem;
+  padding-top: 3rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
   position: relative;
-  z-index: 1;
+  // z-index: 1;
   overflow: hidden;
 
   &::before {
@@ -25,12 +25,11 @@ const MovieDetail = styled.div<MovieBackgroundProps>`
     left: 0;
     right: 0;
     bottom: 30%;
-    background: ${(props) => `url(${props.backpng})`};
+    background: ${(props) => `url(${props.backPng})`};
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    filter: blur(7px);
-    opacity: 0.4;
+    filter: blur(2px);
     z-index: -2;
   }
 
@@ -66,28 +65,41 @@ const MovieDetail = styled.div<MovieBackgroundProps>`
   }
 `;
 const MovieBox = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
+max-width: 1500px;
+margin: 0 auto;
+padding:1rem
 
 
 `
 const PosterAdd = styled.div`
   position: relative;
-margin:1rem
+
 `
 const PosterItem = styled.img`
-  min-width: 400px;
-  min-height: 500px;
+  // max-width: 400px;
+  // max-height: 500px;
 
   @media (max-width: 768px) {
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 100%;
+    max-height: 100%;
   }
+`
+
+const MovieSection = styled.div`
+  display: flex;
+  gap: 1rem;
+  min-width: 100%;
+  min-height: 100%;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    
+  }
+  
 `
 const GenreList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 1.5rem;
 
   & li {
     list-style: none;
@@ -98,17 +110,15 @@ const GenreList = styled.ul`
     & a {
       color: #f5c518;
     }
-    &::after {
-      content: ' ';
-    }
+    
+  }
+  @media (max-width: 768px) {
+    gap:0.8rem;
   }
 `
 const MovieInfo = styled.div`
   padding: 5rem;
-  // background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 0.5rem;
   color: white;
-  margin-left: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -118,9 +128,9 @@ const MovieInfo = styled.div`
 `
 const MovieHeader = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: start;
+  justify-content: space-between;
   gap: 2rem;
+  padding: 1rem;
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 1rem;
@@ -128,17 +138,36 @@ const MovieHeader = styled.div`
 `
 
 const MovieBody = styled.div`
-  display: flex;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1rem;
-  }
+ 
+display: flex;
+@media (max-width: 768px) {
+  flex-direction: column;
+  gap: 1rem;
+}
 
 `
 const ScoreStar = styled.div`
 display: flex;
 gap: 1rem;
+flex-direction: column;
+justify-content: end;
   `
+
+const MovieVideo = styled.iframe`
+width: 100%;
+height: 100%;
+border: none;
+
+@media (max-width: 768px) {
+  aspect-ratio: 16 / 9;
+  min-width: 100%!important;
+  min-height:100%!important;
+}
+`
+const MovieTitle = styled.h1`
+font-size: 5rem;
+width: 100%;
+`
 interface mediaProperty {
   id: number
   genres: { name: string }[]
@@ -155,12 +184,39 @@ interface mediaProperty {
 }
 
 interface MovieBackgroundProps {
-  backpng: string
+  backPng: string
 }
 
+interface Video {
+  key: string
+}
 function Movie() {
   const [movie, setMedia] = useState<mediaProperty | null>(null)
+  const [videos, setVideos] = useState<Video[]>([])
   let { type, mediaId } = useParams()
+
+  const {
+    data: movieVideo,
+    error: errorVideo,
+    isLoading: isLoadingVideo,
+    isError: isErrorVideo,
+  } = useQuery(
+    [type === 'movie' ? 'MovieVideosById' : 'TVVideosById', mediaId],
+    () => {
+      if (type === 'movie') {
+        return fetchMovieVideos(mediaId)
+      } else if (type === 'tv') {
+        return fetchTvVideos(mediaId)
+      }
+      return Promise.reject(new Error('Invalid media type'))
+    }
+  )
+
+  useEffect(() => {
+    if (movieVideo) {
+      setVideos(movieVideo)
+    }
+  }, [movieVideo])
  
   const {
     data: mediaInfo,
@@ -189,53 +245,109 @@ function Movie() {
   if (isLoading) return <Spinner />
   // TODO Error page 
   if (isError) return <div>Error: Can't find movie with this id</div>
+  if (isLoadingVideo) return <Spinner />
+  if (isErrorVideo) return <div>Error: {errorVideo}</div>
 
   return (
     <>
       {movie ? (
-        <MovieDetail backpng={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}>
+        <MovieDetail
+          backPng={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+        >
           <Helmet>
-        <title>{movie?.original_title ? movie.original_title : movie?.original_name} - Movie Details</title>
-        <meta name="description" content={movie.overview} />
-        <meta property="og:title" content={movie?.original_title ? movie.original_title : movie?.original_name} />
-        <meta property="og:description" content={movie.overview} />
-        <meta property="og:type" content="video.movie" />
-        <meta property="og:url" content={`https://movie4fun.netlify.app/movies/${movie.id}`} />
-        <meta property="og:image" content={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-        <meta property="og:site_name" content="movies4fun" />
-      </Helmet>
-          <MovieBox >
-            <MovieBody >
-              <PosterAdd>
-                <AddWatchBtn movie={movie} size={40} />
-                <PosterItem
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie?.original_title ? movie.original_title : movie?.original_name}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </PosterAdd>
-              <MovieInfo  >
-              <h1>{movie?.original_title ? movie.original_title : movie?.original_name}</h1>
-              <time> {movie?.release_date ? movie.release_date : movie?.first_air_date}</time>
-              <MovieHeader>
-              <GenreList>
-                <li>
-                  <a href={`https://www.imdb.com/title/${movie.id}`}>IMDB</a>
-                </li>
-                {movie.genres.map((genre, index) => (
-                  <li key={`movie-genre-${index}`}>{genre.name}</li>
-                ))}
-              </GenreList>
+            <title>
+              {movie?.original_title
+                ? movie.original_title
+                : movie?.original_name}{' '}
+              - Movie Details
+            </title>
+            <meta name="description" content={movie.overview} />
+            <meta
+              property="og:title"
+              content={
+                movie?.original_title
+                  ? movie.original_title
+                  : movie?.original_name
+              }
+            />
+            <meta property="og:description" content={movie.overview} />
+            <meta property="og:type" content="video.movie" />
+            <meta
+              property="og:url"
+              content={`https://movie4fun.netlify.app/movies/${movie.id}`}
+            />
+            <meta
+              property="og:image"
+              content={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            />
+            <meta property="og:site_name" content="movies4fun" />
+          </Helmet>
+          <MovieBox>
+            <MovieHeader>
+              <div>
+                <MovieTitle>
+                  {movie?.original_title
+                    ? movie.original_title
+                    : movie?.original_name}
+                </MovieTitle>
+                <GenreList>
+                  <li>
+                    <time>
+                      {' '}
+                      {movie?.release_date
+                        ? movie.release_date
+                        : movie?.first_air_date}
+                    </time>
+                  </li>
+
+                  {movie.genres.map((genre, index) => (
+                    <li key={`movie-genre-${index}`}>{genre.name}</li>
+                  ))}
+                  <li>
+                    <a href={`https://www.imdb.com/title/${movie.id}`}>IMDB</a>
+                  </li>
+                </GenreList>
+              </div>
+
               <ScoreStar>
-              <h3>User Score:</h3><RatingDetail movie={movie} /></ScoreStar>
+                <RatingDetail movie={movie} size={40} gap={20} scoreSize={2} />
+              </ScoreStar>
             </MovieHeader>
-            
-                {/* <p>Runtime: {movie.runtime} minutes</p> */}
-                <h2>Overview</h2>
-                <p>{movie.overview}</p>
-              </MovieInfo>
+
+            <MovieBody>
+              <MovieSection>
+                <PosterAdd>
+                  <AddWatchBtn movie={movie} size={40} />
+                  <PosterItem
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={
+                      movie?.original_title
+                        ? movie.original_title
+                        : movie?.original_name
+                    }
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </PosterAdd>
+                <MovieVideo
+                  title={
+                    movie?.original_title
+                      ? movie.original_title
+                      : movie?.original_name
+                  }
+                  height="315"
+                  src={`https://www.youtube.com/embed/${videos[0]?.key}`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></MovieVideo>
+              </MovieSection>
             </MovieBody>
+
+            <MovieInfo>
+              {/* <p>Runtime: {movie.runtime} minutes</p> */}
+              <h2>Overview</h2>
+              <p>{movie.overview}</p>
+            </MovieInfo>
           </MovieBox>
         </MovieDetail>
       ) : (

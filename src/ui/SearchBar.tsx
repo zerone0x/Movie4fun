@@ -61,7 +61,7 @@ const SearchBox = styled.div`
     // z-index: 1; 
   }
 `
-const SearchInput = styled.div`
+const SearchInput = styled.form`
   display: flex;
   flex-grow: 1;
   max-width: 600px;
@@ -190,6 +190,10 @@ function SearchBar({
   return (
     <SearchBox id="search-container">
       <SearchInput>
+        {/* <select>
+          <option value="movie">Movie</option>
+          <option value="tv">TV</option>
+        </select> */}
         <SearchTxt
           type="search"
           onKeyDown={(e) => {
@@ -202,7 +206,7 @@ function SearchBar({
           }}
           isExpanded={isExpanded}
         />
-        <SearchButton onClick={searchMovie}>
+        <SearchButton onClick={searchMovie} type="submit">
           <Search />
         </SearchButton>
       </SearchInput>
