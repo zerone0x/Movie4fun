@@ -134,12 +134,15 @@ const EmptyWatchList = styled.div`
   p {
     font-size: 1.7rem;
     color: #f5c518;
-  text-align: center;
   }
+  height: 30vh;
 `
 
 // TODO placeholder
 const EmptyWatchBox = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
 height: 100%;
 `
 

@@ -92,6 +92,7 @@ function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
 
   return (
     <StarBtn
+    type="submit"
       onClick={onRate}
       onMouseEnter={onHoverIn}
       onMouseLeave={onHoverOut}
