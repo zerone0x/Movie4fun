@@ -41,10 +41,16 @@ interface PosterWrapperProps {
 }
 
 function PosterPic({ movie, height = 200, width = '100px' }: posterProps) {
+  let type = movie.media_type === 'movie' ? 'movie' : 'tv'
+  if(movie?.original_title){
+    type = 'movie'
+  }else{
+    type = 'tv'
+  }
   return (
     <Card>
       <AddWatchBtn movie={movie}/>
-      <Link to={movie.media_type === 'movie' ? `/movie/${movie.id}` : `/tv/${movie.id}`}>
+      <Link to={type === 'movie' ? `/movie/${movie.id}` : `/tv/${movie.id}`}>
         <PosterWrapper height={height} width={width}>
           {movie.poster_path !== 'N/A' ? (
             <Poster

@@ -16,6 +16,8 @@ import { Suspense, lazy } from 'react'
 import Spinner from './ui/Spinner'
 import { TopRatedProvider } from './data/getTopRated'
 import { TVTopRateProvider } from './data/getTvTopRated'
+import Discover from './pages/Discover'
+import Actor from './pages/Actor'
 
 const queryClient = new QueryClient()
 
@@ -46,7 +48,8 @@ function App() {
                       <Route path="top250" element={<Top250 />} />
                       <Route path=":type/:mediaId" element={<Movie />} />
                       <Route path="search" element={<Search />} />
-                      {/* TODO - Add a route for the actor page */}
+                      <Route path="discover" element={<Discover/>}/>
+                      <Route path="actor/:actorId" element={<Actor/>} />
                     </Route>
                     <Route path="*" element={<PageNotFound />} />
                   </Routes>

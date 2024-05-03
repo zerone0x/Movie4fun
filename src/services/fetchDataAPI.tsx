@@ -17,8 +17,19 @@ export const fetchTVTopRated = async () => {
 }
 export const fetchMovieById = async (movieId: string | undefined) => {
   const { data } = await client.get(`movie/${movieId}`)
-  console.log(data)
+  
   return data
+}
+
+export const fetchTvVideos = async (tvId: string | undefined) => {
+  const { data } = await client.get(`tv/${tvId}/videos`)
+  return data.results
+}
+
+export const fetchMovieVideos = async (movieId: string | undefined) => {
+  const { data } = await client.get(`movie/${movieId}/videos`)
+  console.log(data)
+  return data.results
 }
 
 export const fetchTVById = async (tvId: string | undefined) => {

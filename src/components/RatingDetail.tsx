@@ -8,16 +8,22 @@ const RatingStar = styled.button`
 background:none;
 border:none;
 `
-const RatingBox = styled.div`
+const RatingBox = styled.div<RatingBoxProps>`
   display: flex;
-  gap: 10px;
+  gap: ${(props) => props.gap}px;
   align-items: center;
+
 `
 
 const AverageRate = styled.div`
   display: flex;
   gap: 5px;
+  align-items: center;
+
 `
+
+const Score = styled.p<ScoreProps>`
+  font-size: ${(props) => props.size}rem;`
 
 interface ratingArrProps {
   id: number
@@ -27,15 +33,22 @@ interface MovieProps {
   id: number
   vote_average: number
 }
+interface RatingBoxProps{
+  gap: number
+}
 
-function RatingDetail({ movie }: { movie: MovieProps }) {
+interface ScoreProps {
+  size: number
+}
+
+function RatingDetail({ movie, size=20, gap=10, scoreSize=1.4 }: { movie: MovieProps, size?: number, gap?: number, scoreSize?: number}) {
   const dispatch = useDispatch()
   const ratingArr = useSelector(selectRating)
   return (
-    <RatingBox>
+    <RatingBox gap={gap}>
       <AverageRate>
-        <Star size={20} color="#F5C518" full={true} />{' '}
-        {movie.vote_average.toFixed(1)}
+        <Star size={size} color="#F5C518" full={true} />{' '}
+        <Score size={scoreSize}>{movie.vote_average.toFixed(1)}</Score>
       </AverageRate>
       {ratingArr.map((item: ratingArrProps) => {
         if (item.id === movie.id) {
@@ -46,9 +59,9 @@ function RatingDetail({ movie }: { movie: MovieProps }) {
                 dispatch(openPopup(movie))
               }}
             >
-              <Star size={20} color="#5799EF" full={item?.rate !== 0} />
+              <Star size={size} color="#5799EF" full={item?.rate !== 0} />
 
-              {item?.rate !== 0 && item.rate}
+              <Score size={scoreSize}>{item?.rate !== 0 && item.rate}</Score>
             </AverageRate>
           )
         }
@@ -60,7 +73,7 @@ function RatingDetail({ movie }: { movie: MovieProps }) {
             dispatch(openPopup(movie))
           }}
         >
-          <Star size={20} color="#5799EF" full={false} />
+          <Star size={size} color="#5799EF" full={false} />
         </RatingStar>
       )}
     </RatingBox>
