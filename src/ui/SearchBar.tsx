@@ -61,7 +61,7 @@ const SearchBox = styled.div`
     // z-index: 1; 
   }
 `
-const SearchInput = styled.form`
+const SearchInput = styled.div`
   display: flex;
   flex-grow: 1;
   max-width: 600px;

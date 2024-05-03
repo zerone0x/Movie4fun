@@ -122,6 +122,12 @@ const MovieInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  h2{
+    font-size: 4rem;
+  }
+  p{
+    font-size: 2rem;
+  }
   @media (max-width: 768px) {
     padding: 0.5rem;
   }
