@@ -98,6 +98,14 @@ const NoPoster = styled.div`
   align-items: center;
 `
 
+const SuggestDetail = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  p {
+    color: #F5C518;
+  }
+`
+
 interface SearchBarProperty {
   isExpanded: boolean
 }
@@ -234,51 +242,56 @@ function SearchBar({
                 <div key={`search-suggestion-${suggestion.id}`}>
                   <Link to={`/${suggestion.media_type}/${suggestion.id}`}>
                     <SearchSuggestionItem>
-                    {suggestion?.poster_path === null ||
-                    suggestion?.profile_path === null ? (
-                      suggestion?.media_type !== 'person' ? (
-                        <NoPoster>
-                          <Poster
-                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
-                            alt="No Poster"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </NoPoster>
+                      {suggestion?.poster_path === null ||
+                      suggestion?.profile_path === null ? (
+                        suggestion?.media_type !== 'person' ? (
+                          <NoPoster>
+                            <Poster
+                              src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+                              alt="No Poster"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </NoPoster>
+                        ) : (
+                          <NoPoster>
+                            <Poster
+                              src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
+                              alt="No Actor Poster"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </NoPoster>
+                        )
                       ) : (
-                        <NoPoster>
-                          <Poster
-                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
-                            alt="No Actor Poster"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </NoPoster>
-                      )
-                    ) : (
-                      <Poster
-                        src={
-                          suggestion?.poster_path
-                            ? `https://image.tmdb.org/t/p/w500${suggestion?.poster_path}`
-                            : `https://image.tmdb.org/t/p/w500${suggestion?.profile_path}`
-                        }
-                        loading="lazy"
-                        decoding="async"
-                        
-                      />
-                    )}
+                        <Poster
+                          src={
+                            suggestion?.poster_path
+                              ? `https://image.tmdb.org/t/p/w500${suggestion?.poster_path}`
+                              : `https://image.tmdb.org/t/p/w500${suggestion?.profile_path}`
+                          }
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
                       <SearchSuggestionText>
                         <h4>
                           {suggestion?.original_title
                             ? suggestion.original_title
                             : suggestion?.original_name}
                         </h4>
-                        {/* <span>{suggestion.media_type}</span> */}
-                        <time>
-                          {suggestion?.release_date
-                            ? suggestion.release_date
-                            : suggestion?.first_air_date}
-                        </time>
+                        <SuggestDetail>
+                          {suggestion?.media_type !== 'person' ? (
+                            <>
+                              <time>
+                                {suggestion?.release_date
+                                  ? suggestion.release_date
+                                  : suggestion?.first_air_date}
+                              </time>
+                              <p>{suggestion?.media_type}</p>
+                            </>
+                          ) : null}
+                        </SuggestDetail>
                       </SearchSuggestionText>
                     </SearchSuggestionItem>
                   </Link>

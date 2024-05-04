@@ -205,7 +205,7 @@ function Poster({ movies, header = '', link = '', detail=true, fontSize=24, Head
           </Link>
         )}
         <EmptyWatchBox>
-        <p>Your List is empty(T . T)</p>
+        <p>This List is empty(T . T)</p>
         </EmptyWatchBox>
       </EmptyWatchList>
     );
