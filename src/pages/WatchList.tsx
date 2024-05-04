@@ -166,7 +166,6 @@ function WatchList() {
     release_date?: string
     first_air_date?: string
   }
-  console.log(WatchList[0])
   return (
     <WatchPage>
       <Helmet>
@@ -183,7 +182,6 @@ function WatchList() {
         <h1>Your WatchList</h1>
         <WatchSort>
           <h3>Sort by:</h3>
-          {/* TODO https://poe.com/s/HVXVZe68aug9dZuJUvTs */}
           <WatchSelect onChange={handleSelectChange}>
             <option value="1">IMDb Rating</option>
             {/* <option value="2">Your Rating</option> */}
@@ -206,10 +204,6 @@ function WatchList() {
                   <h3>{movie?.original_title ? movie.original_title : movie?.original_name}</h3>
                   <time>{movie?.release_date ? movie.release_date : movie?.first_air_date}</time>
                   {movie?.runtime && <span> {movie?.runtime}min </span>}
-                  {/* <ul>
-                {movie.genres.map((genre, index) => (
-                <li key={index}>{genre.name}</li>
-              ))}</ul> */}
                   <RatingDetail movie={movie} />
                   <WatchItemOverview>{movie.overview}</WatchItemOverview>
                 </div>

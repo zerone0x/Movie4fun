@@ -29,7 +29,7 @@ const ContentContainer = styled.div`
   flex-grow: 1;
   //   // padding: 0 1rem; 
   
-  // }
+ }
 `
 
 const GroupBtn = styled.div`

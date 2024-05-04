@@ -5,8 +5,9 @@ import styled from 'styled-components'
 import RatingDetail from '../components/RatingDetail'
 import Spinner from '../ui/Spinner'
 import { useQuery } from 'react-query'
-import { fetchMovieById, fetchMovieVideos, fetchTVById, fetchTvVideos } from '../services/fetchDataAPI'
+import { fetchMovieById, fetchMovieCredits, fetchMovieVideos, fetchTVById, fetchTVCredits, fetchTvVideos } from '../services/fetchDataAPI'
 import { Helmet } from 'react-helmet-async'
+import Poster from '../components/poster'
 
 const MovieDetail = styled.div<MovieBackgroundProps>`
   padding-top: 3rem;
@@ -76,8 +77,9 @@ const PosterAdd = styled.div`
 
 `
 const PosterItem = styled.img`
-  // max-width: 400px;
-  // max-height: 500px;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  
 
   @media (max-width: 768px) {
     max-width: 100%;
@@ -85,6 +87,24 @@ const PosterItem = styled.img`
   }
 `
 
+const PosterImg = styled.img`
+  max-width: 60px;
+  max-height: 60px;
+
+`
+
+const NoPoster = styled.div`
+min-height: 50vw;
+min-width: 33.3333333vw;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 768px) {
+    max-width: 100%;
+    max-height: 100%;
+  }
+`
 const MovieSection = styled.div`
   display: flex;
   gap: 1rem;
@@ -121,6 +141,7 @@ const MovieInfo = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
+  
   gap: 1rem;
   h2{
     font-size: 4rem;
@@ -174,6 +195,26 @@ const MovieTitle = styled.h1`
 font-size: 5rem;
 width: 100%;
 `
+const VideoBox = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 0 auto;
+font-size: 4rem;
+Color: #F5C518;
+@media (max-width: 768px) {
+  font-size: 2rem;
+}
+`
+
+const ActorPosterBox = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`
 interface mediaProperty {
   id: number
   genres: { name: string }[]
@@ -199,6 +240,7 @@ interface Video {
 function Movie() {
   const [movie, setMedia] = useState<mediaProperty | null>(null)
   const [videos, setVideos] = useState<Video[]>([])
+  const [credits, setCredits] = useState<Actor[]>([])
   let { type, mediaId } = useParams()
 
   const {
@@ -247,12 +289,32 @@ function Movie() {
     }
   }, [mediaInfo])
       
-
+  const {
+    data: creditsInfo,
+    error: creditsErr,
+    isLoading: creditsIsLoading,
+    isError: creditsIsErr,
+  } = useQuery(
+    [type === 'movie' ? 'MovieCreditsById' : 'TVCreditsById', mediaId],
+    () => {
+      if (type === 'movie') {
+        return fetchMovieCredits(mediaId)
+      } else if (type === 'tv') {
+        return fetchTVCredits(mediaId)
+      }
+      return Promise.reject(new Error('Invalid media type'))
+    }
+  )
+  
+  useEffect(() => {
+    if (creditsInfo) {
+      setCredits(creditsInfo)
+    }
+  }, [creditsInfo])
   if (isLoading) return <Spinner />
   // TODO Error page 
   if (isError) return <div>Error: Can't find movie with this id</div>
-  if (isLoadingVideo) return <Spinner />
-  if (isErrorVideo) return <div>Error: {errorVideo}</div>
+  
 
   return (
     <>
@@ -297,18 +359,22 @@ function Movie() {
                     : movie?.original_name}
                 </MovieTitle>
                 <GenreList>
-                  <li>
-                    <time>
-                      {' '}
-                      {movie?.release_date
-                        ? movie.release_date
-                        : movie?.first_air_date}
-                    </time>
-                  </li>
-
-                  {movie.genres.map((genre, index) => (
-                    <li key={`movie-genre-${index}`}>{genre.name}</li>
-                  ))}
+                  {
+                    movie?.release_date?.length || movie?.first_air_date?.length ? (
+                      <li>
+                        {movie?.release_date
+                          ? movie.release_date
+                          : movie?.first_air_date}
+                      </li>
+                    ) : null
+                  }
+                  
+                  {movie.genres.map(
+                    (genre, index) =>
+                      genre?.name.length && (
+                        <li key={`movie-genre-${index}`}>{genre.name}</li>
+                      )
+                  )}
                   <li>
                     <a href={`https://www.imdb.com/title/${movie.id}`}>IMDB</a>
                   </li>
@@ -322,30 +388,51 @@ function Movie() {
 
             <MovieBody>
               <MovieSection>
-                <PosterAdd>
+                {
+                  movie?.poster_path !== null ? (
+<PosterAdd>
                   <AddWatchBtn movie={movie} size={40} />
                   <PosterItem
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={
-                      movie?.original_title
-                        ? movie.original_title
-                        : movie?.original_name
-                    }
+                    alt={movie?.original_title || movie?.original_name || ''}
                     loading="lazy"
                     decoding="async"
                   />
                 </PosterAdd>
-                <MovieVideo
-                  title={
-                    movie?.original_title
-                      ? movie.original_title
-                      : movie?.original_name
-                  }
-                  height="315"
-                  src={`https://www.youtube.com/embed/${videos[0]?.key}`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></MovieVideo>
+                  ) : (
+                    <NoPoster>
+                          <PosterImg
+                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+                            alt="No Poster"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </NoPoster>
+                  )
+                }
+                
+
+                {isLoadingVideo ? (
+                  <Spinner />
+                ) : isErrorVideo ? (
+                  <div>Error: {errorVideo}</div>
+                ) : (
+                  <>
+                    {videos?.length > 0 ? (
+                      <MovieVideo
+                        title={
+                          movie?.original_title || movie?.original_name || ''
+                        }
+                        height="315"
+                        src={`https://www.youtube.com/embed/${videos[0]?.key}`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <VideoBox>No video available</VideoBox>
+                    )}
+                  </>
+                )}
               </MovieSection>
             </MovieBody>
 
@@ -354,7 +441,15 @@ function Movie() {
               <h2>Overview</h2>
               <p>{movie.overview}</p>
             </MovieInfo>
+            
           </MovieBox>
+          {creditsIsLoading ? (
+          <Spinner />
+        ) : creditsIsErr ? (
+          <div>Error: {creditsErr}</div>
+        ) : (
+          credits && <ActorPosterBox><Poster movies={credits} header="Actors" detail={false} fontSize={30}/></ActorPosterBox>
+        )}
         </MovieDetail>
       ) : (
         <Spinner />

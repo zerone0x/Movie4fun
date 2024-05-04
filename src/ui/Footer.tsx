@@ -19,18 +19,20 @@ const FooterItem = styled.li`
   flex: 1;
 `
 const FooterBox = styled.div`
-  // display: flex;
+  display: flex;
   // flex:1;
   // flex-direction: column;
-  // align-items: center;
+  justify-content: center;
+  align-items: center;
   // gap: 1rem;
   background-color: black;
   text-align: center;
   padding: 1rem;
   z-index:1;
-  // height: 100px;
-  // position: fixed;
-  // bottom: 0;
+  height: 100px;
+  position: sticker;
+  bottom: 0;
+  min-width: 100%;
 `
 
 function Footer() {

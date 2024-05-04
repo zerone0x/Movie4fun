@@ -49,7 +49,7 @@ function App() {
                       <Route path=":type/:mediaId" element={<Movie />} />
                       <Route path="search" element={<Search />} />
                       <Route path="discover" element={<Discover/>}/>
-                      <Route path="actor/:actorId" element={<Actor/>} />
+                      <Route path="person/:actorId" element={<Actor/>} />
                     </Route>
                     <Route path="*" element={<PageNotFound />} />
                   </Routes>

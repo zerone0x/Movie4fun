@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import StarRating from './starRating'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -59,14 +58,14 @@ const StyledSlider = styled(Slider)`
 `
 const MovieSlider = styled.div`
 padding: 0 10px;
-    margin: 0 10px;
-    flex: 1 1 auto;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 1rem;
+  margin: 0 10px;
+  flex: 1 0 auto;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
   }
 `
 const MovieDetail = styled.div`
@@ -74,19 +73,14 @@ const MovieDetail = styled.div`
   border-radius: 0 0 4px 4px;
 `
 
-const SectionTitle = styled.h1`
-  font-size: 24px;
+const SectionTitle = styled.h1<SectionTitleProps>`
+  font-size: ${(props) => props.fontSize}px;
   margin-bottom: 20px;
-  // font-weight: 450;
-  // &::after {
-  //   content: '>';
-  // }
   &::before {
     content: '| ';
     color: #f5c518;
   }
   @media (max-width: 768px) {
-    font-size: 20px;
   }
 `
 
@@ -138,14 +132,16 @@ const EmptyWatchList = styled.div`
   height: 30vh;
 `
 
-// TODO placeholder
 const EmptyWatchBox = styled.div`
+height: 300px;
 display: flex;
 justify-content: center;
 align-items: center;
 height: 100%;
 `
-
+interface SectionTitleProps {
+  fontSize?: number
+}
 
 interface ArrowProps {
   className: string
@@ -171,12 +167,16 @@ interface Media {
   original_name?: string
   release_date?: string
   first_air_date?: string
+  profile_path?: string
+  name?: string
 }
 
 interface PosterProps {
   movies: Media[]
-  header: string
+  header?: string
   link?: string
+  detail?: boolean
+  fontSize?: number
 }
 const sliderSettings = (moviesLength: number) => ({
   dots: true,
@@ -187,18 +187,19 @@ const sliderSettings = (moviesLength: number) => ({
   prevArrow: <PrevArrow className="prev-arrow" onClick={() => {}} />,
   nextArrow: <NextArrow className="next-arrow" onClick={() => {}} />,
 })
-function Poster({ movies, header = '', link = '' }: PosterProps) {
+function Poster({ movies, header = '', link = '', detail=true, fontSize=24 }: PosterProps) {
   const settings = useMemo(() => sliderSettings(movies?.length), [movies])
+
   if (!movies.length) {
     return (
       <EmptyWatchList>
         {header && (
           <Link to={link || '#'}>
-            <SectionTitle>{header}</SectionTitle>
+            <SectionTitle fontSize={fontSize}>{header}</SectionTitle>
           </Link>
         )}
         <EmptyWatchBox>
-        <p>Your watchlist is empty(T . T)</p>
+        <p>Your List is empty(T . T)</p>
         </EmptyWatchBox>
       </EmptyWatchList>
     );
@@ -207,7 +208,7 @@ function Poster({ movies, header = '', link = '' }: PosterProps) {
     <PosterBox>
       {header && (
         <Link to={link || '#'}>
-          <SectionTitle>{header}</SectionTitle>
+          <SectionTitle fontSize={fontSize}>{header}</SectionTitle>
         </Link>
       )}
       {/* <div>
@@ -220,11 +221,11 @@ function Poster({ movies, header = '', link = '' }: PosterProps) {
           {movies.map((movie) => (
             <Card key={`card-${movie.id}`}>
               <PosterPic movie={movie} height={300} width="100%" />
-              <MovieDetail>
+              {detail && <MovieDetail>
               <Title>{movie?.original_title ? movie.original_title : movie?.original_name}</Title>
               <Year>{movie?.release_date ? movie.release_date : movie?.first_air_date}</Year>
-                <RatingDetail movie={movie} />
-              </MovieDetail>
+               {movie?.poster_path && <RatingDetail movie={movie} />}
+              </MovieDetail>}
             </Card>
           ))}
         </StyledSlider>
@@ -233,11 +234,11 @@ function Poster({ movies, header = '', link = '' }: PosterProps) {
           {movies.map((movie) => (
             <Card key={`card-${movie.id}`}>
               <PosterPic movie={movie} height={300} width="100%" />
-              <MovieDetail>
+              {detail && <MovieDetail>
               <Title>{movie?.original_title ? movie.original_title : movie?.original_name}</Title>
               <Year>{movie?.release_date ? movie.release_date : movie?.first_air_date}</Year>
-                <RatingDetail movie={movie} />
-              </MovieDetail>
+               {movie?.poster_path && <RatingDetail movie={movie} />}
+              </MovieDetail>}
             </Card>
           ))}
         </MovieSlider>

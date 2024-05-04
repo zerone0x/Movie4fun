@@ -5,9 +5,23 @@ export const fetchTrendMovies = async () => {
   return data.results
 }
 
+export const fetchTrendPpl= async () => {
+  const { data } = await client.get('trending/person/day')
+  return data.results
+}
+
+export const fetchTVCredits = async (tvId: string | undefined) => {
+  const { data } = await client.get(`tv/${tvId}/credits`)
+  return data.cast
+}
+
+export const fetchMovieCredits = async (movieId: string | undefined) => {
+  const { data } = await client.get(`movie/${movieId}/credits`)
+  return data.cast
+}
+
 export const fetchMovieTopRated = async () => {
   const { data } = await client.get('movie/top_rated')
-  console.log(data)
   return data.results
 }
 
@@ -17,8 +31,17 @@ export const fetchTVTopRated = async () => {
 }
 export const fetchMovieById = async (movieId: string | undefined) => {
   const { data } = await client.get(`movie/${movieId}`)
-  
   return data
+}
+
+export const fetchActorById = async (actorId: string | undefined) => {
+  const { data } = await client.get(`person/${actorId}`)
+  return data
+}
+
+export const fetchActorMedia = async (actorId: string | undefined) => {
+  const { data } = await client.get(`person/${actorId}/combined_credits`)
+  return data.cast
 }
 
 export const fetchTvVideos = async (tvId: string | undefined) => {
@@ -28,7 +51,6 @@ export const fetchTvVideos = async (tvId: string | undefined) => {
 
 export const fetchMovieVideos = async (movieId: string | undefined) => {
   const { data } = await client.get(`movie/${movieId}/videos`)
-  console.log(data)
   return data.results
 }
 
@@ -36,6 +58,13 @@ export const fetchTVById = async (tvId: string | undefined) => {
   const { data } = await client.get(`tv/${tvId}`)
   return data
 }
+
+export const fetchMutiByQuery = async (query:string) => {
+  if (!query) return []
+  const { data } = await client.get(`search/multi?query=${query}`)
+  return data.results
+}
+
 
 export const fetchMovieByQuery = async (query: string) => {
   if (!query) return []
