@@ -20,6 +20,16 @@ export const fetchMovieCredits = async (movieId: string | undefined) => {
   return data.cast
 }
 
+export const fetchMovieRecommendations = async (movieId: string | undefined) => {
+  const { data } = await client.get(`movie/${movieId}/recommendations`)
+  return data.results
+}
+
+export const fetchTVRecommendations = async (tvId: string | undefined) => {
+  const { data } = await client.get(`tv/${tvId}/recommendations`)
+  return data.results
+}
+
 export const fetchMovieTopRated = async () => {
   const { data } = await client.get('movie/top_rated')
   return data.results

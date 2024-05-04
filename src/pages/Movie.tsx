@@ -8,9 +8,11 @@ import { useQuery } from 'react-query'
 import {
   fetchMovieById,
   fetchMovieCredits,
+  fetchMovieRecommendations,
   fetchMovieVideos,
   fetchTVById,
   fetchTVCredits,
+  fetchTVRecommendations,
   fetchTvVideos,
 } from '../services/fetchDataAPI'
 import { Helmet } from 'react-helmet-async'
@@ -142,6 +144,7 @@ const MovieInfo = styled.div`
   gap: 1rem;
   h2 {
     font-size: 4rem;
+    font-weight: 500;
   }
   p {
     font-size: 2rem;
@@ -166,7 +169,9 @@ const MovieBottom = styled.div`
   flex-direction: column;
   gap: 2rem;
   h1{
-    font-size: 4rem;
+    font-size: 3.7rem;
+  font-weight: 500;
+
   
   }
 `
@@ -249,6 +254,7 @@ function Movie() {
   const [movie, setMedia] = useState<mediaProperty | null>(null)
   const [videos, setVideos] = useState<Video[]>([])
   const [credits, setCredits] = useState<[]>([])
+  const [recommendations, setRecommendations] = useState<[]>([])
   let { type, mediaId } = useParams()
 
   const {
@@ -310,15 +316,40 @@ function Movie() {
       return Promise.reject(new Error('Invalid media type'))
     }
   )
-
   useEffect(() => {
     if (creditsInfo) {
       setCredits(creditsInfo)
     }
   }, [creditsInfo])
+
+  const {
+    data: recommendationsInfo,
+    error: recommendationsErr,
+    isLoading: recommendationsIsLoading,
+    isError: recommendationsIsErr,
+  } = useQuery(
+    [type === 'movie' ? 'MovieRecommendationsById' : 'TVRecommendationsById', mediaId],
+    () => {
+      if (type === 'movie') {
+        return fetchMovieRecommendations(mediaId)
+      } else if (type === 'tv') {
+        return fetchTVRecommendations(mediaId)
+      }
+      return Promise.reject(new Error('Invalid media type'))
+    }
+  )
+  useEffect(() => {
+    if (recommendationsInfo) {
+      setRecommendations(recommendationsInfo)
+    }
+  }, [recommendationsInfo])
+
+
   if (isLoading) return <Spinner />
 
   if (isError) return <div>Error: Can't find movie with this id</div>
+
+
 
   return (
     <>
@@ -441,6 +472,21 @@ function Movie() {
                 <h2>Overview</h2>
                 <p>{movie.overview}</p>
               </MovieInfo>
+              {
+                recommendationsIsLoading ? (
+                  <Spinner />
+                ) : recommendationsIsErr ? (
+                  <div>Error: {recommendationsErr}</div>
+                ) : recommendations && (
+                  <Poster
+                    movies={recommendations}
+                    header="Recommendations"
+                    detail={false}
+                    fontSize={40}
+                    HeadLine={false}
+                  />
+                )
+              }
               {creditsIsLoading ? (
                 <Spinner />
               ) : creditsIsErr ? (
