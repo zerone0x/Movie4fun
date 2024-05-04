@@ -41,6 +41,7 @@ interface Media {
   release_date?: string
   first_air_date?: string
   profile_path?: string
+  name?: string
 }
 
 interface posterProps {

@@ -69,7 +69,7 @@ padding: 0 10px;
   }
 `
 const MovieDetail = styled.div`
-  padding: 10px;
+  padding: .4rem;
   border-radius: 0 0 4px 4px;
 `
 
@@ -221,11 +221,16 @@ function Poster({ movies, header = '', link = '', detail=true, fontSize=24 }: Po
           {movies.map((movie) => (
             <Card key={`card-${movie.id}`}>
               <PosterPic movie={movie} height={300} width="100%" />
-              {detail && <MovieDetail>
+              <MovieDetail>
               <Title>{movie?.original_title ? movie.original_title : movie?.original_name}</Title>
-              <Year>{movie?.release_date ? movie.release_date : movie?.first_air_date}</Year>
-               {movie?.poster_path && <RatingDetail movie={movie} />}
-              </MovieDetail>}
+
+              { detail && (
+  <>
+    <Year>{movie?.release_date ? movie.release_date : movie?.first_air_date}</Year>
+    {movie?.poster_path && <RatingDetail movie={movie} />}
+  </>
+)}
+              </MovieDetail>
             </Card>
           ))}
         </StyledSlider>
