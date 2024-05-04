@@ -56,9 +56,9 @@ const StyledSlider = styled(Slider)`
     right: -50px;
   }
 `
-const MovieSlider = styled.div`
-padding: 0 10px;
-  margin: 0 10px;
+const MovieSlider = styled.div<MovieSliderProps>`
+padding: ${(props) => props.HeadLine ? '0 10px' : '0'};
+  margin: ${(props) => props.HeadLine ? '0 10px' : '0'};
   flex: 1 0 auto;
   height: 100%;
   width: 100%;
@@ -77,7 +77,7 @@ const SectionTitle = styled.h1<SectionTitleProps>`
   font-size: ${(props) => props.fontSize}px;
   margin-bottom: 20px;
   &::before {
-    content: '| ';
+    content: ${(props) => props.HeadLine ? '| ' : ''};
     color: #f5c518;
   }
   @media (max-width: 768px) {
@@ -141,6 +141,11 @@ height: 100%;
 `
 interface SectionTitleProps {
   fontSize?: number
+  HeadLine?: boolean
+}
+
+interface MovieSliderProps{
+  HeadLine?: boolean
 }
 
 interface ArrowProps {
@@ -177,6 +182,7 @@ interface PosterProps {
   link?: string
   detail?: boolean
   fontSize?: number
+  HeadLine?: boolean
 }
 const sliderSettings = (moviesLength: number) => ({
   dots: true,
@@ -187,7 +193,7 @@ const sliderSettings = (moviesLength: number) => ({
   prevArrow: <PrevArrow className="prev-arrow" onClick={() => {}} />,
   nextArrow: <NextArrow className="next-arrow" onClick={() => {}} />,
 })
-function Poster({ movies, header = '', link = '', detail=true, fontSize=24 }: PosterProps) {
+function Poster({ movies, header = '', link = '', detail=true, fontSize=24, HeadLine=true }: PosterProps) {
   const settings = useMemo(() => sliderSettings(movies?.length), [movies])
 
   if (!movies.length) {

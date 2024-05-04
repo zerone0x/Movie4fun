@@ -107,6 +107,8 @@ interface ActorMediaProps {
   id: string
   title: string
   poster_path: string
+  vote_average: number
+  media_type: string
 }
 // TODO add meta 
 function splitStringIntoThreeParts(str: string) {

@@ -57,9 +57,7 @@ interface PosterWrapperProps {
 
 function PosterPic({ movie, height = 200, width = '100px' }: posterProps) {
   let type = movie?.media_type
-  console.log(type)
-  console.log(movie)
-  let title = ''
+  let title:string | undefined = ''
   if(movie?.profile_path){
     type='person'
     title = movie?.name

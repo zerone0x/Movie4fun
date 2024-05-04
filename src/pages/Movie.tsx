@@ -5,7 +5,14 @@ import styled from 'styled-components'
 import RatingDetail from '../components/RatingDetail'
 import Spinner from '../ui/Spinner'
 import { useQuery } from 'react-query'
-import { fetchMovieById, fetchMovieCredits, fetchMovieVideos, fetchTVById, fetchTVCredits, fetchTvVideos } from '../services/fetchDataAPI'
+import {
+  fetchMovieById,
+  fetchMovieCredits,
+  fetchMovieVideos,
+  fetchTVById,
+  fetchTVCredits,
+  fetchTvVideos,
+} from '../services/fetchDataAPI'
 import { Helmet } from 'react-helmet-async'
 import Poster from '../components/poster'
 
@@ -41,10 +48,9 @@ const MovieDetail = styled.div<MovieBackgroundProps>`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(128, 128, 128, 0.6); 
+    background-color: rgba(128, 128, 128, 0.6);
     z-index: -1;
     backdrop-filter: blur(3px); // 应用模糊效果
-   
   }
 
   background: linear-gradient(
@@ -64,22 +70,18 @@ const MovieDetail = styled.div<MovieBackgroundProps>`
     padding: 2rem;
     flex-direction: column;
   }
-`;
+`
 const MovieBox = styled.div`
-max-width: 1500px;
-margin: 0 auto;
-padding:1rem
-
-
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 1rem;
 `
 const PosterAdd = styled.div`
   position: relative;
-
 `
 const PosterItem = styled.img`
   width: 100%;
   aspect-ratio: 2 / 3;
-  
 
   @media (max-width: 768px) {
     max-width: 100%;
@@ -90,12 +92,11 @@ const PosterItem = styled.img`
 const PosterImg = styled.img`
   max-width: 60px;
   max-height: 60px;
-
 `
 
 const NoPoster = styled.div`
-min-height: 50vw;
-min-width: 33.3333333vw;
+  min-height: 50vw;
+  min-width: 33.3333333vw;
   background-color: #f0f0f0;
   display: flex;
   justify-content: center;
@@ -112,9 +113,7 @@ const MovieSection = styled.div`
   min-height: 100%;
   @media (max-width: 768px) {
     flex-direction: column;
-    
   }
-  
 `
 const GenreList = styled.ul`
   display: flex;
@@ -130,29 +129,48 @@ const GenreList = styled.ul`
     & a {
       color: #f5c518;
     }
-    
   }
   @media (max-width: 768px) {
-    gap:0.8rem;
+    gap: 0.8rem;
   }
 `
 const MovieInfo = styled.div`
-  padding: 5rem;
   color: white;
   display: flex;
   flex-direction: column;
-  
+
   gap: 1rem;
-  h2{
+  h2 {
     font-size: 4rem;
   }
-  p{
+  p {
     font-size: 2rem;
   }
   @media (max-width: 768px) {
     padding: 0.5rem;
   }
 `
+
+const ActorPosterBox = styled.div`
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`
+
+const MovieBottom = styled.div`
+  padding: 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  h1{
+    font-size: 4rem;
+  
+  }
+`
+
 const MovieHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -165,56 +183,46 @@ const MovieHeader = styled.div`
 `
 
 const MovieBody = styled.div`
- 
-display: flex;
-@media (max-width: 768px) {
-  flex-direction: column;
-  gap: 1rem;
-}
-
-`
-const ScoreStar = styled.div`
-display: flex;
-gap: 1rem;
-flex-direction: column;
-justify-content: end;
-  `
-
-const MovieVideo = styled.iframe`
-width: 100%;
-height: 100%;
-border: none;
-
-@media (max-width: 768px) {
-  aspect-ratio: 16 / 9;
-  min-width: 100%!important;
-  min-height:100%!important;
-}
-`
-const MovieTitle = styled.h1`
-font-size: 5rem;
-width: 100%;
-`
-const VideoBox = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-margin: 0 auto;
-font-size: 4rem;
-Color: #F5C518;
-@media (max-width: 768px) {
-  font-size: 2rem;
-}
-`
-
-const ActorPosterBox = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  
+  display: flex;
   @media (max-width: 768px) {
-    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
   }
 `
+const ScoreStar = styled.div`
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: end;
+`
+
+const MovieVideo = styled.iframe`
+  width: 100%;
+  height: 100%;
+  border: none;
+
+  @media (max-width: 768px) {
+    aspect-ratio: 16 / 9;
+    min-width: 100% !important;
+    min-height: 100% !important;
+  }
+`
+const MovieTitle = styled.h1`
+  font-size: 5rem;
+  width: 100%;
+`
+const VideoBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  font-size: 4rem;
+  color: #f5c518;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`
+
 interface mediaProperty {
   id: number
   genres: { name: string }[]
@@ -240,7 +248,7 @@ interface Video {
 function Movie() {
   const [movie, setMedia] = useState<mediaProperty | null>(null)
   const [videos, setVideos] = useState<Video[]>([])
-  const [credits, setCredits] = useState<Actor[]>([])
+  const [credits, setCredits] = useState<[]>([])
   let { type, mediaId } = useParams()
 
   const {
@@ -265,30 +273,27 @@ function Movie() {
       setVideos(movieVideo)
     }
   }, [movieVideo])
- 
+
   const {
     data: mediaInfo,
     error,
     isLoading,
     isError,
-  } = useQuery(
-    [type === 'movie' ? 'MovieById' : 'TVById', mediaId],
-    () => {
-      if (type === 'movie') {
-        return fetchMovieById(mediaId)
-      } else if (type === 'tv') {
-        return fetchTVById(mediaId)
-      }
-      return Promise.reject(new Error('Invalid media type'))
+  } = useQuery([type === 'movie' ? 'MovieById' : 'TVById', mediaId], () => {
+    if (type === 'movie') {
+      return fetchMovieById(mediaId)
+    } else if (type === 'tv') {
+      return fetchTVById(mediaId)
     }
-  )
-  
+    return Promise.reject(new Error('Invalid media type'))
+  })
+
   useEffect(() => {
     if (mediaInfo) {
       setMedia(mediaInfo)
     }
   }, [mediaInfo])
-      
+
   const {
     data: creditsInfo,
     error: creditsErr,
@@ -305,16 +310,15 @@ function Movie() {
       return Promise.reject(new Error('Invalid media type'))
     }
   )
-  
+
   useEffect(() => {
     if (creditsInfo) {
       setCredits(creditsInfo)
     }
   }, [creditsInfo])
   if (isLoading) return <Spinner />
-  // TODO Error page 
+
   if (isError) return <div>Error: Can't find movie with this id</div>
-  
 
   return (
     <>
@@ -359,16 +363,15 @@ function Movie() {
                     : movie?.original_name}
                 </MovieTitle>
                 <GenreList>
-                  {
-                    movie?.release_date?.length || movie?.first_air_date?.length ? (
-                      <li>
-                        {movie?.release_date
-                          ? movie.release_date
-                          : movie?.first_air_date}
-                      </li>
-                    ) : null
-                  }
-                  
+                  {movie?.release_date?.length ||
+                  movie?.first_air_date?.length ? (
+                    <li>
+                      {movie?.release_date
+                        ? movie.release_date
+                        : movie?.first_air_date}
+                    </li>
+                  ) : null}
+
                   {movie.genres.map(
                     (genre, index) =>
                       genre?.name.length && (
@@ -388,29 +391,26 @@ function Movie() {
 
             <MovieBody>
               <MovieSection>
-                {
-                  movie?.poster_path !== null ? (
-<PosterAdd>
-                  <AddWatchBtn movie={movie} size={40} />
-                  <PosterItem
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie?.original_title || movie?.original_name || ''}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </PosterAdd>
-                  ) : (
-                    <NoPoster>
-                          <PosterImg
-                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
-                            alt="No Poster"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </NoPoster>
-                  )
-                }
-                
+                {movie?.poster_path !== null ? (
+                  <PosterAdd>
+                    <AddWatchBtn movie={movie} size={40} />
+                    <PosterItem
+                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      alt={movie?.original_title || movie?.original_name || ''}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </PosterAdd>
+                ) : (
+                  <NoPoster>
+                    <PosterImg
+                      src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+                      alt="No Poster"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </NoPoster>
+                )}
 
                 {isLoadingVideo ? (
                   <Spinner />
@@ -435,21 +435,32 @@ function Movie() {
                 )}
               </MovieSection>
             </MovieBody>
+            <MovieBottom>
+              <MovieInfo>
+                {/* <p>Runtime: {movie.runtime} minutes</p> */}
+                <h2>Overview</h2>
+                <p>{movie.overview}</p>
+              </MovieInfo>
+              {creditsIsLoading ? (
+                <Spinner />
+              ) : creditsIsErr ? (
+                <div>Error: {creditsErr}</div>
+              ) : (
+                credits && (
+                  <ActorPosterBox>
+                    <Poster
+                      movies={credits}
+                      header="Actors"
+                      detail={false}
+                      fontSize={40}
+                      HeadLine={false}
 
-            <MovieInfo>
-              {/* <p>Runtime: {movie.runtime} minutes</p> */}
-              <h2>Overview</h2>
-              <p>{movie.overview}</p>
-            </MovieInfo>
-            
+                    />
+                  </ActorPosterBox>
+                )
+              )}
+            </MovieBottom>
           </MovieBox>
-          {creditsIsLoading ? (
-          <Spinner />
-        ) : creditsIsErr ? (
-          <div>Error: {creditsErr}</div>
-        ) : (
-          credits && <ActorPosterBox><Poster movies={credits} header="Actors" detail={false} fontSize={30}/></ActorPosterBox>
-        )}
         </MovieDetail>
       ) : (
         <Spinner />
