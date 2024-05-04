@@ -5,6 +5,7 @@ import Spinner from "../ui/Spinner";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Poster from "../components/poster";
+import { Helmet } from "react-helmet-async";
 
 const Profile = styled.img`
 width: 500px;
@@ -172,8 +173,16 @@ function Actor() {
   if (isError) return <div>Error: {error}</div>
 
   return (
-    actor && (
+    actor ? (
       <ActorMain>
+          <Helmet>
+        <title>{actor.name} - movies4fun</title>
+        <meta property="og:title" content={actor.name} />
+        <meta property="og:description" content={actor.biography.slice(0,100)} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://movie4fun.netlify.app/person/{action.id}" />
+        <meta property="og:image" content={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} />
+      </Helmet>
         <ActionBody>
         <ActionHeader>
         <ActorTitle>{actor.name}</ActorTitle>
@@ -195,7 +204,6 @@ function Actor() {
     <ActorProfile>No Profile</ActorProfile>
   )}
   </>
-  {/* <p>{actor.biography.length > 300 ? actor.biography.split('.').slice(0,17).join('. '): actor.biography }</p> */}
   <Biography>
     <h3>Biography</h3>
     <BiographyParagraph>{splitStringIntoThreeParts(actor.biography)}</BiographyParagraph>
@@ -210,7 +218,7 @@ function Actor() {
           actorSource && <ActorPosterBox><Poster movies={actorSource} header="Known For" detail={false} fontSize={30}/></ActorPosterBox>
         )}
       </ActorMain>
-    )
+    ) : (<Spinner/>)
 )
 }
 
