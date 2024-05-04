@@ -104,11 +104,16 @@ interface ActorProps {
 }
 
 interface ActorMediaProps {
-  id: string
-  title: string
+  id: number
   poster_path: string
   vote_average: number
   media_type: string
+  original_title?: string
+  original_name?: string
+  release_date?: string
+  first_air_date?: string
+  profile_path?: string
+  name?: string
 }
 // TODO add meta 
 function splitStringIntoThreeParts(str: string) {
