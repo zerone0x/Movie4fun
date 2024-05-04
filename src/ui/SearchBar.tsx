@@ -6,7 +6,7 @@ import { debounce } from 'lodash'
 import { Search } from 'lucide-react'
 import styled from 'styled-components'
 import { useQuery } from 'react-query'
-import { fetchMovieByQuery } from '../services/fetchDataAPI'
+import { fetchMovieByQuery, fetchMutiByQuery } from '../services/fetchDataAPI'
 import Spinner from './Spinner'
 
 const SearchSuggestion = styled.ul`
@@ -57,8 +57,8 @@ const SearchBox = styled.div`
   border-radius: 8px;
 
   @media (max-width: 768px) {
-    width: 100%; 
-    // z-index: 1; 
+    width: 100%;
+    // z-index: 1;
   }
 `
 const SearchInput = styled.div`
@@ -81,14 +81,23 @@ const SearchTxt = styled.input<SearchBarProperty>`
   width: 100%;
   border-right-radius: none;
   border: none;
-  outline: none;  
-  
+  outline: none;
+
   @media (max-width: 600px) {
-    width: ${(props) => (props.isExpanded ? '100%' : '0')}; 
-    visibility: ${(props) =>
-      props.isExpanded ? 'visible' : 'hidden'}; 
+    width: ${(props) => (props.isExpanded ? '100%' : '0')};
+    visibility: ${(props) => (props.isExpanded ? 'visible' : 'hidden')};
   }
 `
+
+const NoPoster = styled.div`
+  width: 40px;
+  height: 60px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 interface SearchBarProperty {
   isExpanded: boolean
 }
@@ -97,6 +106,10 @@ interface suggestionProperty {
   poster_path: string
   original_title: string
   release_date: string
+  media_type: string
+  first_air_date: string
+  original_name: string
+  profile_path: string
 }
 
 interface SearchBarComponentProperty {
@@ -124,7 +137,7 @@ function SearchBar({
     isLoading,
     isError,
     error,
-  } = useQuery(['search', query], () => fetchMovieByQuery(query ? query : ''))
+  } = useQuery(['search', query], () => fetchMutiByQuery(query ? query : ''))
   useEffect(() => {
     if (suggestResults) {
       setSuggestions(suggestResults || [])
@@ -216,21 +229,56 @@ function SearchBar({
             <Spinner />
           ) : (
             suggestions
-              .slice(0, 10)
+              .slice(0, 12)
               .map((suggestion: suggestionProperty, index) => (
                 <div key={`search-suggestion-${suggestion.id}`}>
-                  <Link to={`/movie/${suggestion.id}`}>
+                  <Link to={`/${suggestion.media_type}/${suggestion.id}`}>
                     <SearchSuggestionItem>
-                      {suggestion.poster_path !== 'N/A' ? (
-                        <Poster
-                          src={`https://image.tmdb.org/t/p/w500${suggestion.poster_path}`}
-                        />
+                    {suggestion?.poster_path === null ||
+                    suggestion?.profile_path === null ? (
+                      suggestion?.media_type !== 'person' ? (
+                        <NoPoster>
+                          <Poster
+                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+                            alt="No Poster"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </NoPoster>
                       ) : (
-                        <span>No Poster</span>
-                      )}
+                        <NoPoster>
+                          <Poster
+                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
+                            alt="No Actor Poster"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </NoPoster>
+                      )
+                    ) : (
+                      <Poster
+                        src={
+                          suggestion?.poster_path
+                            ? `https://image.tmdb.org/t/p/w500${suggestion?.poster_path}`
+                            : `https://image.tmdb.org/t/p/w500${suggestion?.profile_path}`
+                        }
+                        loading="lazy"
+                        decoding="async"
+                        
+                      />
+                    )}
                       <SearchSuggestionText>
-                        <h4>{suggestion.original_title}</h4>
-                        <time>{suggestion.release_date}</time>
+                        <h4>
+                          {suggestion?.original_title
+                            ? suggestion.original_title
+                            : suggestion?.original_name}
+                        </h4>
+                        {/* <span>{suggestion.media_type}</span> */}
+                        <time>
+                          {suggestion?.release_date
+                            ? suggestion.release_date
+                            : suggestion?.first_air_date}
+                        </time>
                       </SearchSuggestionText>
                     </SearchSuggestionItem>
                   </Link>

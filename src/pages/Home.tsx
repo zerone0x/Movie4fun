@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { MovieContext } from '../data/getMovie'
 import { selectWatchList } from '../store/watchListSlice'
 import { useSelector } from 'react-redux'
@@ -8,8 +8,12 @@ import { TVContext } from '../data/getTV'
 import { Helmet } from 'react-helmet-async'
 import { TopRatedContext } from '../data/getTopRated'
 import { TVTopRateContext } from '../data/getTvTopRated'
+import { fetchTrendPpl } from '../services/fetchDataAPI'
+import { useQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
+import Spinner from '../ui/Spinner'
 
-const HomeBox = styled.div`
+const HomeBox = styled.main`
   padding: 4rem;
   background: black;
   display: flex;
@@ -50,6 +54,26 @@ function Home() {
 
   // const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
+  // let { mediaId } = useParams()
+  const [Actor, setActor] = useState([])
+
+  const {
+    data: actorInfo,
+    error,
+    isLoading,
+    isError,
+  } = useQuery(['ActorById'], () => fetchTrendPpl())
+  useEffect(() => {
+    if (actorInfo) {
+      setActor(actorInfo)
+    }
+  }, [actorInfo])
+
+  if (isLoading) return <Spinner />
+  if (isError) return <div>Error: {error}</div>
+
+  
+
 
   return (
     <HomeBox>
@@ -65,8 +89,10 @@ function Home() {
         <Header>Watch for fun</Header>
         <Poster movies={movieList} header="Top Movie" />
         <Poster movies={tvList} header="Top TV show" />
+        <Poster movies={Actor} header="Top Actor"/>
         <Poster movies={topRatedList} header="Top Rated Movie" />
         <Poster movies={topRatedTVList} header="Top Rated TV" />
+        
         <Poster
           movies={watchList}
           header="From your Watchlist"

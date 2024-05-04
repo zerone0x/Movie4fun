@@ -4,7 +4,7 @@ import { useSearch } from '../data/getSearchRes'
 import styled from 'styled-components'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'
-import { fetchMovieByQuery } from '../services/fetchDataAPI'
+import { fetchMovieByQuery, fetchMutiByQuery } from '../services/fetchDataAPI'
 import { Helmet } from 'react-helmet-async'
 const SearchRes = styled.ul`
   background-color: #f0f0f0;
@@ -27,7 +27,18 @@ const SearchBox = styled.div`
 const Poster = styled.img`
   max-width: 60px;
   max-height: 60px;
+
 `
+
+const NoPoster = styled.div`
+  width: 40px;
+  height: 60px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 const SearchItem = styled.li`
   display: flex;
   gap: 1rem;
@@ -56,6 +67,11 @@ function Search() {
     poster_path: string
     original_title: string
     release_date: string
+    media_type: string
+    first_air_date: string
+    original_name: string
+    profile_path: string
+
   }
   const { searchRes, setSearchRes } = useSearch()
   const location = useLocation()
@@ -68,45 +84,92 @@ function Search() {
     isError,
     error,
   } = useQuery(['search', searchQuery], () =>
-    fetchMovieByQuery(searchQuery ? searchQuery : '')
+    fetchMutiByQuery(searchQuery ? searchQuery : '')
   )
   useEffect(() => {
     if (searchResults) {
       setSearchRes(searchResults)
     }
-  }, [searchResults, setSearchRes])
+  }, [searchResults, setSearchRes, searchRes])
   if (isLoading) return <Spinner />
   if (isError) return <div>Error: {error}</div>
   return (
     <>
-    <Helmet>
-    <title>Search Results for "{searchQuery}" - movies4fun</title>
-    <meta name="description" content={`Search results for ${searchQuery} on movies4fun.`} />
-    <meta property="og:title" content={`Search Results for "${searchQuery}" - movies4fun`} />
-    <meta property="og:description" content={`Find movies related to ${searchQuery} on movies4fun.`} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={`https://movie4fun.netlify.app/search?query=${encodeURIComponent(searchQuery ? searchQuery : '')}`} />
-    <meta property="og:image" content="todo" />
-    <meta property="og:site_name" content="movies4fun" />
-  </Helmet>
+      <Helmet>
+        <title>Search Results for "{searchQuery}" - movies4fun</title>
+        <meta
+          name="description"
+          content={`Search results for ${searchQuery} on movies4fun.`}
+        />
+        <meta
+          property="og:title"
+          content={`Search Results for "${searchQuery}" - movies4fun`}
+        />
+        <meta
+          property="og:description"
+          content={`Find movies related to ${searchQuery} on movies4fun.`}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={`https://movie4fun.netlify.app/search?query=${encodeURIComponent(searchQuery ? searchQuery : '')}`}
+        />
+        <meta property="og:image" content="todo" />
+        <meta property="og:site_name" content="movies4fun" />
+      </Helmet>
       <SearchTitle>Search "{searchQuery}"</SearchTitle>
       {searchRes?.length > 0 ? (
         <SearchBox>
           <SearchRes>
-            {searchRes.slice(0, 10).map((searchItem: searchProperty, index) => (
+            {searchRes.slice(0, 15).map((searchItem: searchProperty, index) => (
               <div key={`search-item-${searchItem.id}`}>
-                <Link to={`/movie/${searchItem.id}`}>
+                <Link to={`/${searchItem.media_type}/${searchItem.id}`}>
                   <SearchItem>
-                    {searchItem.poster_path !== 'N/A' ? (
-                      <Poster
-                        src={`https://image.tmdb.org/t/p/w500${searchItem.poster_path}`}
-                      />
+                    {searchItem?.poster_path === null ||
+                    searchItem?.profile_path === null ? (
+                      searchItem?.media_type !== 'person' ? (
+                        <NoPoster>
+                          <Poster
+                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+                            alt="No Poster"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </NoPoster>
+                      ) : (
+                        <NoPoster>
+                          <Poster
+                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
+                            alt="No Actor Poster"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </NoPoster>
+                      )
                     ) : (
-                      <span>No Poster</span>
+                      <Poster
+                        src={
+                          searchItem?.poster_path
+                            ? `https://image.tmdb.org/t/p/w500${searchItem?.poster_path}`
+                            : `https://image.tmdb.org/t/p/w500${searchItem?.profile_path}`
+                        }
+                        loading="lazy"
+                        decoding="async"
+                        
+                      />
                     )}
                     <SearchText>
-                      <Title>{searchItem.original_title}</Title>
-                      <time>{searchItem.release_date}</time>
+                      <Title>
+                        {searchItem?.original_title
+                          ? searchItem.original_title
+                          : searchItem?.original_name}
+                      </Title>
+                      {/* <p>{searchItem.media_type}</p> */}
+                      <time>
+                        {searchItem?.release_date
+                          ? searchItem.release_date
+                          : searchItem?.first_air_date}
+                      </time>
                     </SearchText>
                   </SearchItem>
                 </Link>
