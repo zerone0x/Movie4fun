@@ -115,6 +115,7 @@ interface ActorMediaProps {
   first_air_date?: string
   profile_path?: string
   name?: string
+  backdrop_path: string
 }
 // TODO add meta 
 function splitStringIntoThreeParts(str: string) {

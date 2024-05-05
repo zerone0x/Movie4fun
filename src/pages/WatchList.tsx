@@ -203,7 +203,7 @@ function WatchList() {
                 <div>
                   <h3>{movie?.original_title ? movie.original_title : movie?.original_name}</h3>
                   <time>{movie?.release_date ? movie.release_date : movie?.first_air_date}</time>
-                  {movie?.runtime && <span> {movie?.runtime}min </span>}
+                  {movie?.runtime && <time> {movie?.runtime}min </time>}
                   <RatingDetail movie={movie} />
                   <WatchItemOverview>{movie.overview}</WatchItemOverview>
                 </div>

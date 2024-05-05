@@ -16,7 +16,7 @@ const watchListSlice = createSlice({
     addWatchList(state: ReduceStateWatchProp, action) {
       if (
         state.value.some(
-          (movie: WatchListItemProp) => movie.id === action.payload.id && movie.media_type === action.payload.media_type
+          (movie: WatchListItemProp) => movie.id === action.payload.id && movie.backdrop_path === action.payload.backdrop_path
         )
       ) {
         return
@@ -25,7 +25,7 @@ const watchListSlice = createSlice({
     },
     removeWatchList(state: ReduceStateWatchProp, action) {
       state.value = state.value.filter(
-        (movie) => !(movie.id === action.payload.id && movie.media_type === action.payload.media_type)
+        (movie) => !(movie.id === action.payload.id && movie.backdrop_path === action.payload.backdrop_path)
       )
     },
     // Sort by diff properties of the movie
