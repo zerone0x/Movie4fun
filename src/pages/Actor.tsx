@@ -166,7 +166,6 @@ function Actor() {
   useEffect(() => {
     if (ActorMedia) {
       setActorMedia(ActorMedia)
-      console.log(actorSource)
     }
   }, [ActorMedia, actorSource])
   if (isLoading) return <Spinner />
