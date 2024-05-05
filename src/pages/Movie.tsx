@@ -17,6 +17,7 @@ import {
 } from '../services/fetchDataAPI'
 import { Helmet } from 'react-helmet-async'
 import Poster from '../components/poster'
+import { mediaProperty } from '../utils/interface'
 
 const MovieDetail = styled.div<MovieBackgroundProps>`
   padding-top: 3rem;
@@ -250,21 +251,6 @@ height: 50%;
 }
 `
 
-interface mediaProperty {
-  id: number
-  genres: { name: string }[]
-  poster_path: string
-  runtime: number
-  overview: string
-  vote_average: number
-  backdrop_path: string
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
-}
-
 interface MovieBackgroundProps {
   backPng: string
 }
@@ -431,9 +417,9 @@ function Movie() {
                         <li key={`movie-genre-${index}`}>{genre.name}</li>
                       )
                   )}
-                  <li>
-                    <a href={`https://www.imdb.com/title/${movie.id}`}>IMDB</a>
-                  </li>
+              {  movie?.imdb_id &&  <li>
+                    <a href={`https://www.imdb.com/title/${movie.imdb_id}`} target="_blank"  rel="noreferrer" >IMDB</a>
+                  </li>}
                 </GenreList>
               </div>
 

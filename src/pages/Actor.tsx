@@ -104,20 +104,6 @@ interface ActorProps {
   known_for: Array<string>
 }
 
-interface ActorMediaProps {
-  id: number
-  poster_path: string
-  vote_average: number
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
-  profile_path?: string
-  name?: string
-  backdrop_path: string
-}
-// TODO add meta 
 function splitStringIntoThreeParts(str: string) {
   const sentences = str.split('.');
   const selectedSentences = sentences.slice(0, 6);
@@ -139,7 +125,7 @@ function splitStringIntoThreeParts(str: string) {
 function Actor() {
   let {  actorId } = useParams()
   const [actor, setActor] = useState<ActorProps>()
-  const [actorSource, setActorMedia] = useState<ActorMediaProps[]>([]) 
+  const [actorSource, setActorMedia] = useState<mediaProperty[]>([]) 
 
 
 

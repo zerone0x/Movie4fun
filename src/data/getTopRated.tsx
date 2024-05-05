@@ -2,22 +2,10 @@ import { createContext } from 'react'
 import { fetchMovieTopRated } from '../services/fetchDataAPI'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'
-interface TopRatedType {
-    id: number
-    genres: { name: string }[]
-    poster_path: string
-    runtime: number
-    overview: string
-    vote_average: number
-    backdrop_path: string
-    media_type: string
-    original_title?: string
-    original_name?: string
-    release_date?: string
-    first_air_date?: string
-}
+import { mediaProperty } from '../utils/interface'
+
 interface TopRatedContextType {
-  movies: TopRatedType[]
+  movies: mediaProperty[]
 }
 const defaultContextValue: TopRatedContextType = {
   movies: [],
