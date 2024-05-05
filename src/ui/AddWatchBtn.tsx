@@ -27,6 +27,7 @@ interface ButtonProps {
   size?: number
 }
 
+
 interface AddWatchBtnProps {
   movie: mediaProperty
   size?: number
@@ -43,6 +44,7 @@ function AddWatchBtn({ movie, size = 35 }: AddWatchBtnProps) {
     );
     setInWatchList(isThisInWatchList);
   }, [watchList, movie]); 
+
 
   function handleAddWatchList(movie: mediaProperty) {
     if (inWatchList) {
