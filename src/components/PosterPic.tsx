@@ -70,7 +70,6 @@ function PosterPic({ movie, height = 200, width = '100px' }: posterProps) {
     type = 'tv'
     title = movie?.original_name
   }
-  console.log(type)
   return (
     <Card>
      { movie?.poster_path &&<AddWatchBtn movie={movie}/>}

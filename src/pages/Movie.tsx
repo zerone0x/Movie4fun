@@ -86,8 +86,8 @@ const PosterItem = styled.img`
   aspect-ratio: 2 / 3;
 
   @media (max-width: 768px) {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 40%;
+    max-height: 40%;
   }
 `
 
@@ -151,6 +151,7 @@ const MovieInfo = styled.div`
   }
   @media (max-width: 768px) {
     padding: 0.5rem;
+    max-width: 50%;
   }
 `
 
@@ -171,7 +172,10 @@ const MovieBottom = styled.div`
   h1{
     font-size: 3.7rem;
   font-weight: 500;
-
+  
+  }
+  @media (max-width: 768px) {
+    padding: 2rem;
   
   }
 `
@@ -208,8 +212,10 @@ const MovieVideo = styled.iframe`
 
   @media (max-width: 768px) {
     aspect-ratio: 16 / 9;
-    min-width: 100% !important;
-    min-height: 100% !important;
+    max-width: 50%;
+      max-height: 100%;
+    // min-width: 100% !important;
+    // min-height: 100% !important;
   }
 `
 const MovieTitle = styled.h1`
@@ -226,6 +232,22 @@ const VideoBox = styled.div`
   @media (max-width: 768px) {
     font-size: 2rem;
   }
+`
+const MoviePoster = styled.div`
+width: 50%;
+  height: 50%;
+`
+const MovieTrailer = styled.div`
+width: 100%;
+height: 100%;
+@media (max-width: 768px) {
+  width: 50%;
+height: 50%;
+  order: -1;
+  aspect-ratio: 16 / 9;
+  min-width: 100% !important;
+
+}
 `
 
 interface mediaProperty {
@@ -442,7 +464,7 @@ function Movie() {
                     />
                   </NoPoster>
                 )}
-
+                <>
                 {isLoadingVideo ? (
                   <Spinner />
                 ) : isErrorVideo ? (
@@ -464,6 +486,7 @@ function Movie() {
                     )}
                   </>
                 )}
+                </>
               </MovieSection>
             </MovieBody>
             <MovieBottom>

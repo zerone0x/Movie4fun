@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import RatingDetail from './RatingDetail'
 import PosterPic from './PosterPic'
 import { Link } from 'react-router-dom'
-import { memo, useMemo } from 'react'
+import { memo, useMemo, useRef, useState } from 'react'
 
 const StyledSlider = styled(Slider)`
 
@@ -184,6 +184,7 @@ interface PosterProps {
   fontSize?: number
   HeadLine?: boolean
 }
+
 const sliderSettings = (moviesLength: number) => ({
   dots: true,
   infinite: moviesLength > 6,
@@ -194,14 +195,34 @@ const sliderSettings = (moviesLength: number) => ({
   nextArrow: <NextArrow className="next-arrow" onClick={() => {}} />,
 })
 function Poster({ movies, header = '', link = '', detail=true, fontSize=24, HeadLine=true }: PosterProps) {
+  const sliderRef = useRef<Slider | null>(null);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
   const settings = useMemo(() => sliderSettings(movies?.length), [movies])
 
+  function handleTouchStart(e: number) {
+    setTouchStart(e);
+  }
+
+  function handleTouchMove(e: number) {
+    setTouchEnd(e);
+  }
+
+  function handleTouchEnd() {
+    if (touchStart - touchEnd > 150) {
+      console.log('Swipe Left');
+      sliderRef.current?.slickPrev();
+    } else if (touchStart - touchEnd < -150) {
+      console.log('Swipe Right');
+      sliderRef.current?.slickNext();
+    }
+  }
   if (!movies.length) {
     return (
       <EmptyWatchList>
         {header && (
           <Link to={link || '#'}>
-            <SectionTitle fontSize={fontSize}>{header}</SectionTitle>
+            <SectionTitle fontSize={fontSize} HeadLine={HeadLine}>{header}</SectionTitle>
           </Link>
         )}
         <EmptyWatchBox>
@@ -214,7 +235,7 @@ function Poster({ movies, header = '', link = '', detail=true, fontSize=24, Head
     <PosterBox>
       {header && (
         <Link to={link || '#'}>
-          <SectionTitle fontSize={fontSize}>{header}</SectionTitle>
+          <SectionTitle fontSize={fontSize}HeadLine={HeadLine}>{header}</SectionTitle>
         </Link>
       )}
       {/* <div>
@@ -223,7 +244,14 @@ function Poster({ movies, header = '', link = '', detail=true, fontSize=24, Head
       </div> */}
   
       {movies.length > 6 ? (
-        <StyledSlider {...settings}>
+
+
+<div onTouchStart={(e)=>handleTouchStart(e.targetTouches[0].clientX)} 
+        onTouchMove={(e)=>handleTouchMove(e.targetTouches[0].clientX)} 
+        onTouchEnd={handleTouchEnd}
+        style={{ width: '100%' }}>
+        <StyledSlider {...settings} ref={sliderRef} 
+        >
           {movies.map((movie) => (
             <Card key={`card-${movie.id}`}>
               <PosterPic movie={movie} height={300} width="100%" />
@@ -240,8 +268,9 @@ function Poster({ movies, header = '', link = '', detail=true, fontSize=24, Head
             </Card>
           ))}
         </StyledSlider>
+        </div>
       ) : (
-        <MovieSlider>  
+        <MovieSlider HeadLine={HeadLine}>  
           {movies.map((movie) => (
             <Card key={`card-${movie.id}`}>
               <PosterPic movie={movie} height={300} width="100%" />

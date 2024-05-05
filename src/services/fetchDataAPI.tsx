@@ -32,6 +32,7 @@ export const fetchTVRecommendations = async (tvId: string | undefined) => {
 
 export const fetchMovieTopRated = async () => {
   const { data } = await client.get('movie/top_rated')
+  console.log(data.results.length)
   return data.results
 }
 
@@ -96,7 +97,6 @@ export const fetchActorByQuery = async (query: string) => {
 
 export const fetchTrendTV = async () => {
   const { data } = await client.get('trending/tv/day')
-  // console.log(data)
   return data.results
 }
 
