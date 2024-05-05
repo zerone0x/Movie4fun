@@ -42,7 +42,7 @@ interface Media {
   first_air_date?: string
   profile_path?: string
   name?: string
-  backdrop_path?: string
+  backdrop_path: string
 }
 
 interface posterProps {
