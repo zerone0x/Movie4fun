@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Poster from "../components/poster";
 import { Helmet } from "react-helmet-async";
+import { mediaProperty } from "../utils/interface";
 
 const Profile = styled.img`
 width: 500px;
@@ -126,8 +127,6 @@ function Actor() {
   let {  actorId } = useParams()
   const [actor, setActor] = useState<ActorProps>()
   const [actorSource, setActorMedia] = useState<mediaProperty[]>([]) 
-
-
 
   const {
     data: ActorDetails,

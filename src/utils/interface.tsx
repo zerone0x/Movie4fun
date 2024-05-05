@@ -1,7 +1,7 @@
 export interface mediaProperty {
     id: number
     genres: { name: string }[]
-    poster_path: string
+    poster_path?: string
     runtime: number
     overview: string
     vote_average: number
@@ -12,4 +12,7 @@ export interface mediaProperty {
     release_date?: string
     first_air_date?: string
     imdb_id?: string
+    profile_path?: string
+    name?: string
   }
+  

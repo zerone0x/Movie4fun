@@ -17,7 +17,7 @@ const watchListSlice = createSlice({
     addWatchList(state: ReduceStateWatchProp, action) {
       if (
         state.value.some(
-          (movie: WatchListItemProp) => movie.id === action.payload.id && movie.backdrop_path === action.payload.backdrop_path
+          (movie: mediaProperty) => movie.id === action.payload.id && movie.backdrop_path === action.payload.backdrop_path
         )
       ) {
         return

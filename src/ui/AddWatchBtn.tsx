@@ -44,7 +44,7 @@ function AddWatchBtn({ movie, size = 35 }: AddWatchBtnProps) {
     setInWatchList(isThisInWatchList);
   }, [watchList, movie]); 
 
-  function handleAddWatchList(movie: MovieProperty) {
+  function handleAddWatchList(movie: mediaProperty) {
     if (inWatchList) {
       dispatch(removeWatchList(movie))
     } else {
