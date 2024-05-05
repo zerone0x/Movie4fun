@@ -7,6 +7,7 @@ import {
 import styled from 'styled-components'
 import { memo, useEffect, useState } from 'react'
 import { BookmarkPlus, Check } from 'lucide-react'
+import { mediaProperty } from '../utils/interface'
 
 const AddButton = styled.button<ButtonProps>`
   position: absolute;
@@ -26,14 +27,8 @@ interface ButtonProps {
   size?: number
 }
 
-interface MovieProperty {
-  id: number
-  media_type: string
-  backdrop_path: string
-}
-
 interface AddWatchBtnProps {
-  movie: MovieProperty
+  movie: mediaProperty
   size?: number
 }
 

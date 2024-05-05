@@ -104,3 +104,8 @@ export const fetchTrendActor = async () => {
   const { data } = await client.get('trending/person/day')
   return data.results
 }
+
+export const fetchTVExternalId = async (tvId: string | undefined) => {
+  const { data } = await client.get(`tv/${tvId}/external_ids`)
+  return data
+}
