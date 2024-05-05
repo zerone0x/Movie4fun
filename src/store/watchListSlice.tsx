@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { mediaProperty } from '../utils/interface'
 
 const initialState = {
   value: [],
@@ -16,7 +17,7 @@ const watchListSlice = createSlice({
     addWatchList(state: ReduceStateWatchProp, action) {
       if (
         state.value.some(
-          (movie: WatchListItemProp) => movie.id === action.payload.id && movie.backdrop_path === action.payload.backdrop_path
+          (movie: mediaProperty) => movie.id === action.payload.id && movie.backdrop_path === action.payload.backdrop_path
         )
       ) {
         return
@@ -68,27 +69,12 @@ const watchListSlice = createSlice({
 })
 
 interface ReduceStateWatchProp {
-  value: WatchListItemProp[]
-}
-
-interface WatchListItemProp {
-  id: number
-  genres: { name: string }[]
-  poster_path: string
-  runtime: number
-  overview: string
-  vote_average: number
-  backdrop_path: string
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
+  value: mediaProperty[]
 }
 
 interface State {
   watchList: {
-    value: WatchListItemProp[]
+    value: mediaProperty[]
     currentPage: number
     moviesPerPage: number
   }

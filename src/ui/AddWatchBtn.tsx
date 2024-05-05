@@ -7,6 +7,7 @@ import {
 import styled from 'styled-components'
 import { memo, useEffect, useState } from 'react'
 import { BookmarkPlus, Check } from 'lucide-react'
+import { mediaProperty } from '../utils/interface'
 
 const AddButton = styled.button<ButtonProps>`
   position: absolute;
@@ -26,30 +27,10 @@ interface ButtonProps {
   size?: number
 }
 
-interface MovieProperty {
-  id: number
-  media_type: string
-  backdrop_path: string
-}
 
 interface AddWatchBtnProps {
-  movie: MovieProperty
+  movie: mediaProperty
   size?: number
-}
-
-interface WatchListItemProps {
-  id: number
-  genres: { name: string }[]
-  poster_path: string
-  runtime: number
-  overview: string
-  vote_average: number
-  backdrop_path: string
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
 }
 
 function AddWatchBtn({ movie, size = 35 }: AddWatchBtnProps) {
@@ -64,7 +45,8 @@ function AddWatchBtn({ movie, size = 35 }: AddWatchBtnProps) {
     setInWatchList(isThisInWatchList);
   }, [watchList, movie]); 
 
-  function handleAddWatchList(movie: MovieProperty) {
+
+  function handleAddWatchList(movie: mediaProperty) {
     if (inWatchList) {
       dispatch(removeWatchList(movie))
     } else {

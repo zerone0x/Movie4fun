@@ -6,6 +6,7 @@ import RatingDetail from './RatingDetail'
 import PosterPic from './PosterPic'
 import { Link } from 'react-router-dom'
 import { memo, useMemo, useRef, useState } from 'react'
+import { mediaProperty } from '../utils/interface'
 
 const StyledSlider = styled(Slider)`
 
@@ -163,22 +164,8 @@ function NextArrow(props: ArrowProps) {
   return <ArrowButton className={className} onClick={onClick} />
 }
 
-interface Media {
-  id: number
-  poster_path: string
-  vote_average: number
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
-  profile_path?: string
-  name?: string
-  backdrop_path: string
-}
-
 interface PosterProps {
-  movies: Media[]
+  movies: mediaProperty[]
   header?: string
   link?: string
   detail?: boolean

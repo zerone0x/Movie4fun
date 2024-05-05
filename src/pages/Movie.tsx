@@ -12,11 +12,13 @@ import {
   fetchMovieVideos,
   fetchTVById,
   fetchTVCredits,
+  fetchTVExternalId,
   fetchTVRecommendations,
   fetchTvVideos,
 } from '../services/fetchDataAPI'
 import { Helmet } from 'react-helmet-async'
 import Poster from '../components/poster'
+import { mediaProperty } from '../utils/interface'
 
 const MovieDetail = styled.div<MovieBackgroundProps>`
   padding-top: 3rem;
@@ -250,21 +252,6 @@ height: 50%;
 }
 `
 
-interface mediaProperty {
-  id: number
-  genres: { name: string }[]
-  poster_path: string
-  runtime: number
-  overview: string
-  vote_average: number
-  backdrop_path: string
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
-}
-
 interface MovieBackgroundProps {
   backPng: string
 }
@@ -272,11 +259,16 @@ interface MovieBackgroundProps {
 interface Video {
   key: string
 }
+
+interface TVExternalID {
+  imdb_id: string
+}
 function Movie() {
   const [movie, setMedia] = useState<mediaProperty | null>(null)
   const [videos, setVideos] = useState<Video[]>([])
   const [credits, setCredits] = useState<[]>([])
   const [recommendations, setRecommendations] = useState<[]>([])
+  const [tvExternalID, setExternalID] = useState<TVExternalID>({ imdb_id: '' })
   let { type, mediaId } = useParams()
 
   const {
@@ -366,6 +358,27 @@ function Movie() {
     }
   }, [recommendationsInfo])
 
+  const {
+    data: tvIDInfo,
+    // error: errortvIDInfo,
+    // isLoading: isLoadingtvIDInfo,
+    // isError: isErrortvIDInfo,
+  } = useQuery(
+    ['TVExternalIDById', mediaId],
+    () => {
+      if (type === 'tv') {
+        return fetchTVExternalId(mediaId)
+      } else {
+        return
+      }
+    }
+  )
+
+  useEffect(() => {
+    if (tvIDInfo) {
+      setExternalID(tvIDInfo)
+    }
+  }, [tvIDInfo])
 
   if (isLoading) return <Spinner />
 
@@ -431,9 +444,13 @@ function Movie() {
                         <li key={`movie-genre-${index}`}>{genre.name}</li>
                       )
                   )}
-                  <li>
-                    <a href={`https://www.imdb.com/title/${movie.id}`}>IMDB</a>
+              {  movie?.imdb_id &&  <li>
+                    <a href={`https://www.imdb.com/title/${movie.imdb_id}`} target="_blank"  rel="noreferrer" >IMDB</a>
+                  </li>}
+                  {tvExternalID?.imdb_id && <li>
+                    <a href={`https://www.imdb.com/title/${tvExternalID.imdb_id}`} target="_blank"  rel="noreferrer" >IMDB</a>
                   </li>
+                  }
                 </GenreList>
               </div>
 

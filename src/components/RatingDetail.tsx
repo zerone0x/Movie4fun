@@ -32,6 +32,7 @@ interface ratingArrProps {
 interface MovieProps {
   id: number
   vote_average: number
+  imdb_id?: string
 }
 interface RatingBoxProps{
   gap: number

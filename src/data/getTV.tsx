@@ -2,22 +2,9 @@ import { createContext } from 'react'
 import { fetchTrendTV } from '../services/fetchDataAPI'
 import { useQuery } from 'react-query'
 import Spinner from '../ui/Spinner'
-interface TVType {
-  id: number
-  genres: { name: string }[]
-  poster_path: string
-  runtime: number
-  overview: string
-  vote_average: number
-  backdrop_path: string
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
-}
+import { mediaProperty } from '../utils/interface'
 interface TVContextType {
-  tvSource: TVType[]
+  tvSource: mediaProperty[]
 }
 const defaultContextValue: TVContextType = {
   tvSource: [],

@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate'
 import styled from 'styled-components'
 import { setCurrentPage } from '../store/watchListSlice'
 import { useDispatch } from 'react-redux'
+import { mediaProperty } from '../utils/interface'
 
 const PaginationContainer = styled(ReactPaginate)`
   display: flex;
@@ -38,24 +39,8 @@ const PaginationContainer = styled(ReactPaginate)`
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
 `
-
-interface WatchListItemProp {
-  id: number
-  genres: { name: string }[]
-  poster_path: string
-  runtime: number
-  overview: string
-  vote_average: number
-  backdrop_path: string
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
-}
-
 interface PageSplitProps {
-  movieData: [] | WatchListItemProp[]
+  movieData: [] | mediaProperty[]
   moviesPerPage: number
 }
 // TODO 分页路由

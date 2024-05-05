@@ -16,6 +16,7 @@ import { ArrowDown, ArrowUp, ArrowUpDown, Check } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import PageSplit from '../components/PageSplit'
 import { Helmet } from 'react-helmet-async'
+import { mediaProperty } from '../utils/interface'
 const WatchPage = styled.div`
   background: #E0DBCF;
   color: black;
@@ -97,21 +98,6 @@ font-size: 1.5rem;
   }
 `
 
-interface WatchListItemProp {
-  id: number
-  genres: { name: string }[]
-  poster_path: string
-  runtime: number
-  overview: string
-  vote_average: number
-  backdrop_path: string
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
-}
-
 function WatchList() {
   const {
     value: WatchList,
@@ -119,7 +105,7 @@ function WatchList() {
     moviesPerPage,
   } = useSelector(selectAllWatchList)
   const dispatch = useDispatch()
-  const [filterMovies, setFilterMovies] = useState<WatchListItemProp[]>([])
+  const [filterMovies, setFilterMovies] = useState<mediaProperty[]>([])
   useEffect(() => {
     const indexOfLastMovie = currentPage * moviesPerPage
     const indexOfFirstMovie = indexOfLastMovie - moviesPerPage
@@ -152,20 +138,6 @@ function WatchList() {
     }
   }
 
-  interface movieProperty {
-    id: number
-    genres: { name: string }[]
-    poster_path: string
-    runtime: number
-    overview: string
-    vote_average: number
-    backdrop_path: string
-    media_type: string
-    original_title?: string
-    original_name?: string
-    release_date?: string
-    first_air_date?: string
-  }
   return (
     <WatchPage>
       <Helmet>
@@ -197,7 +169,7 @@ function WatchList() {
       {filterMovies.length > 0 ? (
         <>
           <WatchBox>
-            {filterMovies.map((movie: movieProperty) => (
+            {filterMovies.map((movie: mediaProperty) => (
               <WatchItem key={`watchlist-movie-${movie.id}`}>
                 <PosterPic movie={movie} height={200} width="130px" />
                 <div>

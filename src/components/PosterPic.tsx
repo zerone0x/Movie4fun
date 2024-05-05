@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import AddWatchBtn from '../ui/AddWatchBtn'
 import { Link } from 'react-router-dom'
+import { mediaProperty } from '../utils/interface'
 const Poster = styled.img`
   width: 100%;
   height: 100%;
@@ -31,22 +32,8 @@ const PosterImg = styled.img`
   height: 300px;
 `
 
-interface Media {
-  id: number
-  poster_path: string
-  vote_average: number
-  media_type: string
-  original_title?: string
-  original_name?: string
-  release_date?: string
-  first_air_date?: string
-  profile_path?: string
-  name?: string
-  backdrop_path: string
-}
-
 interface posterProps {
-  movie: Media
+  movie: mediaProperty
   height?: number
   width?: string
 }
