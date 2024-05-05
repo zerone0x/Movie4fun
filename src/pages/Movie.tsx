@@ -454,6 +454,7 @@ function Movie() {
                       decoding="async"
                     />
                   </PosterAdd>
+                  // <PosterPic movie={movie} height={300} width="100%" />
                 ) : (
                   <NoPoster>
                     <PosterImg

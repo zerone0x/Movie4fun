@@ -5,7 +5,7 @@ import {
   selectWatchList,
 } from '../store/watchListSlice'
 import styled from 'styled-components'
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { BookmarkPlus, Check } from 'lucide-react'
 
 const AddButton = styled.button<ButtonProps>`
@@ -29,6 +29,7 @@ interface ButtonProps {
 interface MovieProperty {
   id: number
   media_type: string
+  backdrop_path: string
 }
 
 interface AddWatchBtnProps {
@@ -54,12 +55,17 @@ interface WatchListItemProps {
 function AddWatchBtn({ movie, size = 35 }: AddWatchBtnProps) {
   const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
-  let isThisInWatchList = watchList.some(
-    (item: WatchListItemProps) => item.id === movie.id && item.media_type === movie.media_type
-  )
+  const [inWatchList, setInWatchList] = useState(false);
+
+  useEffect(() => {
+    const isThisInWatchList = watchList.some(
+      (item) => item.id === movie.id && item.backdrop_path === movie.backdrop_path
+    );
+    setInWatchList(isThisInWatchList);
+  }, [watchList, movie]); 
 
   function handleAddWatchList(movie: MovieProperty) {
-    if (isThisInWatchList) {
+    if (inWatchList) {
       dispatch(removeWatchList(movie))
     } else {
       dispatch(addWatchList(movie))
@@ -69,10 +75,11 @@ function AddWatchBtn({ movie, size = 35 }: AddWatchBtnProps) {
   return (
     <AddButton
       onClick={() => handleAddWatchList(movie)}
-      data-isthisinwatchlist={isThisInWatchList.toString()}
+      data-isthisinwatchlist={inWatchList.toString()}
       size={size}
+      key={`watchList-btn-${movie.media_type}-${movie.id}`}
     >
-      {isThisInWatchList ? <Check /> : <BookmarkPlus />}
+      {inWatchList ? <Check /> : <BookmarkPlus />}
     </AddButton>
   )
 }

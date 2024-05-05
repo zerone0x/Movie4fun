@@ -60,7 +60,7 @@ const SearchTitle = styled.h1`
   padding: 2rem;
   color: black;
 `
-
+// search res need to be split pages TODO 
 function Search() {
   interface searchProperty {
     id: number
