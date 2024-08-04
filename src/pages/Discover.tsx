@@ -1,9 +1,5 @@
-
 function Discover() {
-  return (
-<p>Discover</p>
-
-  );
+  return <p>Discover</p>
 }
 
-export default Discover;
+export default Discover

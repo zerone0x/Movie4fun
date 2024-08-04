@@ -1,12 +1,11 @@
 # bug
 
-  no poster image
-  error page
+no poster image
+error page
 
 # feature
+
 - select search type
-
-
 
 # applayout
 

@@ -16,7 +16,7 @@ const Btn = styled.button<ButtonProp>`
   padding: 0.5rem 1rem;
   color: ${(props) => (props.isActive ? '#000' : 'white')};
   font-size: 1rem;
-  border: none;  // outline: none;
+  border: none; // outline: none;
   border-radius: 5px;
   background-color: ${(props) => (props.isActive ? '#F5C518' : '#333')};
 
@@ -116,13 +116,19 @@ function RatePopup() {
     <>
       {selectedMovie ? (
         <>
-        {/* todo note  learn this  */}
+          {/* todo note  learn this  */}
           <Overlay onClick={() => dispatch(closePopup())} />
           <ModalBox open={isOpen}>
-            <ModalContainer >
-            <CloseBtn onClick={() => dispatch(closePopup())}><X/></CloseBtn>
+            <ModalContainer>
+              <CloseBtn onClick={() => dispatch(closePopup())}>
+                <X />
+              </CloseBtn>
               <RateText>RATE THIS</RateText>
-              <h2>{selectedMovie.original_title ? selectedMovie.original_title : selectedMovie.original_name}</h2>
+              <h2>
+                {selectedMovie.original_title
+                  ? selectedMovie.original_title
+                  : selectedMovie.original_name}
+              </h2>
               <StarRating
                 id={selectedMovie.id}
                 maxRating={10}

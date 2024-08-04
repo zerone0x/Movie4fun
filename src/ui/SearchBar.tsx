@@ -102,7 +102,7 @@ const SuggestDetail = styled.div`
   display: flex;
   gap: 0.5rem;
   p {
-    color: #F5C518;
+    color: #f5c518;
   }
 `
 

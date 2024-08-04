@@ -28,7 +28,7 @@ const FooterBox = styled.div`
   background-color: black;
   text-align: center;
   padding: 1rem;
-  z-index:1;
+  z-index: 1;
   height: 100px;
   position: sticker;
   bottom: 0;
@@ -42,10 +42,8 @@ function Footer() {
         <FooterItem>Help SiteIndex Movie4Fun Box</FooterItem>
         <FooterItem>Office Mojo Movie4Fun Developer Press Room</FooterItem>
       </FooterList> */}
-      <FooterCopy>Made with ❤️ all rights reserved  
-        
-         </FooterCopy>
-         {/* <Github size={20} /> */}
+      <FooterCopy>Made with ❤️ all rights reserved</FooterCopy>
+      {/* <Github size={20} /> */}
     </FooterBox>
   )
 }

@@ -27,7 +27,6 @@ const SearchBox = styled.div`
 const Poster = styled.img`
   max-width: 60px;
   max-height: 60px;
-
 `
 
 const NoPoster = styled.div`
@@ -60,7 +59,7 @@ const SearchTitle = styled.h1`
   padding: 2rem;
   color: black;
 `
-// search res need to be split pages TODO 
+// search res need to be split pages TODO
 function Search() {
   interface searchProperty {
     id: number
@@ -71,7 +70,6 @@ function Search() {
     first_air_date: string
     original_name: string
     profile_path: string
-
   }
   const { searchRes, setSearchRes } = useSearch()
   const location = useLocation()
@@ -155,7 +153,6 @@ function Search() {
                         }
                         loading="lazy"
                         decoding="async"
-                        
                       />
                     )}
                     <SearchText>

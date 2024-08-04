@@ -11,7 +11,8 @@ const defaultContextValue: TopRatedContextType = {
   movies: [],
 }
 
-export const TopRatedContext = createContext<TopRatedContextType>(defaultContextValue)
+export const TopRatedContext =
+  createContext<TopRatedContextType>(defaultContextValue)
 
 export const TopRatedProvider = ({ children }: any) => {
   const {
@@ -24,6 +25,8 @@ export const TopRatedProvider = ({ children }: any) => {
   if (isError) return <div>Error: {error}</div>
 
   return (
-    <TopRatedContext.Provider value={{ movies }}>{children}</TopRatedContext.Provider>
+    <TopRatedContext.Provider value={{ movies }}>
+      {children}
+    </TopRatedContext.Provider>
   )
 }

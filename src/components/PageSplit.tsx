@@ -13,7 +13,7 @@ const PaginationContainer = styled(ReactPaginate)`
   margin-top: 5%;
   gap: 10px;
   cursor: pointer;
-  
+
   .page-item {
     display: inline-flex;
     justify-content: center;
@@ -24,17 +24,19 @@ const PaginationContainer = styled(ReactPaginate)`
     color: #445566;
     font-size: 16px;
     font-weight: 500;
-    transition: background-color 0.3s, color 0.3s;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
 
     &:hover {
-      background-color: #CF7A65;
-      color: #FFFEF8;
+      background-color: #cf7a65;
+      color: #fffef8;
     }
   }
 
   .active {
     background-color: #445566;
-    color: #FFFEF8;
+    color: #fffef8;
     font-weight: 600;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }

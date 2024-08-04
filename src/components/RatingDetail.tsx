@@ -5,25 +5,24 @@ import { openPopup } from '../store/PopupSlice'
 import { selectRating } from '../store/ratingSlice'
 import { memo } from 'react'
 const RatingStar = styled.button`
-background:none;
-border:none;
+  background: none;
+  border: none;
 `
 const RatingBox = styled.div<RatingBoxProps>`
   display: flex;
   gap: ${(props) => props.gap}px;
   align-items: center;
-
 `
 
 const AverageRate = styled.div`
   display: flex;
   gap: 5px;
   align-items: center;
-
 `
 
 const Score = styled.p<ScoreProps>`
-  font-size: ${(props) => props.size}rem;`
+  font-size: ${(props) => props.size}rem;
+`
 
 interface ratingArrProps {
   id: number
@@ -34,7 +33,7 @@ interface MovieProps {
   vote_average: number
   imdb_id?: string
 }
-interface RatingBoxProps{
+interface RatingBoxProps {
   gap: number
 }
 
@@ -42,7 +41,17 @@ interface ScoreProps {
   size: number
 }
 
-function RatingDetail({ movie, size=20, gap=10, scoreSize=1.4 }: { movie: MovieProps, size?: number, gap?: number, scoreSize?: number}) {
+function RatingDetail({
+  movie,
+  size = 20,
+  gap = 10,
+  scoreSize = 1.4,
+}: {
+  movie: MovieProps
+  size?: number
+  gap?: number
+  scoreSize?: number
+}) {
   const dispatch = useDispatch()
   const ratingArr = useSelector(selectRating)
   return (

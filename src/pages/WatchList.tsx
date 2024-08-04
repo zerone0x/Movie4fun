@@ -18,7 +18,7 @@ import PageSplit from '../components/PageSplit'
 import { Helmet } from 'react-helmet-async'
 import { mediaProperty } from '../utils/interface'
 const WatchPage = styled.div`
-  background: #E0DBCF;
+  background: #e0dbcf;
   color: black;
   padding: 1rem 15rem;
   min-height: 100vh;
@@ -59,7 +59,7 @@ const WatchHeader = styled.div`
   margin-bottom: 1.3rem;
   margin: 0 auto;
   max-width: 1200px;
-  h1{
+  h1 {
     font-size: 3.8rem;
   }
 
@@ -92,7 +92,7 @@ const WatchSelect = styled.select`
 `
 
 const WatchItemOverview = styled.p`
-font-size: 1.5rem;
+  font-size: 1.5rem;
   @media (max-width: 768px) {
     font-size: 1rem;
   }
@@ -141,15 +141,27 @@ function WatchList() {
   return (
     <WatchPage>
       <Helmet>
-    <title>Your WatchList - movies4fun</title>
-    <meta name="description" content="View your personalized WatchList on movies4fun. Check out your saved movies sorted by your preferences!" />
-    <meta property="og:title" content="Your WatchList - movies4fun" />
-    <meta property="og:description" content="Explore your WatchList and manage your favorite movies on movies4fun." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://movie4fun.netlify.app/watchlist" />
-    <meta property="og:image" content="https://movie4fun.netlify.app/default-watchlist-image.jpg" />
-    <meta property="og:site_name" content="movies4fun" />
-  </Helmet>
+        <title>Your WatchList - movies4fun</title>
+        <meta
+          name="description"
+          content="View your personalized WatchList on movies4fun. Check out your saved movies sorted by your preferences!"
+        />
+        <meta property="og:title" content="Your WatchList - movies4fun" />
+        <meta
+          property="og:description"
+          content="Explore your WatchList and manage your favorite movies on movies4fun."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://movie4fun.netlify.app/watchlist"
+        />
+        <meta
+          property="og:image"
+          content="https://movie4fun.netlify.app/default-watchlist-image.jpg"
+        />
+        <meta property="og:site_name" content="movies4fun" />
+      </Helmet>
       <WatchHeader>
         <h1>Your WatchList</h1>
         <WatchSort>
@@ -161,7 +173,7 @@ function WatchList() {
             <option value="4">Title</option>
           </WatchSelect>
           <Btn onClick={() => dispatch(reverseWatchList())}>
-          <ArrowUpDown />
+            <ArrowUpDown />
           </Btn>
         </WatchSort>
       </WatchHeader>
@@ -173,8 +185,16 @@ function WatchList() {
               <WatchItem key={`watchlist-movie-${movie.id}`}>
                 <PosterPic movie={movie} height={200} width="130px" />
                 <div>
-                  <h3>{movie?.original_title ? movie.original_title : movie?.original_name}</h3>
-                  <time>{movie?.release_date ? movie.release_date : movie?.first_air_date}</time>
+                  <h3>
+                    {movie?.original_title
+                      ? movie.original_title
+                      : movie?.original_name}
+                  </h3>
+                  <time>
+                    {movie?.release_date
+                      ? movie.release_date
+                      : movie?.first_air_date}
+                  </time>
                   {movie?.runtime && <time> {movie?.runtime}min </time>}
                   <RatingDetail movie={movie} />
                   <WatchItemOverview>{movie.overview}</WatchItemOverview>

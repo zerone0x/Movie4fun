@@ -1,4 +1,3 @@
-
 interface StarProperty {
   size: number
   color: string
@@ -13,7 +12,7 @@ function Star({ size, color, full }: StarProperty) {
     display: 'inline-block',
     background: 'none',
     border: 'none',
-   }
+  }
 
   return (
     <button style={starStyle}>

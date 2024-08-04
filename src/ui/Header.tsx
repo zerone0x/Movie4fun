@@ -22,20 +22,18 @@ const ContentContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
-  
+
   @media (max-width: 768px) {
     justify-content: space-between;
     gap: 1rem;
-  flex-grow: 1;
-  //   // padding: 0 1rem; 
-  
- }
+    flex-grow: 1;
+    //   // padding: 0 1rem;
+  }
 `
 
 const GroupBtn = styled.div`
   display: flex;
   gap: 2.5rem;
-  
 
   @media (max-width: 768px) {
     justify-content: end;
@@ -58,15 +56,15 @@ const IconGroup = styled.div`
 `
 
 const ImdbIcon = styled.button`
-height: 3.5rem;
-padding: 0.5rem 1rem;
-background-color: #121212;
-color: white;
-border: none;
-border-radius: 5px;
-&:hover {
-  background-color: grey;
-}
+  height: 3.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #121212;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  &:hover {
+    background-color: grey;
+  }
   @media (max-width: 768px) {
     order: 1;
     padding: 0.5rem;
@@ -122,9 +120,6 @@ const SearchItem = styled.div`
     width: 100%;
   }
 `
-
-
-
 
 const ResponsiveHeaderContainer = styled(ContentContainer)<ResponseHeader>`
   @media (max-width: 768px) {

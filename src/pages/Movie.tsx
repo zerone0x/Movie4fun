@@ -171,14 +171,12 @@ const MovieBottom = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  h1{
+  h1 {
     font-size: 3.7rem;
-  font-weight: 500;
-  
+    font-weight: 500;
   }
   @media (max-width: 768px) {
     padding: 2rem;
-  
   }
 `
 
@@ -215,7 +213,7 @@ const MovieVideo = styled.iframe`
   @media (max-width: 768px) {
     aspect-ratio: 16 / 9;
     max-width: 50%;
-      max-height: 100%;
+    max-height: 100%;
     // min-width: 100% !important;
     // min-height: 100% !important;
   }
@@ -236,20 +234,19 @@ const VideoBox = styled.div`
   }
 `
 const MoviePoster = styled.div`
-width: 50%;
+  width: 50%;
   height: 50%;
 `
 const MovieTrailer = styled.div`
-width: 100%;
-height: 100%;
-@media (max-width: 768px) {
-  width: 50%;
-height: 50%;
-  order: -1;
-  aspect-ratio: 16 / 9;
-  min-width: 100% !important;
-
-}
+  width: 100%;
+  height: 100%;
+  @media (max-width: 768px) {
+    width: 50%;
+    height: 50%;
+    order: -1;
+    aspect-ratio: 16 / 9;
+    min-width: 100% !important;
+  }
 `
 
 interface MovieBackgroundProps {
@@ -342,7 +339,10 @@ function Movie() {
     isLoading: recommendationsIsLoading,
     isError: recommendationsIsErr,
   } = useQuery(
-    [type === 'movie' ? 'MovieRecommendationsById' : 'TVRecommendationsById', mediaId],
+    [
+      type === 'movie' ? 'MovieRecommendationsById' : 'TVRecommendationsById',
+      mediaId,
+    ],
     () => {
       if (type === 'movie') {
         return fetchMovieRecommendations(mediaId)
@@ -363,16 +363,13 @@ function Movie() {
     // error: errortvIDInfo,
     // isLoading: isLoadingtvIDInfo,
     // isError: isErrortvIDInfo,
-  } = useQuery(
-    ['TVExternalIDById', mediaId],
-    () => {
-      if (type === 'tv') {
-        return fetchTVExternalId(mediaId)
-      } else {
-        return
-      }
+  } = useQuery(['TVExternalIDById', mediaId], () => {
+    if (type === 'tv') {
+      return fetchTVExternalId(mediaId)
+    } else {
+      return
     }
-  )
+  })
 
   useEffect(() => {
     if (tvIDInfo) {
@@ -383,8 +380,6 @@ function Movie() {
   if (isLoading) return <Spinner />
 
   if (isError) return <div>Error: Can't find movie with this id</div>
-
-
 
   return (
     <>
@@ -444,13 +439,28 @@ function Movie() {
                         <li key={`movie-genre-${index}`}>{genre.name}</li>
                       )
                   )}
-              {  movie?.imdb_id &&  <li>
-                    <a href={`https://www.imdb.com/title/${movie.imdb_id}`} target="_blank"  rel="noreferrer" >IMDB</a>
-                  </li>}
-                  {tvExternalID?.imdb_id && <li>
-                    <a href={`https://www.imdb.com/title/${tvExternalID.imdb_id}`} target="_blank"  rel="noreferrer" >IMDB</a>
-                  </li>
-                  }
+                  {movie?.imdb_id && (
+                    <li>
+                      <a
+                        href={`https://www.imdb.com/title/${movie.imdb_id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        IMDB
+                      </a>
+                    </li>
+                  )}
+                  {tvExternalID?.imdb_id && (
+                    <li>
+                      <a
+                        href={`https://www.imdb.com/title/${tvExternalID.imdb_id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        IMDB
+                      </a>
+                    </li>
+                  )}
                 </GenreList>
               </div>
 
@@ -471,8 +481,8 @@ function Movie() {
                       decoding="async"
                     />
                   </PosterAdd>
-                  // <PosterPic movie={movie} height={300} width="100%" />
                 ) : (
+                  // <PosterPic movie={movie} height={300} width="100%" />
                   <NoPoster>
                     <PosterImg
                       src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
@@ -483,27 +493,27 @@ function Movie() {
                   </NoPoster>
                 )}
                 <>
-                {isLoadingVideo ? (
-                  <Spinner />
-                ) : isErrorVideo ? (
-                  <div>Error: {errorVideo}</div>
-                ) : (
-                  <>
-                    {videos?.length > 0 ? (
-                      <MovieVideo
-                        title={
-                          movie?.original_title || movie?.original_name || ''
-                        }
-                        height="315"
-                        src={`https://www.youtube.com/embed/${videos[0]?.key}`}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <VideoBox>No video available</VideoBox>
-                    )}
-                  </>
-                )}
+                  {isLoadingVideo ? (
+                    <Spinner />
+                  ) : isErrorVideo ? (
+                    <div>Error: {errorVideo}</div>
+                  ) : (
+                    <>
+                      {videos?.length > 0 ? (
+                        <MovieVideo
+                          title={
+                            movie?.original_title || movie?.original_name || ''
+                          }
+                          height="315"
+                          src={`https://www.youtube.com/embed/${videos[0]?.key}`}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      ) : (
+                        <VideoBox>No video available</VideoBox>
+                      )}
+                    </>
+                  )}
                 </>
               </MovieSection>
             </MovieBody>
@@ -513,12 +523,12 @@ function Movie() {
                 <h2>Overview</h2>
                 <p>{movie.overview}</p>
               </MovieInfo>
-              {
-                recommendationsIsLoading ? (
-                  <Spinner />
-                ) : recommendationsIsErr ? (
-                  <div>Error: {recommendationsErr}</div>
-                ) : recommendations && (
+              {recommendationsIsLoading ? (
+                <Spinner />
+              ) : recommendationsIsErr ? (
+                <div>Error: {recommendationsErr}</div>
+              ) : (
+                recommendations && (
                   <Poster
                     movies={recommendations}
                     header="Recommendations"
@@ -527,7 +537,7 @@ function Movie() {
                     HeadLine={false}
                   />
                 )
-              }
+              )}
               {creditsIsLoading ? (
                 <Spinner />
               ) : creditsIsErr ? (
@@ -541,7 +551,6 @@ function Movie() {
                       detail={false}
                       fontSize={40}
                       HeadLine={false}
-
                     />
                   </ActorPosterBox>
                 )

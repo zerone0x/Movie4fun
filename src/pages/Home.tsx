@@ -72,27 +72,30 @@ function Home() {
   if (isLoading) return <Spinner />
   if (isError) return <div>Error: {error}</div>
 
-  
-
-
   return (
     <HomeBox>
       <Helmet>
         <title>Home - movies4fun</title>
         <meta property="og:title" content="movies4fun" />
-        <meta property="og:description" content="Browse our top trending movies and TV shows to find your next favorite." />
+        <meta
+          property="og:description"
+          content="Browse our top trending movies and TV shows to find your next favorite."
+        />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://movie4fun.netlify.app/" />
-        <meta property="og:image" content="http://www.yourwebsite.com/path-to-your-image.jpg" />
+        <meta
+          property="og:image"
+          content="http://www.yourwebsite.com/path-to-your-image.jpg"
+        />
       </Helmet>
       <MovieBox>
         <Header>Watch for fun</Header>
         <Poster movies={movieList} header="Top Movie" />
         <Poster movies={tvList} header="Top TV show" />
-        <Poster movies={Actor} header="Top Actor"/>
+        <Poster movies={Actor} header="Top Actor" />
         <Poster movies={topRatedList} header="Top Rated Movie" />
         <Poster movies={topRatedTVList} header="Top Rated TV" />
-        
+
         <Poster
           movies={watchList}
           header="From your Watchlist"

@@ -18,6 +18,8 @@ import { TopRatedProvider } from './data/getTopRated'
 import { TVTopRateProvider } from './data/getTvTopRated'
 import Discover from './pages/Discover'
 import Actor from './pages/Actor'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
 
 const queryClient = new QueryClient()
 
@@ -33,6 +35,8 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <GlobalStyles />
+        <Analytics />
+        <SpeedInsights />
         <Suspense fallback={<Spinner />}>
           <BrowserRouter>
             <SearchProvider>
@@ -40,20 +44,23 @@ function App() {
                 <MovieProvider>
                   <TopRatedProvider>
                     <TVTopRateProvider>
-                  <Routes>
-                    <Route element={<AppLayout />}>
-                      <Route index element={<Navigate replace to="home" />} />
-                      <Route path="home" element={<Home />} />
-                      <Route path="watchlist" element={<WatchList />} />
-                      <Route path="top250" element={<Top250 />} />
-                      <Route path=":type/:mediaId" element={<Movie />} />
-                      <Route path="search" element={<Search />} />
-                      <Route path="discover" element={<Discover/>}/>
-                      <Route path="person/:actorId" element={<Actor/>} />
-                    </Route>
-                    <Route path="*" element={<PageNotFound />} />
-                  </Routes>
-                  </TVTopRateProvider>
+                      <Routes>
+                        <Route element={<AppLayout />}>
+                          <Route
+                            index
+                            element={<Navigate replace to="home" />}
+                          />
+                          <Route path="home" element={<Home />} />
+                          <Route path="watchlist" element={<WatchList />} />
+                          <Route path="top250" element={<Top250 />} />
+                          <Route path=":type/:mediaId" element={<Movie />} />
+                          <Route path="search" element={<Search />} />
+                          <Route path="discover" element={<Discover />} />
+                          <Route path="person/:actorId" element={<Actor />} />
+                        </Route>
+                        <Route path="*" element={<PageNotFound />} />
+                      </Routes>
+                    </TVTopRateProvider>
                   </TopRatedProvider>
                 </MovieProvider>
               </TVProvider>

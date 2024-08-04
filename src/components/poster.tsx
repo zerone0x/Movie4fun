@@ -9,7 +9,6 @@ import { memo, useMemo, useRef, useState } from 'react'
 import { mediaProperty } from '../utils/interface'
 
 const StyledSlider = styled(Slider)`
-
   .slick-slide {
     padding: 0 10px;
   }
@@ -58,8 +57,8 @@ const StyledSlider = styled(Slider)`
   }
 `
 const MovieSlider = styled.div<MovieSliderProps>`
-padding: ${(props) => props.HeadLine ? '0 10px' : '0'};
-  margin: ${(props) => props.HeadLine ? '0 10px' : '0'};
+padding: ${(props) => (props.HeadLine ? '0 10px' : '0')};
+  margin: ${(props) => (props.HeadLine ? '0 10px' : '0')};
   flex: 1 0 auto;
   height: 100%;
   width: 100%;
@@ -70,7 +69,7 @@ padding: ${(props) => props.HeadLine ? '0 10px' : '0'};
   }
 `
 const MovieDetail = styled.div`
-  padding: .4rem;
+  padding: 0.4rem;
   border-radius: 0 0 4px 4px;
 `
 
@@ -78,7 +77,7 @@ const SectionTitle = styled.h1<SectionTitleProps>`
   font-size: ${(props) => props.fontSize}px;
   margin-bottom: 20px;
   &::before {
-    content: ${(props) => props.HeadLine ? '| ' : ''};
+    content: ${(props) => (props.HeadLine ? '| ' : '')};
     color: #f5c518;
   }
   @media (max-width: 768px) {
@@ -120,7 +119,7 @@ const ArrowButton = styled.button`
 `
 
 const PosterBox = styled.div`
-padding: 1rem;
+  padding: 1rem;
 `
 const EmptyWatchList = styled.div`
   padding: 1rem;
@@ -134,18 +133,18 @@ const EmptyWatchList = styled.div`
 `
 
 const EmptyWatchBox = styled.div`
-height: 300px;
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `
 interface SectionTitleProps {
   fontSize?: number
   HeadLine?: boolean
 }
 
-interface MovieSliderProps{
+interface MovieSliderProps {
   HeadLine?: boolean
 }
 
@@ -182,27 +181,34 @@ const sliderSettings = (moviesLength: number) => ({
   prevArrow: <PrevArrow className="prev-arrow" onClick={() => {}} />,
   nextArrow: <NextArrow className="next-arrow" onClick={() => {}} />,
 })
-function Poster({ movies, header = '', link = '', detail=true, fontSize=24, HeadLine=true }: PosterProps) {
-  const sliderRef = useRef<Slider | null>(null);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
+function Poster({
+  movies,
+  header = '',
+  link = '',
+  detail = true,
+  fontSize = 24,
+  HeadLine = true,
+}: PosterProps) {
+  const sliderRef = useRef<Slider | null>(null)
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
   const settings = useMemo(() => sliderSettings(movies?.length), [movies])
 
   function handleTouchStart(e: number) {
-    setTouchStart(e);
+    setTouchStart(e)
   }
 
   function handleTouchMove(e: number) {
-    setTouchEnd(e);
+    setTouchEnd(e)
   }
 
   function handleTouchEnd() {
     if (touchStart - touchEnd > 150) {
-      console.log('Swipe Left');
-      sliderRef.current?.slickPrev();
+      console.log('Swipe Left')
+      sliderRef.current?.slickPrev()
     } else if (touchStart - touchEnd < -150) {
-      console.log('Swipe Right');
-      sliderRef.current?.slickNext();
+      console.log('Swipe Right')
+      sliderRef.current?.slickNext()
     }
   }
   if (!movies.length) {
@@ -210,69 +216,90 @@ function Poster({ movies, header = '', link = '', detail=true, fontSize=24, Head
       <EmptyWatchList>
         {header && (
           <Link to={link || '#'}>
-            <SectionTitle fontSize={fontSize} HeadLine={HeadLine}>{header}</SectionTitle>
+            <SectionTitle fontSize={fontSize} HeadLine={HeadLine}>
+              {header}
+            </SectionTitle>
           </Link>
         )}
         <EmptyWatchBox>
-        <p>This List is empty(T . T)</p>
+          <p>This List is empty(T . T)</p>
         </EmptyWatchBox>
       </EmptyWatchList>
-    );
+    )
   }
   return (
     <PosterBox>
       {header && (
         <Link to={link || '#'}>
-          <SectionTitle fontSize={fontSize}HeadLine={HeadLine}>{header}</SectionTitle>
+          <SectionTitle fontSize={fontSize} HeadLine={HeadLine}>
+            {header}
+          </SectionTitle>
         </Link>
       )}
       {/* <div>
         <button>Movies</button>
         <button>TV</button>
       </div> */}
-  
+
       {movies.length > 6 ? (
-
-
-<div onTouchStart={(e)=>handleTouchStart(e.targetTouches[0].clientX)} 
-        onTouchMove={(e)=>handleTouchMove(e.targetTouches[0].clientX)} 
-        onTouchEnd={handleTouchEnd}
-        style={{ width: '100%' }}>
-        <StyledSlider {...settings} ref={sliderRef} 
+        <div
+          onTouchStart={(e) => handleTouchStart(e.targetTouches[0].clientX)}
+          onTouchMove={(e) => handleTouchMove(e.targetTouches[0].clientX)}
+          onTouchEnd={handleTouchEnd}
+          style={{ width: '100%' }}
         >
-          {movies.map((movie) => (
-            <Card key={`card-${movie.id}`}>
-              <PosterPic movie={movie} height={300} width="100%" />
-              <MovieDetail>
-              <Title>{movie?.original_title ? movie.original_title : movie?.original_name}</Title>
+          <StyledSlider {...settings} ref={sliderRef}>
+            {movies.map((movie) => (
+              <Card key={`card-${movie.id}`}>
+                <PosterPic movie={movie} height={300} width="100%" />
+                <MovieDetail>
+                  <Title>
+                    {movie?.original_title
+                      ? movie.original_title
+                      : movie?.original_name}
+                  </Title>
 
-              { detail && (
-  <>
-    <Year>{movie?.release_date ? movie.release_date : movie?.first_air_date}</Year>
-    {movie?.poster_path && <RatingDetail movie={movie} />}
-  </>
-)}
-              </MovieDetail>
-            </Card>
-          ))}
-        </StyledSlider>
+                  {detail && (
+                    <>
+                      <Year>
+                        {movie?.release_date
+                          ? movie.release_date
+                          : movie?.first_air_date}
+                      </Year>
+                      {movie?.poster_path && <RatingDetail movie={movie} />}
+                    </>
+                  )}
+                </MovieDetail>
+              </Card>
+            ))}
+          </StyledSlider>
         </div>
       ) : (
-        <MovieSlider HeadLine={HeadLine}>  
+        <MovieSlider HeadLine={HeadLine}>
           {movies.map((movie) => (
             <Card key={`card-${movie.id}`}>
               <PosterPic movie={movie} height={300} width="100%" />
-              {detail && <MovieDetail>
-              <Title>{movie?.original_title ? movie.original_title : movie?.original_name}</Title>
-              <Year>{movie?.release_date ? movie.release_date : movie?.first_air_date}</Year>
-               {movie?.poster_path && <RatingDetail movie={movie} />}
-              </MovieDetail>}
+              {detail && (
+                <MovieDetail>
+                  <Title>
+                    {movie?.original_title
+                      ? movie.original_title
+                      : movie?.original_name}
+                  </Title>
+                  <Year>
+                    {movie?.release_date
+                      ? movie.release_date
+                      : movie?.first_air_date}
+                  </Year>
+                  {movie?.poster_path && <RatingDetail movie={movie} />}
+                </MovieDetail>
+              )}
             </Card>
           ))}
         </MovieSlider>
       )}
     </PosterBox>
-  );
+  )
 }
 
 export default memo(Poster)

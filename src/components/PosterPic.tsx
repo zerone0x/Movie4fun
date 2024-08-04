@@ -26,7 +26,7 @@ const NoPoster = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 const PosterImg = styled.img`
   width: 177px;
   height: 300px;
@@ -45,57 +45,53 @@ interface PosterWrapperProps {
 
 function PosterPic({ movie, height = 200, width = '100px' }: posterProps) {
   let type = movie?.media_type
-  let title:string | undefined = ''
-  if(movie?.profile_path){
-    type='person'
+  let title: string | undefined = ''
+  if (movie?.profile_path) {
+    type = 'person'
     title = movie?.name
-  }
-  else if(movie?.original_title){
+  } else if (movie?.original_title) {
     type = 'movie'
     title = movie?.original_title
-  }
-  else if(movie?.original_name){
+  } else if (movie?.original_name) {
     type = 'tv'
     title = movie?.original_name
   }
   return (
     <Card>
-     { movie?.poster_path &&<AddWatchBtn movie={movie}/>}
+      {movie?.poster_path && <AddWatchBtn movie={movie} />}
       <Link to={`/${type}/${movie.id}`}>
         <PosterWrapper height={height} width={width}>
-        {movie?.poster_path === null ||
-                    movie?.profile_path === null ? (
-                      movie?.media_type !== 'person' ? (
-                        <NoPoster>
-                          <PosterImg
-                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
-                            alt="No Poster"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </NoPoster>
-                      ) : (
-                        <NoPoster>
-                          <PosterImg
-                            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
-                            alt="No Actor Poster"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </NoPoster>
-                      )
-                    ) : (
-                      <Poster
-                        src={
-                          movie?.poster_path
-                            ? `https://image.tmdb.org/t/p/w500${movie?.poster_path}`
-                            : `https://image.tmdb.org/t/p/w500${movie?.profile_path}`
-                        }
-                        loading="lazy"
-                        decoding="async"
-                        
-                      />
-                    )}
+          {movie?.poster_path === null || movie?.profile_path === null ? (
+            movie?.media_type !== 'person' ? (
+              <NoPoster>
+                <PosterImg
+                  src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+                  alt="No Poster"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </NoPoster>
+            ) : (
+              <NoPoster>
+                <PosterImg
+                  src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
+                  alt="No Actor Poster"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </NoPoster>
+            )
+          ) : (
+            <Poster
+              src={
+                movie?.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie?.poster_path}`
+                  : `https://image.tmdb.org/t/p/w500${movie?.profile_path}`
+              }
+              loading="lazy"
+              decoding="async"
+            />
+          )}
         </PosterWrapper>
       </Link>
     </Card>

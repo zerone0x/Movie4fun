@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { selectHoverRate, setHoverRate } from '../store/PopupSlice'
 const TextStyle = styled.p`
-font-size: 18px;
-color: white;
-margin:0;`
+  font-size: 18px;
+  color: white;
+  margin: 0;
+`
 
 const RateBox = styled.div`
   display: flex;
@@ -15,7 +16,8 @@ const RateBox = styled.div`
 `
 const StarBtn = styled.button`
   background: none;
-  border: none;`
+  border: none;
+`
 interface ratingArrProps {
   id: number
   rate: number
@@ -52,16 +54,15 @@ function StarRating({
 
   return (
     <>
-     {/* <TextStyle>
+      {/* <TextStyle>
           {HoverRate ? HoverRate : CacheRate || rating || '?'}
         </TextStyle> */}
-    {/* <StarSvg size={StarSize} /> */}
+      {/* <StarSvg size={StarSize} /> */}
       <RateBox>
-        
         {Array.from({ length: maxRating }).map((_, index) => (
           <Star
             key={`star-${index}`}
-            onRate={(e) =>setRate(e, index)}
+            onRate={(e) => setRate(e, index)}
             size={size}
             onHoverIn={() => setHoverRating(index + 1)}
             onHoverOut={() => setHoverRating(0)}
@@ -69,7 +70,6 @@ function StarRating({
             full={index + 1 <= (HoverRate || CacheRate || rating)}
           />
         ))}
-       
       </RateBox>
     </>
   )
@@ -92,7 +92,7 @@ function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
 
   return (
     <StarBtn
-    type="submit"
+      type="submit"
       onClick={onRate}
       onMouseEnter={onHoverIn}
       onMouseLeave={onHoverOut}
@@ -118,7 +118,7 @@ function Star({ onRate, size, onHoverIn, onHoverOut, color, full }: StarProps) {
 //   }
 
 //   return (
-  
+
 //   <svg
 //     xmlns="http://www.w3.org/2000/svg"
 //     viewBox="0 0 20 20"

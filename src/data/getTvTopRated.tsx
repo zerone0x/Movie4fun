@@ -10,7 +10,8 @@ const defaultContextValue: TVTopRateContextType = {
   tvSource: [],
 }
 
-export const TVTopRateContext = createContext<TVTopRateContextType>(defaultContextValue)
+export const TVTopRateContext =
+  createContext<TVTopRateContextType>(defaultContextValue)
 
 export const TVTopRateProvider = ({ children }: any) => {
   const {
@@ -23,6 +24,8 @@ export const TVTopRateProvider = ({ children }: any) => {
   if (isError) return <div>Error: {error}</div>
 
   return (
-    <TVTopRateContext.Provider value={{ tvSource }}>{children}</TVTopRateContext.Provider>
+    <TVTopRateContext.Provider value={{ tvSource }}>
+      {children}
+    </TVTopRateContext.Provider>
   )
 }

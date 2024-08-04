@@ -20,13 +20,11 @@ const AddButton = styled.button<ButtonProps>`
   border: none;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
-  
 `
 interface ButtonProps {
   'data-isthisinwatchlist': string
   size?: number
 }
-
 
 interface AddWatchBtnProps {
   movie: mediaProperty
@@ -36,15 +34,15 @@ interface AddWatchBtnProps {
 function AddWatchBtn({ movie, size = 35 }: AddWatchBtnProps) {
   const dispatch = useDispatch()
   const watchList = useSelector(selectWatchList)
-  const [inWatchList, setInWatchList] = useState(false);
+  const [inWatchList, setInWatchList] = useState(false)
 
   useEffect(() => {
     const isThisInWatchList = watchList.some(
-      (item) => item.id === movie.id && item.backdrop_path === movie.backdrop_path
-    );
-    setInWatchList(isThisInWatchList);
-  }, [watchList, movie]); 
-
+      (item) =>
+        item.id === movie.id && item.backdrop_path === movie.backdrop_path
+    )
+    setInWatchList(isThisInWatchList)
+  }, [watchList, movie])
 
   function handleAddWatchList(movie: mediaProperty) {
     if (inWatchList) {
