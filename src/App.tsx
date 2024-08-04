@@ -35,8 +35,6 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <GlobalStyles />
-        <Analytics />
-        <SpeedInsights />
         <Suspense fallback={<Spinner />}>
           <BrowserRouter>
             <SearchProvider>
