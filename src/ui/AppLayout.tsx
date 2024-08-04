@@ -46,8 +46,7 @@ function AppLayout() {
       <RatePopup />
 
       <Footer></Footer>
-      <Analytics />
-          <SpeedInsights />
+
     </Main>
   )
 }
