@@ -167,6 +167,7 @@ function WatchList() {
         <WatchSort>
           <h3>Sort by:</h3>
           <WatchSelect onChange={handleSelectChange}>
+            <option value="0">Default</option>
             <option value="1">IMDb Rating</option>
             {/* <option value="2">Your Rating</option> */}
             <option value="3">Release Date</option>

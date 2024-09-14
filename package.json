@@ -7,7 +7,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
