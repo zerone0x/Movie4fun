@@ -139,6 +139,7 @@ function SearchBar({
   const [suggestions, setSuggestions] = useState([])
   const [isVisible, setIsVisible] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
+  const inputEl = useRef<HTMLInputElement | null>(null)
 
   const {
     data: suggestResults,
@@ -152,6 +153,9 @@ function SearchBar({
     }
   }, [setSuggestions, suggestResults])
 
+  useEffect(() => {
+    inputEl.current?.focus()
+  }, [])
   const debouncedFetchSuggestions = useCallback(
     debounce((query) => {
       dispatch(setQuery(query))
@@ -216,6 +220,7 @@ function SearchBar({
           <option value="tv">TV</option>
         </select> */}
         <SearchTxt
+          ref={inputEl}
           type="search"
           onKeyDown={(e) => {
             handleKeyDown(e)

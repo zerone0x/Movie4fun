@@ -24,6 +24,7 @@
     "@vercel/speed-insights": "^1.0.12",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
+    "framer-motion": "^11.11.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.372.0",
     "prettier": "^3.2.5",

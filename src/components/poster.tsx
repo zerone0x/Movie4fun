@@ -45,7 +45,7 @@ const StyledSlider = styled(Slider)`
     opacity: 1;
     color: #f5c518 !important;
     // background-color: #F5C518!important;
-    z-index: 1000;
+    z-index: 100;
     transform: scale(1.1);
   }
   .slick-prev {

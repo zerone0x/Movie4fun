@@ -5,6 +5,7 @@ import SearchBar from './SearchBar'
 import styled from 'styled-components'
 import { Bookmark, Clapperboard, Menu, User, Video } from 'lucide-react'
 import { useState } from 'react'
+import SideBar from './SideBar'
 
 const TopHeader = styled.div`
   display: flex;
@@ -145,7 +146,7 @@ interface ResponseHeader {
 function Header() {
   const navigate = useNavigate()
   const watchListCount = useSelector(selectWatchListCount)
-
+  const [isSideBarActive, setIsSideBarActive] = useState(false)
   const handleClick = () => {
     navigate('/watchlist')
   }
@@ -156,8 +157,17 @@ function Header() {
   const handleSearchBlur = () => {
     setIsActive(false)
   }
+  const handleMenuClick = () => {
+    setIsSideBarActive(true)
+  }
   return (
     <TopHeader>
+      {isSideBarActive && (
+        <SideBar
+          isSideBarActive={isSideBarActive}
+          setIsSideBarActive={setIsSideBarActive}
+        />
+      )}
       <ResponsiveHeaderContainer active={isActive}>
         <IconGroup>
           <ImdbIcon>
@@ -165,7 +175,7 @@ function Header() {
               <Clapperboard />
             </Link>
           </ImdbIcon>
-          <WatchListBtn className="imdb-icon">
+          <WatchListBtn className="imdb-icon" onClick={handleMenuClick}>
             <Menu /> <span className="menu-text">Menu</span>
           </WatchListBtn>
         </IconGroup>

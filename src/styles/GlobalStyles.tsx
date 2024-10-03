@@ -41,6 +41,10 @@ const GlobalStyles = createGlobalStyle`
     --image-grayscale: 0;
   --image-opacity: 100%;
   }
+  .no-scroll {
+  overflow: hidden;
+}
+
   
   &.dark-mode {
     --color-grey-0: #18212f;

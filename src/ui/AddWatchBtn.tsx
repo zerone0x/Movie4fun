@@ -15,7 +15,7 @@ const AddButton = styled.button<ButtonProps>`
   left: 0;
   background-color: ${(props) =>
     props['data-isthisinwatchlist'] === 'true' ? '#f5c518' : '#333'};
-  z-index: 1000;
+  z-index: 100;
   color: #fff;
   border: none;
   width: ${(props) => props.size}px;

@@ -191,10 +191,7 @@ function Actor() {
           </>
           <Biography>
             <h3>Biography</h3>
-            {/* <BiographyParagraph> */}
             <TextExpander>{actor.biography}</TextExpander>
-            {/* {splitStringIntoThreeParts(actor.biography)} */}
-            {/* </BiographyParagraph> */}
           </Biography>
         </ActorSection>
       </ActionBody>

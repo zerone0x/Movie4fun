@@ -20,17 +20,15 @@ function TextExpander({ children }: { children: string }) {
   const displayText = isExpanded
     ? children
     : children.split(' ').slice(0, 160).join(' ') + '...'
-  return (
-    children.length > 160 ? (
-      <span>
-        {displayText}{' '}
-        <Btn onClick={() => setIsExpanded(!isExpanded)}>
-          {isExpanded ? 'Show less' : 'Show more'}
-        </Btn>
-      </span>
-    ) : (
-      <span>{children}</span>
-    )
+  return children.length > 160 ? (
+    <span>
+      {displayText}{' '}
+      <Btn onClick={() => setIsExpanded(!isExpanded)}>
+        {isExpanded ? 'Show less' : 'Show more'}
+      </Btn>
+    </span>
+  ) : (
+    <span>{children}</span>
   )
 }
 
