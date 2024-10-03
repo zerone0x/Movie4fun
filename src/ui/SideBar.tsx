@@ -2,9 +2,8 @@ import { useEffect } from 'react'
 import { X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { motion, AnimatePresence } from 'framer-motion'
 
-const Overlay = styled(motion.div)`
+const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -14,7 +13,7 @@ const Overlay = styled(motion.div)`
   z-index: 999;
 `
 
-const SideBarContainer = styled(motion.div)`
+const SideBarContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -85,20 +84,13 @@ function SideBar({
   }, [isSideBarActive])
 
   return (
-    <AnimatePresence>
+    <>
       {isSideBarActive && (
         <>
           <Overlay
             onClick={() => setIsSideBarActive(false)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
           />
           <SideBarContainer
-            initial={{ x: '-100%' }}
-            animate={{ x: '0%' }}
-            exit={{ x: '-100%' }}
-            transition={{ type: 'tween' }}
           >
             <CloseBtn onClick={() => setIsSideBarActive(false)}>
               <X />
@@ -123,7 +115,7 @@ function SideBar({
           </SideBarContainer>
         </>
       )}
-    </AnimatePresence>
+    </>
   )
 }
 
