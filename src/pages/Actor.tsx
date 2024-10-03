@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Poster from '../components/poster'
 import { Helmet } from 'react-helmet-async'
 import { mediaProperty } from '../utils/interface'
+import TextExpander from '../utils/TextExpander'
 
 const Profile = styled.img`
   width: 500px;
@@ -190,9 +191,10 @@ function Actor() {
           </>
           <Biography>
             <h3>Biography</h3>
-            <BiographyParagraph>
-              {splitStringIntoThreeParts(actor.biography)}
-            </BiographyParagraph>
+            {/* <BiographyParagraph> */}
+            <TextExpander>{actor.biography}</TextExpander>
+            {/* {splitStringIntoThreeParts(actor.biography)} */}
+            {/* </BiographyParagraph> */}
           </Biography>
         </ActorSection>
       </ActionBody>

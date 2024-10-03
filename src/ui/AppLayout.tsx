@@ -6,8 +6,8 @@ import RatePopup from '../components/RatePopup'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setQuery } from '../store/querySlice'
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
 
 const Main = styled.main`
   background-color: white;
@@ -46,7 +46,6 @@ function AppLayout() {
       <RatePopup />
 
       <Footer></Footer>
-
     </Main>
   )
 }

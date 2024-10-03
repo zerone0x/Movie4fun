@@ -34,6 +34,13 @@ const FooterBox = styled.div`
   bottom: 0;
   min-width: 100%;
 `
+const FooterLink = styled.a`
+  color: #f5c518;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+`
 
 function Footer() {
   return (
@@ -42,7 +49,13 @@ function Footer() {
         <FooterItem>Help SiteIndex Movie4Fun Box</FooterItem>
         <FooterItem>Office Mojo Movie4Fun Developer Press Room</FooterItem>
       </FooterList> */}
-      <FooterCopy>Made with ❤️ all rights reserved</FooterCopy>
+      <FooterCopy>
+        Made by{' '}
+        <FooterLink href="https://github.com/zerone0x" target="_blank">
+          zerone0x
+        </FooterLink>{' '}
+        all rights reserved 💚
+      </FooterCopy>
       {/* <Github size={20} /> */}
     </FooterBox>
   )
