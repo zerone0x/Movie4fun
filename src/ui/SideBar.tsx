@@ -39,7 +39,7 @@ const NavContainer = styled.nav`
 const CloseBtn = styled.button`
   position: absolute;
   top: 2rem;
-  right: 2rem;
+  left: 2rem;
   background-color: transparent;
   border: none;
   cursor: pointer;
