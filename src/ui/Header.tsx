@@ -161,13 +161,15 @@ function Header() {
     setIsSideBarActive(true)
   }
   return (
-    <TopHeader>
-      {isSideBarActive && (
+    <>
+          {isSideBarActive && (
         <SideBar
           isSideBarActive={isSideBarActive}
           setIsSideBarActive={setIsSideBarActive}
         />
       )}
+    <TopHeader>
+
       <ResponsiveHeaderContainer active={isActive}>
         <IconGroup>
           <ImdbIcon>
@@ -199,6 +201,7 @@ function Header() {
         <br />
       </ResponsiveHeaderContainer>
     </TopHeader>
+    </>
   )
 }
 

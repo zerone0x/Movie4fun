@@ -42,7 +42,8 @@ const GlobalStyles = createGlobalStyle`
   --image-opacity: 100%;
   }
   .no-scroll {
-  overflow: hidden;
+  overflow: hidden !important;
+
 }
 
   

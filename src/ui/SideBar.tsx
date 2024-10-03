@@ -17,9 +17,9 @@ const SideBarContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000; /* Above the overlay */
+  width: 100%;
+  height: 100%;
+  z-index: 1000; 
   background-color: #000;
   font-size: 11rem;
   @media (max-width: 768px) {
@@ -28,8 +28,9 @@ const SideBarContainer = styled.div`
 `
 
 const NavContainer = styled.nav`
-  display: flex;
   flex-direction: column;
+  padding-top: 10rem;
+  padding-left: 2rem;
   align-items: center;
   justify-content: center;
   height: 100%;
