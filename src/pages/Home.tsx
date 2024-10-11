@@ -75,10 +75,10 @@ function Home() {
   return (
     <HomeBox>
       <Helmet>
-        <title>Home - Movies4fun</title>
+        <title>Home - Movie4fun</title>
         <meta property="og:title" content="movies4fun" />
         <meta
-          property="og:description"
+          property="description"
           content="Browse our top trending movies and TV shows to find your next favorite."
         />
         <meta property="og:type" content="website" />
