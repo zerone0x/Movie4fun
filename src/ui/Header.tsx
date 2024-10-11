@@ -162,45 +162,44 @@ function Header() {
   }
   return (
     <>
-          {isSideBarActive && (
+      {isSideBarActive && (
         <SideBar
           isSideBarActive={isSideBarActive}
           setIsSideBarActive={setIsSideBarActive}
         />
       )}
-    <TopHeader>
+      <TopHeader>
+        <ResponsiveHeaderContainer active={isActive}>
+          <IconGroup>
+            <ImdbIcon>
+              <Link to="/">
+                <Clapperboard />
+              </Link>
+            </ImdbIcon>
+            <WatchListBtn className="imdb-icon" onClick={handleMenuClick}>
+              <Menu /> <span className="menu-text">Menu</span>
+            </WatchListBtn>
+          </IconGroup>
 
-      <ResponsiveHeaderContainer active={isActive}>
-        <IconGroup>
-          <ImdbIcon>
-            <Link to="/">
-              <Clapperboard />
-            </Link>
-          </ImdbIcon>
-          <WatchListBtn className="imdb-icon" onClick={handleMenuClick}>
-            <Menu /> <span className="menu-text">Menu</span>
-          </WatchListBtn>
-        </IconGroup>
+          <GroupBtn>
+            <SearchItem>
+              <SearchBar
+                onFocus={handleSearchFocus}
+                onBlur={handleSearchBlur}
+                onActiveStatus={isActive}
+                onStatusChange={setIsActive}
+              />
+            </SearchItem>
 
-        <GroupBtn>
-          <SearchItem>
-            <SearchBar
-              onFocus={handleSearchFocus}
-              onBlur={handleSearchBlur}
-              onActiveStatus={isActive}
-              onStatusChange={setIsActive}
-            />
-          </SearchItem>
-
-          <WatchListBtn onClick={handleClick}>
-            <Bookmark /> <span className="menu-text">WatchList</span>
-            <WatchCount>{watchListCount}</WatchCount>
-          </WatchListBtn>
-          {/* <User/> */}
-        </GroupBtn>
-        <br />
-      </ResponsiveHeaderContainer>
-    </TopHeader>
+            <WatchListBtn onClick={handleClick}>
+              <Bookmark /> <span className="menu-text">WatchList</span>
+              <WatchCount>{watchListCount}</WatchCount>
+            </WatchListBtn>
+            {/* <User/> */}
+          </GroupBtn>
+          <br />
+        </ResponsiveHeaderContainer>
+      </TopHeader>
     </>
   )
 }

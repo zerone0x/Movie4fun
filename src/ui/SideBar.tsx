@@ -19,7 +19,7 @@ const SideBarContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1000; 
+  z-index: 1000;
   background-color: #000;
   font-size: 11rem;
   @media (max-width: 768px) {
@@ -88,11 +88,8 @@ function SideBar({
     <>
       {isSideBarActive && (
         <>
-          <Overlay
-            onClick={() => setIsSideBarActive(false)}
-          />
-          <SideBarContainer
-          >
+          <Overlay onClick={() => setIsSideBarActive(false)} />
+          <SideBarContainer>
             <CloseBtn onClick={() => setIsSideBarActive(false)}>
               <X />
             </CloseBtn>
