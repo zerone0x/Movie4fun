@@ -77,8 +77,9 @@ function Home() {
       <Helmet>
         <title>Home - Movie4fun</title>
         <meta property="og:title" content="movies4fun" />
+        <meta name="description" content="Browse our top trending movies and TV shows to find your next favorite." />
         <meta
-          property="description"
+          property="og:description"
           content="Browse our top trending movies and TV shows to find your next favorite."
         />
         <meta property="og:type" content="website" />
