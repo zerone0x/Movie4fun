@@ -78,6 +78,7 @@ function Home() {
         <title>Home - Movie4fun</title>
         <meta property="og:title" content="movies4fun" />
         <meta name="description" content="Browse our top trending movies and TV shows to find your next favorite." />
+        <meta name="keywords" content="movie, tv, rating, watchList, media, entertainment, larry david" />
         <meta
           property="og:description"
           content="Browse our top trending movies and TV shows to find your next favorite."
